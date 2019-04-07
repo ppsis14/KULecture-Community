@@ -8,7 +8,8 @@
 
 ## Authors
 
-* **นางสาวฑิฆัมพร สิมอุด 5910401033**  [ppsis14](https://github.com/ppsis14)
-* **นายเกียรติศักดิ์**  
-* **นายปิยวัฒน์ นามทะจันทร์ 5910406256**  
-* **นางสาวพรรณกาญจน์ ปิ่นศรีเพ็ชรกูล 591040630**  [pannakarn](https://github.com/pannakarn)
+**กลุ่มที่ 3**
+* **นางสาวฑิฆัมพร สิมอุด 5910401033**  - github link -> [ppsis14](https://github.com/ppsis14)
+* **นายเกียรติศักดิ์** - github link -> 
+* **นายปิยวัฒน์ นามทะจันทร์ 5910406256** - github link -> 
+* **นางสาวพรรณกาญจน์ ปิ่นศรีเพ็ชรกูล 591040630** - github link ->[pannakarn](https://github.com/pannakarn)
