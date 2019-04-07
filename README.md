@@ -11,5 +11,5 @@
 **กลุ่มที่ 3**
 * **นางสาวฑิฆัมพร สิมอุด 5910401033**  - github link -> [ppsis14](https://github.com/ppsis14)
 * **นายเกียรติศักดิ์** - github link -> 
-* **นายปิยวัฒน์ นามทะจันทร์ 5910406256** - github link -> 
+* **นายปิยวัฒน์ นามทะจันทร์ 5910406256** - github link -> [Faeng](https://github.com/Faeng)
 * **นางสาวพรรณกาญจน์ ปิ่นศรีเพ็ชรกูล 5910406302** - github link ->[pannakarn](https://github.com/pannakarn)
