@@ -14,3 +14,19 @@
 Route::get('/', function () {
     return view('welcome');
 });
+
+Route::get('/admin', function () {
+    return view('layouts.admin.dashboard');
+});
+
+Route::get('/admin/users', function () {
+    return view('layouts.admin.user-management');
+});
+
+Route::get('/admin/posts', function () {
+    return view('layouts.admin.post-management');
+});
+
+Route::get('/admin/changepassword', function () {
+    return view('layouts.admin.change-password');
+});
