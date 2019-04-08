@@ -7,6 +7,6 @@ use Illuminate\Http\Request;
 class AdminDashBoardController extends Controller
 {
     public function showDashBoard(){
-        return view()
+        return view('layouts.admin.dashboard');
     }
 }

@@ -4,9 +4,9 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 
-class ChangePasswordController extends Controller
+class EditProfileController extends Controller
 {
     public function index() {
-        return view('layouts.admin.change-password');
+        return view('layouts.user.edit-profile');
     }
 }

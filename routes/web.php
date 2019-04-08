@@ -15,18 +15,14 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-Route::get('/admin', function () {
-    return view('layouts.admin.dashboard');
-});
+Route::get('/admin', 'AdminDashBoardController@showDashBoard');
+Route::get('/admin/users', 'UsersManagementController@index');
+Route::get('/admin/posts', 'PostsManagementController@index');
+Route::get('/admin/changepassword', 'ChangePasswordController@index');
 
-Route::get('/admin/users', function () {
-    return view('layouts.admin.user-management');
-});
-
-Route::get('/admin/posts', function () {
-    return view('layouts.admin.post-management');
-});
-
-Route::get('/admin/changepassword', function () {
-    return view('layouts.admin.change-password');
-});
+Route::get('/user/explorer', 'ExplorePostsController@index');
+Route::get('/user/editprofile', 'EditProfileController@index');
+Route::get('/user/home', 'HomeUsersController@index');
+Route::get('/user/posts', 'PostsController@index');
+Route::get('/user/posts/edit', 'PostsController@update');
+Route::get('/user/posts/create', 'PostsController@create');
