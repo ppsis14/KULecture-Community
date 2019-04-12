@@ -1,0 +1,138 @@
+@import url(https://fonts.googleapis.com/css?family=Archivo+Black|Baloo|Bree+Serif|Chewy|Heebo|Hind+Siliguri|Julius+Sans+One|Luckiest+Guy|Major+Mono+Display|Oxygen|Questrial|Roboto|Rubik);
+body {
+    margin: 0;
+    padding: 0;
+    background-size: cover;
+    background-image: linear-gradient(to right top, #1c1c87, #2f1f93, #40219f, #5123ab, #6224b7, #7226c0, #8228c9, #922ad2, #a42edb, #b732e4, #c936ec, #dc3af4);
+}
+
+section {
+    color: #fff;
+    width: 100%;
+    height: 100vh;
+}
+
+.container {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 800px;
+    height: 500px;
+}
+
+.container .form-title,
+.container .login-form {
+    position: relative;
+    width: 50%;
+    height: 500px;
+    float: left;
+    box-sizing: border-box;
+}
+
+.container .form-title {
+    padding: 40px;
+}
+
+.full-name {
+    font-family: 'Julius Sans One', sans-serif;
+    padding-top: 10px;
+    font-size: 20px;
+    font-weight: bold;
+    text-align: center;
+    background: linear-gradient(to right, rgb(255, 255, 255) 0%, rgb(208, 242, 243) 50%, rgb(87, 201, 178) 100%);
+	-webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    letter-spacing: 0.7px;
+}
+
+.name-box {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-70%, -60%);
+    padding: 30px;
+}
+
+.name {
+    display: block;
+    font-family: 'Julius Sans One', sans-serif;
+    font-size: 70px;
+    font-weight: bold;
+    text-align: center;
+    color: #fff;
+    border-color: #fff;
+    margin-left: 50px;
+    margin-right: 50px;
+    margin-top: 50px;
+    letter-spacing: 15px;
+}
+
+.container .login-form {
+    /* background: #fff; */
+    background-color: rgba(21, 67, 96, 0.3);
+    height: 540px;
+    top: -20px;
+    box-shadow: -20px 0 15px rgba(0,0,0,0.2);
+    padding-top: 60px;
+    padding-left: 30px;
+    padding-right: 30px;
+    padding-bottom: 30px;
+
+}
+
+.container .login-form .login {
+    width: 100%;
+    padding-left: 40px;
+    padding-right: 40px;
+    display: block;
+}
+
+#footer {
+		padding: 6em 0;
+		/* background: #6cc091; */
+		color: #fff;
+		text-align: center;
+	}
+
+		#footer h3 {
+			color: #FFF;
+			margin-bottom: 2em !important;
+		}
+
+		#footer label {
+			text-align: left;
+			color: #FFF;
+		}
+
+		#footer .copyright {
+			color: rgba(255, 255, 255, 0.5);
+			font-size: 0.8em;
+			margin: 0 0 2em 0;
+			padding: 0;
+		}
+
+			#footer .copyright a {
+				color: rgba(255, 255, 255, 0.5);
+				text-decoration: none;
+			}
+
+				#footer .copyright a:hover {
+					color: #FFF;
+				}
+
+		@media screen and (max-width: 980px) {
+
+			#footer {
+				padding: 4em 0;
+			}
+
+		}
+
+		@media screen and (max-width: 736px) {
+
+			#footer {
+				padding: 3em 0;
+			}
+
+		}
