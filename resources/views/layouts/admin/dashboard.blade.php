@@ -222,6 +222,8 @@
                 timer: 4000
             });
 
+            $('#dashboard').addClass('active');
+
         });
     </script>
 @endsection

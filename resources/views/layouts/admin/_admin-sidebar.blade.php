@@ -11,31 +11,31 @@
 </div>
 
 <ul class="nav">
-    <li>
+    <li id="dashboard">
         <a href="{{ action('AdminDashBoardController@showDashBoard') }}">
             <i class="pe-7s-graph"></i>
             <p>Dashboard</p>
         </a>
     </li>
-    <li>
+    <li id="user-management">
         <a href="{{ action('UsersManagementController@index') }}">
             <i class="pe-7s-user"></i>
             <p>User Management</p>
         </a>
     </li>
-    <li>
+    <li id="post-management">
         <a href="{{ action('PostsManagementController@index') }}">
             <i class="pe-7s-news-paper"></i>
             <p>Post Management</p>
         </a>
     </li>
-    <li>
+    <li id="add-admin">
         <a href="{{ action('AddNewAdminController@index')}}">
             <i class="pe-7s-add-user"></i>
             <p>Add new admin</p>
         </a>
     </li>
-    <li>
+    <li id="change-password">
         <a href="{{ action('ChangePasswordController@index') }}">
             <i class="pe-7s-key"></i>
             <p>Change Password</p>

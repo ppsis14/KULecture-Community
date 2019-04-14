@@ -142,6 +142,8 @@
     <script type="text/javascript">
         $(document).ready( function () {
             $('#myTable').DataTable();
+
+            $('#user-management').addClass('active');
         } );
     </script>
 @endsection

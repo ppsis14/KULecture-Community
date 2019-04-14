@@ -62,3 +62,10 @@
         </div>
     </div>
 @endsection
+@section('script')
+    <script type="text/javascript">
+        $(document).ready(function (){
+            $('#add-admin').addClass('active');
+        });
+    </script>
+@endsection

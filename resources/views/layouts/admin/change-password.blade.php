@@ -46,3 +46,10 @@
         </div>
     </div>
 @endsection
+@section('script')
+    <script type="text/javascript">
+        $(document).ready(function (){
+            $('#change-password').addClass('active');
+        });
+    </script>
+@endsection

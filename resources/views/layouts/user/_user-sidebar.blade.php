@@ -1,29 +1,35 @@
 <div class="logo">
-    <a href="#" class="simple-text">
-        KU NSC
+    <a href="{{ action('HomeUsersController@index') }}" class="simple-text">
+        <div class="form-title">
+            <div class="name-box">
+                <div class="name">KU NSC</div>
+                <h6 class="full-name">KU Knowledge Share Community</h6>
+            </div>
+        </div>
     </a>
+    <br>
 </div>
 
 <ul class="nav">
-    <li>
+    <li id="home">
         <a href="{{ action('HomeUsersController@index') }}">
             <i class="pe-7s-home"></i>
             <p>Home</p>
         </a>
     </li>
-    <li>
+    <li id="profile">
         <a href="{{ action('EditProfileController@index') }}">
             <i class="pe-7s-user"></i>
             <p>Edit Profile</p>
         </a>
     </li>
-    <li>
+    <li id="posts">
         <a href="{{ action('PostsController@index') }}">
             <i class="pe-7s-news-paper"></i>
             <p>Posts</p>
         </a>
     </li>
-    <li>
+    <li id="explorer">
         <a href="{{ action('ExplorePostsController@index') }}">
             <i class="pe-7s-global"></i>
             <p>Explorer</p>

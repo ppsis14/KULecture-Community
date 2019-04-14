@@ -26,7 +26,8 @@
 
 
     <!--     Fonts and icons     -->
-    <link href="http://maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css" rel="stylesheet">
+    <!-- <link href="http://maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css" rel="stylesheet"> -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css">
     <link href='http://fonts.googleapis.com/css?family=Roboto:400,700,300' rel='stylesheet' type='text/css'>
     <link href="{{ ('/css/pe-icon-7-stroke.css') }}" rel="stylesheet" />
 
@@ -38,7 +39,7 @@
 <body>
 
 <div class="wrapper">
-    <div class="sidebar" data-color="purple" data-image="/img/sidebar-5.jpg">
+    <div class="sidebar" data-color="ku-nsc" data-image="/img/sidebar-5.jpg">
 
     <!--
 
@@ -110,21 +111,6 @@
 	<!-- Light Bootstrap Table DEMO methods, don't include it in your project! -->
 	<script src="{{ ('/js/demo.js') }}"></script>
 
-	<script type="text/javascript">
-    	$(document).ready(function(){
-
-        	demo.initChartist();
-
-        	$.notify({
-            	icon: 'pe-7s-gift',
-            	message: "Welcome to <b>Light Bootstrap Dashboard</b> - a beautiful freebie for every web developer."
-
-            },{
-                type: 'info',
-                timer: 4000
-            });
-
-    	});
-	</script>
+    @yield('script', '')
 
 </html>

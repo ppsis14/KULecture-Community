@@ -4,7 +4,7 @@
 @section('content')
     <div class="container-fluid">
         <div class="row">
-            <div class="col-md-8">
+            <div class="col-md-12">
                 <div class="card">
                     <div class="header">
                         <h4 class="title">Edit Post</h4>
@@ -24,7 +24,7 @@
                                 <div class="col-md-12">
                                     <div class="form-group">
                                         <label>detail</label>
-                                        <textarea rows="3" class="form-control" placeholder="Here can be your description">Lamborghini Mercy, Your chick she so thirsty, I'm in that two seat Lambo.</textarea>
+                                        <textarea rows="3" class="form-control" id="editor1" placeholder="Here can be your description">Lamborghini Mercy, Your chick she so thirsty, I'm in that two seat Lambo.</textarea>
                                     </div>
                                 </div>
                             </div>
@@ -77,4 +77,10 @@
             </div>
         </div>
     </div>
+@endsection
+@section('script')
+    <script src="//cdn.ckeditor.com/4.11.4/full/ckeditor.js"></script>
+    <script>
+        CKEDITOR.replace( 'editor1' );
+    </script>
 @endsection

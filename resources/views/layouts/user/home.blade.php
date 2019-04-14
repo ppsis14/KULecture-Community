@@ -1,6 +1,8 @@
 @extends('layouts.user.user-master')
 @section('title-page', 'User Home')
-@section('header', 'Home')
+@section('header')
+    <i class="pe-7s-home"></i>&nbsp;&nbsp;Home
+@endsection
 @section('content')
     <div class="container-fluid">
         <div class="row">
@@ -57,4 +59,21 @@
             </div>
         </div>
     </div>
+@endsection
+@section('script')
+    <script type="text/javascript">
+        $(document).ready(function(){
+            $.notify({
+                icon: 'pe-7s-gift',
+                message: "Welcome to <b>Light Bootstrap Dashboard</b> - a beautiful freebie for every web developer."
+
+            },{
+                type: 'info',
+                timer: 4000
+            });
+
+            $('#home').addClass('active');
+
+        });
+    </script>
 @endsection

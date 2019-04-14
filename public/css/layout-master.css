@@ -88,6 +88,61 @@
     letter-spacing: 15px;
 }
 
+*{padding:0;margin:0;}
+
+/* body{
+	font-family:Verdana, Geneva, sans-serif;
+	background-color:#CCC;
+	font-size:12px;
+} */
+
+.label-container{
+	position: fixed;
+	bottom: 90px;
+	right: 105px;
+	display: table;
+	visibility: hidden;
+}
+
+.label-text{
+	color: #1c1c87;
+	background:rgba(255,255,255,0.5);
+	display:table-cell;
+	vertical-align:middle;
+	padding:10px;
+	border-radius:3px;
+    border-color: linear-gradient(to right top, #1c1c87, #2f1f93, #40219f, #5123ab, #6224b7, #7226c0, #8228c9, #922ad2, #a42edb, #b732e4, #c936ec, #dc3af4);
+}
+
+.float{
+	position:fixed;
+	width:60px;
+	height:60px;
+	bottom:80px;
+	right:40px;
+	background: linear-gradient(to right top, #1c1c87, #2f1f93, #40219f, #5123ab, #6224b7, #7226c0, #8228c9, #922ad2, #a42edb, #b732e4, #c936ec, #dc3af4);
+	color:#FFF;
+	border-radius:50px;
+	text-align:center;
+	box-shadow: 2px 2px 3px #999;
+}
+
+.my-float{
+	font-size:24px;
+	margin-top:18px;
+}
+
+a.float + div.label-container {
+    visibility: hidden;
+    opacity: 0;
+    transition: visibility 0s, opacity 0.5s ease;
+}
+
+a.float:hover + div.label-container{
+    visibility: visible;
+    opacity: 1;
+}
+
 @media all and (max-width: 991px)  {
     .sidebar .nav > li.active-pro{
         position: initial;
