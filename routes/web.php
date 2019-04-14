@@ -19,6 +19,7 @@ Route::get('/admin/login', 'AdminsLoginController@index');
 Route::get('/admin/dashboard', 'AdminDashBoardController@showDashBoard');
 Route::get('/admin/users', 'UsersManagementController@index');
 Route::get('/admin/posts', 'PostsManagementController@index');
+Route::get('/admin/addadmin', 'AddNewAdminController@index');
 Route::get('/admin/changepassword', 'ChangePasswordController@index');
 
 Route::get('/user/login', 'UsersLoginController@index');

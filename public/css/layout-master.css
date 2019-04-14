@@ -1,3 +1,5 @@
+@import url(https://fonts.googleapis.com/css?family=Archivo+Black|Baloo|Bree+Serif|Chewy|Heebo|Hind+Siliguri|Julius+Sans+One|Luckiest+Guy|Major+Mono+Display|Oxygen|Questrial|Roboto|Rubik);
+
 @media (min-width: 992px){
     .typo-line{
         padding-left: 140px;
@@ -58,6 +60,32 @@
 .table-upgrade td:nth-child(2),
 .table-upgrade td:nth-child(3){
     text-align: center;
+}
+
+.full-name {
+    font-family: 'Julius Sans One', sans-serif;
+    padding-top: 10px;
+    font-size: 15px;
+    font-weight: bold;
+    text-align: center;
+    background: linear-gradient(to right, #ffffff, #f3f0fc, #eae1f7, #e1d2f2, #dbc2eb);
+	-webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    letter-spacing: 0.7px;
+}
+
+.name {
+    display: block;
+    font-family: 'Julius Sans One', sans-serif;
+    font-size: 30px;
+    font-weight: bold;
+    text-align: center;
+    color: #fff;
+    border-color: #fff;
+    margin-left: 50px;
+    margin-right: 50px;
+    margin-top: 30px;
+    letter-spacing: 15px;
 }
 
 @media all and (max-width: 991px)  {

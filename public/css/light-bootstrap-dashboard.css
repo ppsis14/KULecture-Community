@@ -508,6 +508,16 @@ input:focus {
     background-size: 150% 150%;
 }
 
+.sidebar[data-color="ku-nsc"]:after {
+    background: #1c1c87;
+    /* background: -moz-linear-gradient(top, #9368E9 0%, #943bea 100%);
+    background: -webkit-gradient(linear, left top, left bottom, color-stop(0%, #9368E9), color-stop(100%, #943bea));
+    background: -webkit-linear-gradient(top, #9368E9 0%, #943bea 100%);
+    background: -o-linear-gradient(top, #9368E9 0%, #943bea 100%);
+    background: -ms-linear-gradient(top, #9368E9 0%, #943bea 100%); */
+    background: linear-gradient(to right top, #1c1c87, #2f1f93, #40219f, #5123ab, #6224b7, #7226c0, #8228c9, #922ad2, #a42edb, #b732e4, #c936ec, #dc3af4);
+    background-size: 150% 150%;
+}
 .main-panel {
     position: relative;
     z-index: 2;

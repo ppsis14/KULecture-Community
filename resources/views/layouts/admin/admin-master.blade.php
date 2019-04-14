@@ -22,7 +22,7 @@
 
 
     <!--  CSS for Demo Purpose, don't include it in your project     -->
-    <link href="{{ ('/css/demo.css') }}" rel="stylesheet" />
+    <link href="{{ ('/css/layout-master.css') }}" rel="stylesheet" />
 
 
     <!--     Fonts and icons     -->
@@ -38,7 +38,7 @@
 <body>
 
 <div class="wrapper">
-    <div class="sidebar" data-color="purple" data-image="/img/sidebar-5.jpg">
+    <div class="sidebar" data-color="ku-nsc" data-image="/img/sidebar-5.jpg">
 
     <!--
 
@@ -110,21 +110,6 @@
 	<!-- Light Bootstrap Table DEMO methods, don't include it in your project! -->
 	<script src="{{ ('/js/demo.js') }}"></script>
 
-	<script type="text/javascript">
-    	$(document).ready(function(){
-
-        	demo.initChartist();
-
-        	$.notify({
-            	icon: 'pe-7s-gift',
-            	message: "Welcome to <b>Light Bootstrap Dashboard</b> - a beautiful freebie for every web developer."
-
-            },{
-                type: 'info',
-                timer: 4000
-            });
-
-    	});
-	</script>
+    @yield('script', '')
 
 </html>

@@ -1,10 +1,12 @@
 @extends('layouts.admin.admin-master')
 @section('title-page', 'Change Password')
-@section('header', 'Change Password')
+@section('header')
+    <i class="pe-7s-key"></i>&nbsp;&nbsp;Change Password
+@endsection
 @section('content')
     <div class="container-fluid">
         <div class="row">
-            <div class="col-md-6">
+            <div class="col-md-8">
                 <div class="card">
                     <div class="header">
                         <h4 class="title">Change Password</h4>

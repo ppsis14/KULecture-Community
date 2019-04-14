@@ -1,6 +1,8 @@
 @extends('layouts.admin.admin-master')
 @section('title-page', 'Post Management')
-@section('header', 'Post Management')
+@section('header')
+    <i class="pe-7s-news-paper"></i>&nbsp;&nbsp;Post Management
+@endsection
 @section('content')
     <div class="container-fluid">
         <div class="row">

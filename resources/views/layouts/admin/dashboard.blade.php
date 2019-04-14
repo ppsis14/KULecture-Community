@@ -1,6 +1,8 @@
 @extends('layouts.admin.admin-master')
 @section('title-page', 'Dashboard')
-@section('header', 'Dashboard')
+@section('header')
+    <i class="pe-7s-graph"></i>&nbsp;&nbsp;Dashboard
+@endsection
 @section('content')
     <div class="container-fluid">
         <div class="row">
@@ -204,4 +206,22 @@
             </div>
         </div>
     </div>
+@endsection
+@section('script')
+    <script type="text/javascript">
+        $(document).ready(function(){
+
+            demo.initChartist();
+
+            $.notify({
+                icon: 'pe-7s-gift',
+                message: "Welcome to <b>Light Bootstrap Dashboard</b> - a beautiful freebie for every web developer."
+
+            },{
+                type: 'info',
+                timer: 4000
+            });
+
+        });
+    </script>
 @endsection
