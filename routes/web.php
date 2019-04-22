@@ -24,6 +24,8 @@ Route::get('/admin/changepassword', 'ChangePasswordController@index');
 
 Route::get('/user/login', 'UsersLoginController@index');
 Route::get('/user/explorer', 'ExplorePostsController@index');
+Route::get('/user/explorer/search', 'ExplorePostsController@search');
+Route::get('/user/explorer/advance', 'ExplorePostsController@advance');
 Route::get('/user/editprofile', 'EditProfileController@index');
 Route::get('/user/home', 'HomeUsersController@index');
 Route::get('/user/posts', 'PostsController@index');
