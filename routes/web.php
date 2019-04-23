@@ -29,9 +29,11 @@ Route::get('/user/home', 'HomeUsersController@index');
 Route::get('/user/posts', 'PostsController@index');
 Route::get('/user/posts/edit', 'PostsController@update');
 Route::get('/user/posts/create', 'PostsController@create');
-Route::get('login/google', 'Auth\AuthController@redirectToProvider');
-Route::get('/login/google/callback', 'Auth\AuthController@handleProviderCallback');
 
+Route::auth();
 Auth::routes();
+Route::get('login/google', 'Auth\LoginController@redirectToProvider');
+Route::get('login/google/callback', 'Auth\LoginController@handleProviderCallback');
 
-Route::get('/home', 'HomeController@index')->name('home');
+// Auth::routes();
+// Route::get('/home', 'HomeController@index')->name('home');
