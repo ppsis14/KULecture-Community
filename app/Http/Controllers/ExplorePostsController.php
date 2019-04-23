@@ -40,6 +40,6 @@ class ExplorePostsController extends Controller
             return view('layouts.user.explore')->withQuery($q)->withDetails($posts);
             // return view('layouts.user.explore', ['posts' => $posts])->withQuery($key)->withDetail($posts);
         
-        return view('layouts.user.explore')->withMessage('No posts found')->withQuery($key);
+        return view('layouts.user.explore')->withMessage('No posts found')->withQuery($q);
     }
 }
