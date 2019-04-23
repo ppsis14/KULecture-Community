@@ -97,6 +97,6 @@ class RegisterController extends Controller
         //
         // auth()->login($socialUser);
 
-        return redirect()->to('/user/home');
+        // return redirect()->to('/user/home');
     }
 }
