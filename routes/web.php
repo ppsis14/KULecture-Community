@@ -29,3 +29,6 @@ Route::get('/user/home', 'HomeUsersController@index');
 Route::get('/user/posts', 'PostsController@index');
 Route::get('/user/posts/edit', 'PostsController@update');
 Route::get('/user/posts/create', 'PostsController@create');
+
+Route::get('/register/google', 'Auth\RegisterController@redirectToProvider');
+Route::get('/register/google/callback', 'Auth\RegisterController@handleProviderCallback');

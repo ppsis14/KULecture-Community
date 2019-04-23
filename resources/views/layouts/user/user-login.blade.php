@@ -20,9 +20,11 @@
         </div>
         <br><br>
         <div class="text-center w-full">
-            <a class="txt1" href="#">
-                Create new account
-            </a>
+            <button type="button" name="button">
+                <a class="txt1" href="{{ url('/register/google') }}">
+                    Create new account
+                </a>
+            </button>
         </div>
     </article>
 
