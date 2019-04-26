@@ -1,10 +1,11 @@
 <?php
 
 namespace App\Http\Controllers\Auth;
-namespace App\Repositories;
+// namespace App\Repositories;
 use App\Http\Controllers\Controller;
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
-use Laravel\Socialite\Facades\Socialite;
+use Socialite;
+use App\User;
 
 class LoginController extends Controller
 {
@@ -49,8 +50,31 @@ class LoginController extends Controller
      */
     public function handleProviderCallback()
     {
-        $user = Socialite::driver('google')->stateless()->user();
-
-        return $user->token;
+        try{
+           $user = Socialite::driver('google')->stateless()->user(); 
+        } catch(Exception $e){
+            return redirect('user/login');
+        }
+        //allow only ku account to use the system
+        if(explode("@",$user->email)[1]!=='ku.th'){
+            return redirect()->to('/');
+        }
+        //check if they're an existing user
+        $existingUser = User::where('email',$user->email)->first();
+        if($existingUser){
+            // log them in
+            auth()->login($existingUser,true);
+        }else{
+            //create a new user
+            $newUser = new User;
+            $newUser->name = $user->name;
+            $newUser->email = $user->email;
+            $newUser->google_id       = $user->id;
+            $newUser->avatar          = $user->avatar;
+            $newUser->avatar_original = $user->avatar_original;
+            $newUser->save();
+            auth()->login($newUser,true);
+        }
+        return redirect()->to("user/home");
     }
 }

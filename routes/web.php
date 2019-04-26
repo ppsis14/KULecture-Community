@@ -30,8 +30,6 @@ Route::get('/user/posts', 'PostsController@index');
 Route::get('/user/posts/edit', 'PostsController@update');
 Route::get('/user/posts/create', 'PostsController@create');
 
-Route::auth();
-Auth::routes();
 Route::get('login/google', 'Auth\LoginController@redirectToProvider');
 Route::get('login/google/callback', 'Auth\LoginController@handleProviderCallback');
 

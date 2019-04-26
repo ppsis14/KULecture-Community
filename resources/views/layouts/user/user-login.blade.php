@@ -16,7 +16,7 @@
             <p>Let's share and share your knowledge and experiences with our community.</p>
         </div>
         <div class = "row d-flex justify-content-md-center login-btn">
-            <div id="my-signin2" data-onsuccess="onSignIn"> Sign In</div>
+            <div id="my-signin2"  onclick=window.location="{{ url('login/google') }}"> Sign In With Google</div>
         </div>
         <br><br>
         <div class="text-center w-full">
@@ -28,7 +28,8 @@
 
 @endsection
 
-@section('script')
+
+<!-- @section('script')
     <script>
         function onSuccess(googleUser) {
           console.log('Logged in as: ' + googleUser.getBasicProfile().getName());
@@ -84,7 +85,6 @@
                 document.location.href = "http://localhost/CAAS_project/home.php";
                 };
                 httpc.send('idtoken='+id_token);
-
             }
         }
         function changePage(){
@@ -97,4 +97,4 @@
     </script>
 
     <script src="https://apis.google.com/js/platform.js?onload=renderButton" async defer></script>
-@endsection
+@endsection -->
