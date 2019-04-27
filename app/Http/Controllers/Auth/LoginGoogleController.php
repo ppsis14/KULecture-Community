@@ -70,7 +70,6 @@ class LoginGoogleController extends Controller
             $newUser->name = $user->name;
             $newUser->email = $user->email;
             $newUser->google_id       = $user->id;
-            $newUser->password = $user->password;
             $newUser->save();
             auth()->login($newUser,true);
         }
