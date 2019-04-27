@@ -44,8 +44,8 @@ return [
         ],
     ],
     'google' => [
-        'client_id' => '1096384908058-8uelvbc953fgg376uj1geu6u2i65l57i.apps.googleusercontent.com',
-        'client_secret' => 'evODRY83b-ospjlMgWmX6FS1',
+        'client_id' => '1096384908058-eu5jm8f4h7n9e93dioucuj3d8v7aqkta.apps.googleusercontent.com',
+        'client_secret' => 'NTuHAiirvr9WGBkpNHiFXBUA',
         'redirect' => 'http://localhost:8000/login/google/callback',
     ],
 
