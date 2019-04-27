@@ -1,29 +1,31 @@
+<div class="collapse navbar-collapse">
+<ul class="nav navbar-nav navbar-right">
+    <li>
+        <a href="#">
+            <p>
+                @if(auth()->user()->avatar)
+                    <img src="{{ auth()->user()->avatar }}" alt="avatar" width="28" height="28">
+                @endif
+            </p>
 
-    <div class="collapse navbar-collapse">
-        <ul class="nav navbar-nav navbar-right">
-            <li class="dropdown">
-                  <a href="#" class="dropdown-toggle" data-toggle="dropdown">
-                        <p>
-                            User Account
-                            <b class="caret"></b>
-                        </p>
+        </a>
+    </li>
+    <li>
+        <a href="#" class="username">
+            <p>{{ Auth::user()->name }}</p>
+        </a>
+    </li>
+    <li>
+        <a class="" href="{{ route('logout') }}"
+           onclick="event.preventDefault();
+                         document.getElementById('logout-form').submit();">
+            {{ __('Logout') }}
+        </a>
 
-                  </a>
-                  <ul class="dropdown-menu">
-                    <li><a href="#">Action</a></li>
-                    <li><a href="#">Another action</a></li>
-                    <li><a href="#">Something</a></li>
-                    <li><a href="#">Another action</a></li>
-                    <li><a href="#">Something</a></li>
-                    <li class="divider"></li>
-                    <li><a href="#">Separated link</a></li>
-                  </ul>
-            </li>
-            <li>
-                <a href="#">
-                    <p>Log out</p>
-                </a>
-            </li>
-            <li class="separator hidden-lg"></li>
-        </ul>
-    </div>
+        <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
+            @csrf
+        </form>
+    </li>
+    <li class="separator hidden-lg"></li>
+</ul>
+</div>

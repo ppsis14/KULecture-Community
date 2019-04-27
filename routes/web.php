@@ -35,5 +35,5 @@ Route::get('/user/posts/create', 'PostsController@create');
 Route::get('login/google', 'Auth\LoginGoogleController@redirectToProvider');
 Route::get('login/google/callback', 'Auth\LoginGoogleController@handleProviderCallback');
 
-// Auth::routes();
+Auth::routes();
 // Route::get('/home', 'HomeController@index')->name('home');

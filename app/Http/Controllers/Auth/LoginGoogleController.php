@@ -51,7 +51,7 @@ class LoginGoogleController extends Controller
     public function handleProviderCallback()
     {
         try{
-           $user = Socialite::driver('google')->stateless()->user(); 
+           $user = Socialite::driver('google')->stateless()->user();
         } catch(Exception $e){
             return redirect('user/login');
         }
@@ -67,9 +67,11 @@ class LoginGoogleController extends Controller
         }else{
             //create a new user
             $newUser = new User;
-            $newUser->name = $user->name;
-            $newUser->email = $user->email;
-            $newUser->google_id       = $user->id;
+            $newUser->name              = $user->name;
+            $newUser->email             = $user->email;
+            $newUser->id       = $user->id;
+            $newUser->username          = $user->name;
+            $newUser->email_verified_at = now();
             $newUser->save();
             auth()->login($newUser,true);
         }
