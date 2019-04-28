@@ -15,15 +15,12 @@
         <div class="detail-box">
             <p>Let's share and share your knowledge and experiences with our community.</p>
         </div>
-        <div class = "row d-flex justify-content-md-center login-btn">
-            <div type="button" class="btn btn-primary" onclick=window.location="{{ url('login/google') }}">Sign In With Google</div>
+        <div class="row justify-content-center">
+            <div class="col-sm-6">
+                <a href="{{ url('login/google') }}" class="btn btn-primary"><i class="fas fa-google fa-fw"></i>&nbsp;&nbsp;{{ __('Sign in with Google') }}</a>
+            </div>
         </div>
-        <br><br>
-        <div class="text-center w-full">
-            <a class="txt1" href="#">
-                Create new account
-            </a>
-        </div>
+ 
     </article>
 
 @endsection
