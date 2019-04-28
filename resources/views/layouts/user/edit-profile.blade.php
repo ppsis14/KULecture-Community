@@ -1,7 +1,7 @@
 @extends('layouts.user.user-master')
 @section('title-page', 'Edit Profile')
 @section('header')
-    <i class="pe-7s-user"></i>&nbsp;&nbsp;Edit Profile
+    <i class="pe-7s-user"></i>&nbsp;&nbsp;User Profile
 @endsection
 @section('content')
     <div class="container-fluid">
@@ -14,16 +14,10 @@
                     <div class="content">
                         <form>
                             <div class="row">
-                                <div class="col-md-6">
+                                <div class="col-md-12">
                                     <div class="form-group">
-                                        <label>First Name</label>
-                                        <input type="text" class="form-control" placeholder="First Name" value="Mike">
-                                    </div>
-                                </div>
-                                <div class="col-md-6">
-                                    <div class="form-group">
-                                        <label>Last Name</label>
-                                        <input type="text" class="form-control" placeholder="Last Name" value="Andrew">
+                                        <label>Name</label>
+                                        <input type="text" class="form-control" placeholder="Name" value="{{ Auth::user()->name }}">
                                     </div>
                                 </div>
                             </div>
@@ -31,13 +25,13 @@
                                 <div class="col-md-6">
                                     <div class="form-group">
                                         <label>Username</label>
-                                        <input type="text" class="form-control" placeholder="Username" value="Username">
+                                        <input type="text" class="form-control" placeholder="Username" value="{{ Auth::user()->username }}">
                                     </div>
                                 </div>
                                 <div class="col-md-6">
                                     <div class="form-group">
                                         <label for="exampleInputEmail1">Email address</label>
-                                        <input type="email" class="form-control" placeholder="Email">
+                                        <input type="email" class="form-control" placeholder="Email" value="{{ Auth::user()->email }}">
                                     </div>
                                 </div>
                             </div>
@@ -95,7 +89,7 @@
                     <div class="content">
                         <div class="author">
                              <a href="#">
-                                 <img class="avatar border-gray" src="/img/faces/face-0.jpg" alt="..."/>
+                                 <img class="avatar border-gray" src="{{ Auth::user()->avatar }}" alt="..."/>
                                  <br>
                              </a>
                         </div>

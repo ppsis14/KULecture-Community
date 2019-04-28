@@ -38,6 +38,7 @@ class LoginGoogleController extends Controller
     {
         $this->middleware('guest')->except('logout');
     }
+    
     public function redirectToProvider()
     {
         return Socialite::driver('google')->redirect();
@@ -76,6 +77,6 @@ class LoginGoogleController extends Controller
             $newUser->save();
             auth()->login($newUser,true);
         }
-        return redirect()->to("user/home");
+        return redirect()->to('user/home');
     }
 }

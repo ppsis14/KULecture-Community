@@ -1,18 +1,8 @@
 <div class="collapse navbar-collapse">
 <ul class="nav navbar-nav navbar-right">
     <li>
-        <a href="#">
-            <p>
-                @if(auth()->user()->avatar)
-                    <img src="{{ auth()->user()->avatar }}" alt="avatar" width="28" height="28">
-                @endif
-            </p>
-
-        </a>
-    </li>
-    <li>
         <a href="#" class="username">
-            <p>{{ Auth::user()->name }}</p>
+            <p><i class="fas fa-user-circle fa-fw"></i>&nbsp;&nbsp;{{ Auth::user()->name }}</p>
         </a>
     </li>
     <li>

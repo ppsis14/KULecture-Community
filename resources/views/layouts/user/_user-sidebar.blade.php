@@ -20,7 +20,7 @@
     <li id="profile">
         <a href="{{ action('EditProfileController@index') }}">
             <i class="pe-7s-user"></i>
-            <p>Edit Profile</p>
+            <p>User Profile</p>
         </a>
     </li>
     <li id="posts">

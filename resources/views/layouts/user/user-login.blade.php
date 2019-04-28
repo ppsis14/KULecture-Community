@@ -17,7 +17,7 @@
         </div>
         <div class="row justify-content-center">
             <div class="col-sm-6">
-                <a href="{{ url('login/google') }}" class="btn btn-primary"><i class="fas fa-google fa-fw"></i>&nbsp;&nbsp;{{ __('Sign in with Google') }}</a>
+                <a href="{{ url('login/google') }}" class="btn btn-primary">{{ __('Sign in with Google') }}</a>
             </div>
         </div>
  

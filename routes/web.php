@@ -15,6 +15,7 @@ Route::get('/', function () {
     return view('welcome');
 });
 
+// Route::resource('/user/profile', 'UserProfileController');
 Route::get('/admin/login', 'AdminsLoginController@index');  
 // Route::post('/admin/login', 'AdminsLoginController@login');
 Route::get('/admin/dashboard', 'AdminDashBoardController@showDashBoard');
