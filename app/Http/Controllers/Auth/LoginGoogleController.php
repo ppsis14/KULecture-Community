@@ -56,7 +56,7 @@ class LoginGoogleController extends Controller
             return redirect('user/login');
         }
         //allow only ku account to use the system
-        if(explode("@",$user->email)[1]!=='ku.th'){
+        if(explode("@",$user->email)[1] !== 'ku.th'){
             return redirect()->to('/');
         }
         //check if they're an existing user
@@ -66,12 +66,13 @@ class LoginGoogleController extends Controller
             auth()->login($existingUser,true);
         }else{
             //create a new user
-            $newUser = new User;
-            $newUser->name              = $user->name;
-            $newUser->email             = $user->email;
-            $newUser->id       = $user->id;
-            $newUser->username          = $user->name;
+            $newUser                    = new User;
+            $newUser->provider_id       = $user->getId();
+            $newUser->name              = $user->getName();
+            $newUser->email             = $user->getEmail();
             $newUser->email_verified_at = now();
+            $newUser->username          = $user->getName();
+            $newUser->avatar            = $user->getAvatar();
             $newUser->save();
             auth()->login($newUser,true);
         }
