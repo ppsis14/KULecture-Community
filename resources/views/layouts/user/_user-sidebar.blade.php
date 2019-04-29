@@ -18,7 +18,7 @@
         </a>
     </li>
     <li id="profile">
-        <a href="{{ action('EditProfileController@index') }}">
+        <a href="{{ action('UserProfileController@index') }}">
             <i class="pe-7s-user"></i>
             <p>User Profile</p>
         </a>

@@ -15,8 +15,8 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-// Route::resource('/user/profile', 'UserProfileController');
-Route::get('/admin/login', 'AdminsLoginController@index');  
+Route::resource('/user/profile', 'UserProfileController');
+Route::get('/admin/login', 'AdminsLoginController@index');
 // Route::post('/admin/login', 'AdminsLoginController@login');
 Route::get('/admin/dashboard', 'AdminDashBoardController@showDashBoard');
 Route::get('/admin/users', 'UsersManagementController@index');
@@ -28,7 +28,7 @@ Route::get('/user/login', 'UsersLoginController@index');
 Route::get('/user/explorer', 'ExplorePostsController@index');
 Route::get('/user/explorer/search', 'ExplorePostsController@search');
 Route::get('/user/explorer/advance', 'ExplorePostsController@advance');
-Route::get('/user/editprofile', 'EditProfileController@index');
+// Route::get('/user/editprofile', 'EditProfileController@index');
 Route::get('/user/home', 'HomeUsersController@index');
 Route::get('/user/posts', 'PostsController@index');
 Route::get('/user/posts/edit', 'PostsController@update');

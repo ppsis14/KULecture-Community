@@ -3,6 +3,9 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Auth;
+use App\User;
+use App\UserContact;
 
 class UserProfileController extends Controller
 {
@@ -13,6 +16,10 @@ class UserProfileController extends Controller
      */
     public function index()
     {
+        // $user = User::findOrFail(Auth::user()->id);
+        // $facebook = UserContact::findOrFail(Auth::user()->id)->where('type', '=', 'FACEBOOK');
+        // $twitter = UserContact::findOrFail(Auth::user()->id)->where('type', '=', 'TWITTER');
+        // $line = UserContact::findOrFail(Auth::user()->id)->where('type', '=', 'LINE');
         return view('layouts.user.edit-profile');
     }
 
