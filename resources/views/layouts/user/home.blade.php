@@ -22,10 +22,7 @@
                               </h4>
                             </a>
                         </div><br>
-                        <p class="description text-center"> "Lamborghini Mercy <br>
-                                            Your chick she so thirsty <br>
-                                            I'm in that two seat Lambo"
-                        </p>
+                        <p class="description text-center"> {{ Auth::user()->bio }}</p>
                     </div>
                     <hr>
                     <div class="text-center">

@@ -3,9 +3,11 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Illuminate\Database\Query\Builder;
 use Auth;
 use App\User;
 use App\UserContact;
+use DB;
 
 class UserProfileController extends Controller
 {
@@ -16,10 +18,6 @@ class UserProfileController extends Controller
      */
     public function index()
     {
-        // $user = User::findOrFail(Auth::user()->id);
-        // $facebook = UserContact::findOrFail(Auth::user()->id)->where('type', '=', 'FACEBOOK');
-        // $twitter = UserContact::findOrFail(Auth::user()->id)->where('type', '=', 'TWITTER');
-        // $line = UserContact::findOrFail(Auth::user()->id)->where('type', '=', 'LINE');
         return view('layouts.user.edit-profile');
     }
 
@@ -52,7 +50,8 @@ class UserProfileController extends Controller
      */
     public function show($id)
     {
-        //
+        $user = User::findOrFail($id);
+        return view('layouts.user.edit-profile', ['user' => $user]);
     }
 
     /**
@@ -75,7 +74,26 @@ class UserProfileController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        // validatation
+        $this->validate($request, [
+            'username' => 'required|distinct',
+            'bio' => 'nullable|string',
+            'facebook' => 'nullable|string',
+            'twitter' => 'nullable|string',
+            'ig' => 'nullable|string',
+            'line' => 'nullable|string'
+        ]);
+
+        $user = User::findOrFail($id);
+        $user->username = $request->input('username');
+        $user->bio = $request->input('bio');
+        $user->facebook = $request->input('facebook');
+        $user->twitter = $request->input('twitter');
+        $user->instagram = $request->input('ig');
+        $user->line = $request->input('line');
+        $user->save();
+
+        return redirect()->action('UserProfileController@show',  ['id' => $user->id])->with('success','Update subject data successfully!');
     }
 
     /**

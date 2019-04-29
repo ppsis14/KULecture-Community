@@ -5,7 +5,7 @@
         </a>
     </li>
     <li>
-        <a href="{{ action('UserProfileController@index') }}">
+        <a href="#">
             User Profile
         </a>
     </li>

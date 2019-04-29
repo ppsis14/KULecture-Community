@@ -24,6 +24,10 @@ class CreateUsersTable extends Migration
             $table->string('username')->unique();
             $table->string('avatar')->nullable();
             $table->text('bio')->nullable();
+            $table->string('facebook')->nullable();
+            $table->string('twitter')->nullable();
+            $table->string('instagram')->nullable();
+            $table->string('line')->nullable();
             $table->rememberToken();
             $table->timestamps();
             $table->softDeletes();

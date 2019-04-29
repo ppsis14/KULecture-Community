@@ -18,7 +18,7 @@
         </a>
     </li>
     <li id="profile">
-        <a href="{{ action('UserProfileController@index') }}">
+        <a href="{{ action('UserProfileController@show' , ['id' => Auth::user()->id]) }}">
             <i class="pe-7s-user"></i>
             <p>User Profile</p>
         </a>
