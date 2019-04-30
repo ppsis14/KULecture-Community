@@ -16,6 +16,7 @@ Route::get('/', function () {
 });
 
 Route::resource('/user/profile', 'UserProfileController');
+Route::post('/user/profile', 'UserProfileController@uploadAvatar');
 Route::get('/admin/login', 'AdminsLoginController@index');
 // Route::post('/admin/login', 'AdminsLoginController@login');
 Route::get('/admin/dashboard', 'AdminDashBoardController@showDashBoard');

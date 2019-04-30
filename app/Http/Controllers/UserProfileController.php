@@ -8,6 +8,7 @@ use Auth;
 use App\User;
 use App\UserContact;
 use DB;
+use Image;
 
 class UserProfileController extends Controller
 {
@@ -78,7 +79,7 @@ class UserProfileController extends Controller
         $this->validate($request, [
             'username' => 'required|distinct',
             'bio' => 'nullable|string',
-            'facebook' => 'nullable|string',
+            'facebook' => 'nullable|numeric',
             'twitter' => 'nullable|string',
             'ig' => 'nullable|string',
             'line' => 'nullable|string'
@@ -105,5 +106,20 @@ class UserProfileController extends Controller
     public function destroy($id)
     {
         //
+    }
+
+    public function uplaodAvatar(Request $request){
+        if($request->hasFile('avatar')){
+            $avatar = $request->file('avatar');
+            $filename = time(). '.' . $avatar->getClientOriginalExtension();
+            Image::make($avatar)->resize(300, 300)->save( public_path('/uploads/avatars/'));
+
+            $user = Auth::user();
+            $user->avatar = $filename;
+            $user->save();
+
+        }
+        return redirect()->action('UserProfileController@show',  ['user' => Auth::user()]);
+       
     }
 }

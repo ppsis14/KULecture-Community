@@ -22,7 +22,7 @@
                         <h4 class="title">Edit Profile</h4>
                     </div>
                     <div class="content">
-                        <form method="POST" action="{{ action('UserProfileController@update' , ['id' => $user->id]) }}">
+                        <form method="POST" action="{{ action('UserProfileController@update' , ['id' => Auth::user()->id]) }}">
                             @csrf
                             @method('PUT')
                             <div class="row">
@@ -104,7 +104,7 @@
                                     <div class="form-group">
                                         <label for="exampleInputEmail1">Line ID</label>
                                         
-                                        <input type="text" class="form-control {{$errors->has('line')? 'is-invalid' : '' }}" placeholder="Line ID" value="{{ $user->line }}">
+                                        <input type="text" class="form-control {{$errors->has('line')? 'is-invalid' : '' }}" name="line" placeholder="Line ID" value="{{ $user->line }}">
                                             @if( $errors->has('line'))
                                                 <div class="invalid-feedback">
                                                     {{ $errors->first('line') }}
@@ -144,11 +144,17 @@
                              </a>
                         </div>
                         <br>
-                        <div class="">
-                            <form>
+                        <div class="justify-center">
+                            <form method="POST" action="UserProfileController@uploadAvatar">
+                                @csrf
+                                @method('PUT')
                                  <div class="form-group">
-                                     <label for="exampleFormControlFile1">Upload image profile</label>
-                                     <input type="file" class="form-control-file" id="exampleFormControlFile1">
+                                     <label for="exampleFormControlFile1">Upload profile image</label>
+                                     <input type="file" class="form-control-file" id="avatar" name="avatar">
+                                     
+                                 </div>
+                                 <div class="form-group">
+                                    <input type="submit" class="pull-right btn btn-sm btn-primary">
                                  </div>
                            </form>
                         </div>
