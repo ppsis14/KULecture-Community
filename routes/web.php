@@ -15,7 +15,10 @@ Route::get('/', function () {
     return view('welcome');
 });
 
+Route::resource('/user/profile', 'UserProfileController');
+Route::post('/user/profile', 'UserProfileController@uploadAvatar');
 Route::get('/admin/login', 'AdminsLoginController@index');
+// Route::post('/admin/login', 'AdminsLoginController@login');
 Route::get('/admin/dashboard', 'AdminDashBoardController@showDashBoard');
 Route::get('/admin/users', 'UsersManagementController@index');
 Route::get('/admin/posts', 'PostsManagementController@index');
@@ -26,8 +29,18 @@ Route::get('/user/login', 'UsersLoginController@index');
 Route::get('/user/explorer', 'ExplorePostsController@index');
 Route::get('/user/explorer/search', 'ExplorePostsController@search');
 Route::get('/user/explorer/advance', 'ExplorePostsController@advance');
+<<<<<<< HEAD
 Route::get('/user/editprofile', 'EditProfileController@index');
+=======
+// Route::get('/user/editprofile', 'EditProfileController@index');
+>>>>>>> 08742661ee61e2e95f5f69d499da22a0526c1500
 Route::get('/user/home', 'HomeUsersController@index');
 Route::get('/user/posts', 'PostsController@index');
 Route::get('/user/posts/edit', 'PostsController@update');
 Route::get('/user/posts/create', 'PostsController@create');
+
+Route::get('login/google', 'Auth\LoginGoogleController@redirectToProvider');
+Route::get('login/google/callback', 'Auth\LoginGoogleController@handleProviderCallback');
+
+Auth::routes();
+// Route::get('/home', 'HomeController@index')->name('home');

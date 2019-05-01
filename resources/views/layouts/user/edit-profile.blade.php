@@ -1,10 +1,20 @@
 @extends('layouts.user.user-master')
 @section('title-page', 'Edit Profile')
 @section('header')
-    <i class="pe-7s-user"></i>&nbsp;&nbsp;Edit Profile
+    <i class="pe-7s-user"></i>&nbsp;&nbsp;User Profile
 @endsection
 @section('content')
     <div class="container-fluid">
+        @if (\Session::has('success'))
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="alert alert-success alert-dismissible">
+                        <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+                        <strong>{{ \Session::get('success') }}</strong> 
+                    </div>
+                </div>
+            </div> 
+        @endif
         <div class="row">
             <div class="col-md-8">
                 <div class="card">
@@ -12,18 +22,14 @@
                         <h4 class="title">Edit Profile</h4>
                     </div>
                     <div class="content">
-                        <form>
+                        <form method="POST" action="{{ action('UserProfileController@update' , ['id' => Auth::user()->id]) }}">
+                            @csrf
+                            @method('PUT')
                             <div class="row">
-                                <div class="col-md-6">
+                                <div class="col-md-12">
                                     <div class="form-group">
-                                        <label>First Name</label>
-                                        <input type="text" class="form-control" placeholder="First Name" value="Mike">
-                                    </div>
-                                </div>
-                                <div class="col-md-6">
-                                    <div class="form-group">
-                                        <label>Last Name</label>
-                                        <input type="text" class="form-control" placeholder="Last Name" value="Andrew">
+                                        <label>Name</label>
+                                        <input type="text" class="form-control" name="name" placeholder="Name" value="{{ Auth::user()->name }}" disabled>
                                     </div>
                                 </div>
                             </div>
@@ -31,41 +37,80 @@
                                 <div class="col-md-6">
                                     <div class="form-group">
                                         <label>Username</label>
-                                        <input type="text" class="form-control" placeholder="Username" value="Username">
+                                        <input type="text" class="form-control {{$errors->has('username')? 'is-invalid' : '' }}" name="username" placeholder="Username" value="{{ old('username', Auth::user()->username) }}">
+                                        @if( $errors->has('username'))
+                                            <div class="invalid-feedback">
+                                                {{ $errors->first('username') }}
+                                            </div>
+                                        @endif
                                     </div>
                                 </div>
                                 <div class="col-md-6">
                                     <div class="form-group">
                                         <label for="exampleInputEmail1">Email address</label>
-                                        <input type="email" class="form-control" placeholder="Email">
+                                        <input type="email" class="form-control" name="email" placeholder="Email" value="{{ Auth::user()->email }}" disabled>
                                     </div>
                                 </div>
                             </div>
+                    
                             <div class="row">
-                                <div class="col-md-6">
+                                <div class="col-md-12">
                                     <div class="form-group">
                                         <label for="exampleInputEmail1">Facebook</label>
-                                        <input type="text" class="form-control" placeholder="Facebook">
+                                        
+                                        <input type="text" class="form-control {{$errors->has('facebook')? 'is-invalid' : '' }}" name="facebook" placeholder="URL of your facebook profile" value="{{ $user->facebook }}">
+                                            @if( $errors->has('facebook'))
+                                                <div class="invalid-feedback">
+                                                    {{ $errors->first('facebook') }}
+                                                </div>
+                                            @endif
+                                        
                                     </div>
                                 </div>
-                                <div class="col-md-6">
+                            </div>
+                            
+                            <div class="row">
+                                <div class="col-md-12">
                                     <div class="form-group">
                                         <label for="exampleInputEmail1">Twitter</label>
-                                        <input type="text" class="form-control" placeholder="Twitter">
+                                        
+                                        <input type="text" class="form-control {{$errors->has('twitter')? 'is-invalid' : '' }}" name="twitter" placeholder="URL of your twitter profile" value="{{ $user->twitter}}">
+                                            @if( $errors->has('twiiter'))
+                                                <div class="invalid-feedback">
+                                                    {{ $errors->first('twiiter') }}
+                                                </div>
+                                            @endif
+                                        
                                     </div>
                                 </div>
                             </div>
                             <div class="row">
-                                <div class="col-md-6">
+                                <div class="col-md-12">
                                     <div class="form-group">
                                         <label for="exampleInputEmail1">Instagram</label>
-                                        <input type="text" class="form-control" placeholder="Instagram">
+                                        
+                                        <input type="text" class="form-control {{$errors->has('ig')? 'is-invalid' : '' }}" name="ig" placeholder="URL of your instagram profile" value="{{ $user->instagram }}">
+                                            @if( $errors->has('ig'))
+                                                <div class="invalid-feedback">
+                                                    {{ $errors->first('ig') }}
+                                                </div>
+                                            @endif
+                                        
                                     </div>
                                 </div>
-                                <div class="col-md-6">
+                            </div>
+                            <div class="row">
+                                <div class="col-md-12">
                                     <div class="form-group">
                                         <label for="exampleInputEmail1">Line ID</label>
-                                        <input type="text" class="form-control" placeholder="Line ID">
+                                        
+                                        <input type="text" class="form-control {{$errors->has('line')? 'is-invalid' : '' }}" name="line" placeholder="Line ID" value="{{ $user->line }}">
+                                            @if( $errors->has('line'))
+                                                <div class="invalid-feedback">
+                                                    {{ $errors->first('line') }}
+                                                </div>
+                                            @endif
+                                        
                                     </div>
                                 </div>
                             </div>
@@ -73,7 +118,7 @@
                                 <div class="col-md-12">
                                     <div class="form-group">
                                         <label>About Me</label>
-                                        <textarea rows="5" class="form-control" placeholder="Here can be your description" value="Mike">Lamborghini Mercy, Your chick she so thirsty, I'm in that two seat Lambo.</textarea>
+                                        <textarea rows="5" class="form-control" name="bio" placeholder="Here can be your description">{{Auth::user()->bio}}</textarea>
                                     </div>
                                 </div>
                             </div>
@@ -87,7 +132,6 @@
             <div class="col-md-4">
                 <h4 class="card-title">Profile Image</h4>
                 <div class="card card-user">
-                    <!-- <h4 class="card-title">Profile Image</h4> -->
                     <div class="image">
                         <img src="https://ununsplash.imgix.net/photo-1431578500526-4d9613015464?fit=crop&fm=jpg&h=300&q=75&w=400" alt="..."/>
                     </div>
@@ -95,16 +139,22 @@
                     <div class="content">
                         <div class="author">
                              <a href="#">
-                                 <img class="avatar border-gray" src="/img/faces/face-0.jpg" alt="..."/>
+                                 <img class="avatar border-gray" src="{{ Auth::user()->avatar }}" alt="..."/>
                                  <br>
                              </a>
                         </div>
                         <br>
-                        <div class="">
-                            <form>
+                        <div class="justify-center">
+                            <form method="POST" action="UserProfileController@uploadAvatar">
+                                @csrf
+                                @method('PUT')
                                  <div class="form-group">
-                                     <label for="exampleFormControlFile1">Example file input</label>
-                                     <input type="file" class="form-control-file" id="exampleFormControlFile1">
+                                     <label for="exampleFormControlFile1">Upload profile image</label>
+                                     <input type="file" class="form-control-file" id="avatar" name="avatar">
+                                     
+                                 </div>
+                                 <div class="form-group">
+                                    <input type="submit" class="pull-right btn btn-sm btn-primary">
                                  </div>
                            </form>
                         </div>

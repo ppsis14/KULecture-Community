@@ -14,29 +14,40 @@
             <h1>Sign in</h1>
         </div><hr><br><br>
         <div class ="row d-flex justify-content-center">
-            <form class="login" id ="admin-login" method="POST"  enctype="multipart/form-data">
+            <form class="login" id ="admin-login" action="{{ route('login') }}" method="POST">
+            @csrf
                 <div class="form-group" >
                     <div class="input-group mb-3">
-                      <div class="input-group-prepend">
-                        <span class="input-group-text" id="basic-addon1"><i class="fa fa-user"></i></span>
-                      </div>
-                      <input type="text" class="form-control" id="username" name ="username" aria-describedby="emailHelp" placeholder="Enter Username">
+                        <div class="input-group-prepend">
+                            <span class="input-group-text" id="basic-addon1"><i class="fa fa-user"></i></span>
+                        </div>
+                        <input type="text" class="form-control{{ $errors->has('username') ? ' is-invalid' : '' }}" id="username" name ="username" aria-describedby="emailHelp" placeholder="Enter Username" >
+                        @if ($errors->has('username'))
+                            <span class="invalid-feedback" role="alert">
+                                <strong>{{ $errors->first('username') }}</strong>
+                            </span>
+                        @endif
                     </div>
                 </div><br>
                 <div class="form-group" >
                     <div class="input-group mb-3">
-                      <div class="input-group-prepend">
-                        <span class="input-group-text" id="basic-addon1"><i class="fa fa-lock"></i></span>
-                      </div>
-                      <input type="password" class="form-control" id="password" name = "password" placeholder="Enter Password">
-                  </div>
+                        <div class="input-group-prepend">
+                            <span class="input-group-text" id="basic-addon1"><i class="fa fa-lock"></i></span>
+                        </div>
+                        <input type="password" class="form-control{{ $errors->has('password') ? ' is-invalid' : '' }}" id="password" name = "password" placeholder="Enter Password">
+                        @if ($errors->has('password'))
+                            <span class="invalid-feedback" role="alert">
+                                <strong>{{ $errors->first('password') }}</strong>
+                            </span>
+                        @endif
+                    </div>
                 </div><br><br>
                 <div>
                     <button type="submit" class="btn btn-primary btn-block login-btn">Sign in</button>
                 </div>
             </form>
             <div class="d-flex justifycontext-center" >
-                    <p class="" id="password" style="color:red" name = "errorAdmin" id = "error Admin"></p>
+                <p class="" id="password" style="color:red" name = "errorAdmin" id = "error Admin"></p>
             </div>
         </div>
     </div>

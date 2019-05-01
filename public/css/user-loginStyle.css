@@ -71,7 +71,7 @@ a {
 .detail-box{
     /* margin-top: 10px; */
     position: absolute;
-    top: 60%;
+    top: 80%;
     left: 50%;
     transform: translate(-50%, -90%);
     padding: 40px;
