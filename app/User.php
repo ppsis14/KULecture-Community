@@ -17,7 +17,7 @@ class User extends Authenticatable
      * @var array
      */
     protected $fillable = [
-        'name', 'email', 'password', 'username', 'avatar', 'bio',
+        'name', 'email', 'password', 'username', 'role',
     ];
 
     /**
@@ -38,8 +38,15 @@ class User extends Authenticatable
         'email_verified_at' => 'datetime',
     ];
 
+    public function isAdmin(){
+        return $this->role === 'ADMINISTRATOR';
+    }
+    public function isCreator(){
+        return $this->role === 'CREATOR';
+    }
+
     public function contacts(){
-        return $this->hasMany('\App\UserContact');
+        return $this->hasOne('\App\UserProfile');
     }
 
 }
