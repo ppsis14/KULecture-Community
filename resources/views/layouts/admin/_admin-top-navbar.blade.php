@@ -13,7 +13,7 @@
             <li class="dropdown">
                   <a href="#" class="dropdown-toggle" data-toggle="dropdown">
                         <p>
-                            User Account
+                            {{Auth::user()->name}}
                             <b class="caret"></b>
                         </p>
 

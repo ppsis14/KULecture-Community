@@ -39,13 +39,10 @@ class LoginController extends Controller
         return view('layouts.admin.admin-login');
     }
 
-    protected function guard() {
-        return Auth::guard('admin');
-    }
-
     public function username()
     {
         return 'username';
     }
+
 
 }

@@ -24,3 +24,11 @@ $factory->define(User::class, function (Faker $faker) {
         'remember_token' => Str::random(10),
     ];
 });
+
+$factory->state(User::class, 'ADMINISTRATOR', [
+    'role' => 'ADMINISTRATOR',
+]);
+
+$factory->state(User::class, 'USER', [
+    'role' => 'USER',
+]);

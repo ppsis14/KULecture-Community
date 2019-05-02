@@ -9,8 +9,8 @@
             <div class="col-md-12">
                 <div class="card">
                     <div class="header">
-                        <h4 class="title">Striped Table with Hover</h4>
-                        <p class="category">Here is a subtitle for this table</p>
+                        <h4 class="title">User Table</h4>
+                        <!-- <p class="category">Here is a subtitle for this table</p> -->
                         <hr>
                     </div>
                     <div class="card-body">
@@ -26,12 +26,32 @@
                                     <th>Action</th>
                                 </thead>
                                 <tbody>
+                                foreach( users as user)
+                                    <tr>
+                                        <td>user->id</td>
+                                        <td>user->name</td>
+                                        <td>thikamporn.s@ku.th</td>
+                                        <td>5</td>
+                                        <td>12</td>
+                                        <td>Sun, 14 April 2019</td>
+                                        <td><button href="#" type="button" onclick="return confirm('Do you want to delete this account?')" class="btn btn-danger btn-sm"><i class="fas fa-trash-alt fa-fw"></i></button></td>
+                                    </tr>
+                                endforeach
+                                    <!-- <tr>
+                                        <td>1</td>
+                                        <td>Thikamporn Simud</td>
+                                        <td>thikamporn.s@ku.th</td>
+                                        <td>10</td>
+                                        <td>12</td>
+                                        <td>Sun, 14 April 2019</td>
+                                        <td><button href="#" type="button" class="btn btn-danger btn-sm"><i class="fas fa-trash-alt fa-fw"></i></button></td>
+                                    </tr>
                                     <tr>
                                         <td>1</td>
                                         <td>Thikamporn Simud</td>
                                         <td>thikamporn.s@ku.th</td>
                                         <td>5</td>
-                                        <td>12</td>
+                                        <td>20</td>
                                         <td>Sun, 14 April 2019</td>
                                         <td><button href="#" type="button" class="btn btn-danger btn-sm"><i class="fas fa-trash-alt fa-fw"></i></button></td>
                                     </tr>
@@ -106,25 +126,7 @@
                                         <td>12</td>
                                         <td>Sun, 14 April 2019</td>
                                         <td><button href="#" type="button" class="btn btn-danger btn-sm"><i class="fas fa-trash-alt fa-fw"></i></button></td>
-                                    </tr>
-                                    <tr>
-                                        <td>1</td>
-                                        <td>Thikamporn Simud</td>
-                                        <td>thikamporn.s@ku.th</td>
-                                        <td>5</td>
-                                        <td>12</td>
-                                        <td>Sun, 14 April 2019</td>
-                                        <td><button href="#" type="button" class="btn btn-danger btn-sm"><i class="fas fa-trash-alt fa-fw"></i></button></td>
-                                    </tr>
-                                    <tr>
-                                        <td>1</td>
-                                        <td>Thikamporn Simud</td>
-                                        <td>thikamporn.s@ku.th</td>
-                                        <td>5</td>
-                                        <td>12</td>
-                                        <td>Sun, 14 April 2019</td>
-                                        <td><button href="#" type="button" class="btn btn-danger btn-sm"><i class="fas fa-trash-alt fa-fw"></i></button></td>
-                                    </tr>
+                                    </tr> -->
                                 </tbody>
                             </table>
                         </div>
