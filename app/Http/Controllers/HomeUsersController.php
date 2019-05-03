@@ -3,6 +3,9 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Illuminate\Database\Query\Builder;
+use Auth;
+use UserProfile;
 
 class HomeUsersController extends Controller
 {
@@ -13,7 +16,7 @@ class HomeUsersController extends Controller
 
     public function show($id)
     {
-        
-        return view('layouts.user.home');
+        $profile = UserProfile::findOrFail($id);
+        return view('layouts.user.home', ['profile' => $profile]);
     }
 }

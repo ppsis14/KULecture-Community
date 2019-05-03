@@ -45,7 +45,7 @@ class User extends Authenticatable
         return $this->role === 'CREATOR';
     }
 
-    public function contacts(){
+    public function profile(){
         return $this->hasOne('\App\UserProfile');
     }
 

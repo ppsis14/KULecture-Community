@@ -3,9 +3,8 @@
 use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
-use Illuminate\Database\Eloquent\SoftDeletes;
 
-class CreateUserProfileTable extends Migration
+class CreateUserProfilesTable extends Migration
 {
     /**
      * Run the migrations.
@@ -14,19 +13,21 @@ class CreateUserProfileTable extends Migration
      */
     public function up()
     {
-        Schema::create('user_profile', function (Blueprint $table) {
+        Schema::create('user_profiles', function (Blueprint $table) {
             $table->bigIncrements('id');
+            $table->string('avatar')->nullable();
             $table->text('bio')->nullable();
             $table->string('facebook')->nullable();
             $table->string('twitter')->nullable();
             $table->string('instagram')->nullable();
             $table->string('line')->nullable();
             $table->unsignedBigInteger('user_id');
-            $table->foreign('user_id')->references('id')->on('users')
-            ->onDelete('cascade');
-
             $table->timestamps();
             $table->softDeletes();
+
+
+            $table->foreign('user_id')->references('id')->on('users')
+            ->onDelete('cascade');
         });
     }
 
@@ -37,6 +38,6 @@ class CreateUserProfileTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('user_profile');
+        Schema::dropIfExists('user_profiles');
     }
 }

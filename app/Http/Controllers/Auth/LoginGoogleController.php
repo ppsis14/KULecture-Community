@@ -75,12 +75,15 @@ class LoginGoogleController extends Controller
             $newUser->email             = $user->getEmail();
             $newUser->email_verified_at = now();
             $newUser->username          = $user->getName();
-            $newUser->avatar     = $user->getAvatar();
             $newUser->password          = Hash::make($user->getId());
             $newUser->save();
+
+            $newUser->profile()->create(['avatar' =>  $user->getAvatar()]);
+
             auth()->login($newUser,true);
         }
-        return redirect()->to('user/home');
+        // return redirect()->to('user/home/'. $user->getId());
+        return redirect()->to( action('HomeUsersController@show' , ['id' => $user->getId()]));
     }
 
     public function logout(Request $request)

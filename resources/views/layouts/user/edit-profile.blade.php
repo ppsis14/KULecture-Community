@@ -129,38 +129,6 @@
                     </div>
                 </div>
             </div>
-            <div class="col-md-4">
-                <h4 class="card-title">Profile Image</h4>
-                <div class="card card-user">
-                    <div class="image">
-                        <img src="https://ununsplash.imgix.net/photo-1431578500526-4d9613015464?fit=crop&fm=jpg&h=300&q=75&w=400" alt="..."/>
-                    </div>
-                    <br>
-                    <div class="content">
-                        <div class="author">
-                             <a href="#">
-                                 <img class="avatar border-gray" src="{{ Auth::user()->avatar }}" alt="..."/>
-                                 <br>
-                             </a>
-                        </div>
-                        <br>
-                        <div class="justify-center">
-                            <form method="POST" action="UserProfileController@uploadAvatar">
-                                @csrf
-                                @method('PUT')
-                                 <div class="form-group">
-                                     <label for="exampleFormControlFile1">Upload profile image</label>
-                                     <input type="file" class="form-control-file" id="avatar" name="avatar">
-                                     
-                                 </div>
-                                 <div class="form-group">
-                                    <input type="submit" class="pull-right btn btn-sm btn-primary">
-                                 </div>
-                           </form>
-                        </div>
-                    </div>
-                </div>
-            </div>
         </div>
     </div>
 @endsection

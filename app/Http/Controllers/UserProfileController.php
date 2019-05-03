@@ -3,10 +3,10 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use Illuminate\Database\Query\Builder;
+
+
 use Auth;
 use App\User;
-use App\UserContact;
 use DB;
 use Image;
 
@@ -51,8 +51,8 @@ class UserProfileController extends Controller
      */
     public function show($id)
     {
-        $user = User::findOrFail($id);
-        return view('layouts.user.edit-profile', ['user' => $user]);
+        $profile = User::findOrFail($id);
+        return view('layouts.user.home', ['profile' => $profile]);
     }
 
     /**
@@ -63,7 +63,8 @@ class UserProfileController extends Controller
      */
     public function edit($id)
     {
-        //
+        $user = User::findOrFail($id);
+        return view('layouts.user.edit-profile', ['user' => $user]);
     }
 
     /**

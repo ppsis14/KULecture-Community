@@ -15,7 +15,7 @@
                     <div class="content">
                         <div class="author">
                              <a href="#">
-                            <img class="avatar border-gray" src="{{ Auth::user()->avatar }}" alt="..."/>
+                            <img class="avatar border-gray" src="{{ $profile->avatar }}" alt="..."/>
                                 <br>
                               <h4 class="title">{{ Auth::user()->username }}<br /><br>
                                  <small>{{ Auth::user()->name }}</small>
