@@ -6,6 +6,8 @@ use App\Http\Controllers\Controller;
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
 use Socialite;
 use App\User;
+use App\UserProfile;
+use Hash;
 
 class LoginGoogleController extends Controller
 {
@@ -73,10 +75,19 @@ class LoginGoogleController extends Controller
             $newUser->email             = $user->getEmail();
             $newUser->email_verified_at = now();
             $newUser->username          = $user->getName();
-            $newUser->avatar            = $user->getAvatar();
+            $newUser->avatar     = $user->getAvatar();
+            $newUser->password          = Hash::make($user->getId());
             $newUser->save();
             auth()->login($newUser,true);
         }
         return redirect()->to('user/home');
+    }
+
+    public function logout(Request $request)
+    {
+        Auth::guard('google')->logout();
+        $request->session()->flush();
+        $request->session()->regenerate();
+        return redirect()->guest(route( '/user/home' ));
     }
 }

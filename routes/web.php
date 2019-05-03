@@ -11,10 +11,7 @@
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
-
+Route::get('/', function () {return view('welcome');});
 Route::resource('/user/profile', 'UserProfileController');
 Route::post('/user/profile', 'UserProfileController@uploadAvatar');
 Route::get('/admin/login', 'AdminsLoginController@index');
@@ -37,6 +34,7 @@ Route::get('/user/posts/create', 'PostsController@create');
 
 Route::get('login/google', 'Auth\LoginGoogleController@redirectToProvider');
 Route::get('login/google/callback', 'Auth\LoginGoogleController@handleProviderCallback');
+// Route::get('user/logout', 'Auth\LoginGoogleController@logout');
 
 Auth::routes();
 // Route::get('/home', 'HomeController@index')->name('home');
