@@ -8,7 +8,7 @@ use Illuminate\Http\Request;
 use Auth;
 use App\User;
 use DB;
-use Image;
+use App\UserProfile;
 
 class UserProfileController extends Controller
 {
@@ -19,7 +19,7 @@ class UserProfileController extends Controller
      */
     public function index()
     {
-        return view('layouts.user.edit-profile');
+       
     }
 
     /**
@@ -51,8 +51,7 @@ class UserProfileController extends Controller
      */
     public function show($id)
     {
-        $profile = User::findOrFail($id);
-        return view('layouts.user.home', ['profile' => $profile]);
+        
     }
 
     /**
@@ -64,7 +63,8 @@ class UserProfileController extends Controller
     public function edit($id)
     {
         $user = User::findOrFail($id);
-        return view('layouts.user.edit-profile', ['user' => $user]);
+        $profile = UserProfile::where('user_id', $id)->first();
+        return view('layouts.user.edit-profile', ['user' => $user, 'profile' => $profile]);
     }
 
     /**
@@ -80,7 +80,7 @@ class UserProfileController extends Controller
         $this->validate($request, [
             'username' => 'required|distinct',
             'bio' => 'nullable|string',
-            'facebook' => 'nullable|numeric',
+            'facebook' => 'nullable|string',
             'twitter' => 'nullable|string',
             'ig' => 'nullable|string',
             'line' => 'nullable|string'
@@ -88,12 +88,23 @@ class UserProfileController extends Controller
 
         $user = User::findOrFail($id);
         $user->username = $request->input('username');
-        $user->bio = $request->input('bio');
-        $user->facebook = $request->input('facebook');
-        $user->twitter = $request->input('twitter');
-        $user->instagram = $request->input('ig');
-        $user->line = $request->input('line');
         $user->save();
+
+        $user->profile()->saveMany(
+            [
+                'bio' => $request->input('bio'),
+                'facebook' => $request->input('facebook'),
+                'twitter' => $request->input('twitter'),
+                'instagram' => $request->input('ig'),
+                'line' => $request->input('line')
+            ]
+        );
+        // $user->bio = $request->input('bio');
+        // $user->facebook = $request->input('facebook');
+        // $user->twitter = $request->input('twitter');
+        // $user->instagram = $request->input('ig');
+        // $user->line = $request->input('line');
+        
 
         return redirect()->action('UserProfileController@show',  ['id' => $user->id])->with('success','Update subject data successfully!');
     }
@@ -107,20 +118,5 @@ class UserProfileController extends Controller
     public function destroy($id)
     {
         //
-    }
-
-    public function uplaodAvatar(Request $request){
-        if($request->hasFile('avatar')){
-            $avatar = $request->file('avatar');
-            $filename = time(). '.' . $avatar->getClientOriginalExtension();
-            Image::make($avatar)->resize(300, 300)->save( public_path('/uploads/avatars/'));
-
-            $user = Auth::user();
-            $user->avatar = $filename;
-            $user->save();
-
-        }
-        return redirect()->action('UserProfileController@show',  ['user' => Auth::user()]);
-       
     }
 }

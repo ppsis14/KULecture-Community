@@ -58,7 +58,7 @@
                                     <div class="form-group">
                                         <label for="exampleInputEmail1">Facebook</label>
                                         
-                                        <input type="text" class="form-control {{$errors->has('facebook')? 'is-invalid' : '' }}" name="facebook" placeholder="URL of your facebook profile" value="{{ $user->facebook }}">
+                                        <input type="text" class="form-control {{$errors->has('facebook')? 'is-invalid' : '' }}" name="facebook" placeholder="URL of your facebook profile" value="{{ $profile->facebook }}">
                                             @if( $errors->has('facebook'))
                                                 <div class="invalid-feedback">
                                                     {{ $errors->first('facebook') }}
@@ -74,7 +74,7 @@
                                     <div class="form-group">
                                         <label for="exampleInputEmail1">Twitter</label>
                                         
-                                        <input type="text" class="form-control {{$errors->has('twitter')? 'is-invalid' : '' }}" name="twitter" placeholder="URL of your twitter profile" value="{{ $user->twitter}}">
+                                        <input type="text" class="form-control {{$errors->has('twitter')? 'is-invalid' : '' }}" name="twitter" placeholder="URL of your twitter profile" value="{{ $profile->twitter}}">
                                             @if( $errors->has('twiiter'))
                                                 <div class="invalid-feedback">
                                                     {{ $errors->first('twiiter') }}
@@ -89,7 +89,7 @@
                                     <div class="form-group">
                                         <label for="exampleInputEmail1">Instagram</label>
                                         
-                                        <input type="text" class="form-control {{$errors->has('ig')? 'is-invalid' : '' }}" name="ig" placeholder="URL of your instagram profile" value="{{ $user->instagram }}">
+                                        <input type="text" class="form-control {{$errors->has('ig')? 'is-invalid' : '' }}" name="ig" placeholder="URL of your instagram profile" value="{{ $profile->instagram }}">
                                             @if( $errors->has('ig'))
                                                 <div class="invalid-feedback">
                                                     {{ $errors->first('ig') }}
@@ -104,7 +104,7 @@
                                     <div class="form-group">
                                         <label for="exampleInputEmail1">Line ID</label>
                                         
-                                        <input type="text" class="form-control {{$errors->has('line')? 'is-invalid' : '' }}" name="line" placeholder="Line ID" value="{{ $user->line }}">
+                                        <input type="text" class="form-control {{$errors->has('line')? 'is-invalid' : '' }}" name="line" placeholder="Line ID" value="{{ $profile->line }}">
                                             @if( $errors->has('line'))
                                                 <div class="invalid-feedback">
                                                     {{ $errors->first('line') }}
@@ -118,7 +118,7 @@
                                 <div class="col-md-12">
                                     <div class="form-group">
                                         <label>About Me</label>
-                                        <textarea rows="5" class="form-control" name="bio" placeholder="Here can be your description">{{Auth::user()->bio}}</textarea>
+                                        <textarea rows="5" class="form-control" name="bio" placeholder="Here can be your description">{{ $profile->bio}}</textarea>
                                     </div>
                                 </div>
                             </div>

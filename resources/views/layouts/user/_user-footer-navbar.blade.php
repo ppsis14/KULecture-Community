@@ -1,12 +1,12 @@
 <ul>
     <li class="active">
-        <a href="{{ action('HomeUsersController@index') }}">
+        <a href="{{ action('HomeUserController@show', ['id' => Auth::user()->id]) }}">
             Home
         </a>
     </li>
     <li>
-        <a href="action('UserProfileController@edit' , ['id' => Auth::user()->id]) }}">
-            User Profile
+        <a href="{{ action('UserProfileController@edit' , ['id' => Auth::user()->id]) }}">
+            <p>User Profile</p>
         </a>
     </li>
     <li>

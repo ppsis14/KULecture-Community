@@ -8,6 +8,7 @@ use Socialite;
 use App\User;
 use App\UserProfile;
 use Hash;
+use DB;
 
 class LoginGoogleController extends Controller
 {
@@ -82,15 +83,8 @@ class LoginGoogleController extends Controller
 
             auth()->login($newUser,true);
         }
-        // return redirect()->to('user/home/'. $user->getId());
-        return redirect()->to( action('HomeUsersController@show' , ['id' => $user->getId()]));
-    }
 
-    public function logout(Request $request)
-    {
-        Auth::guard('google')->logout();
-        $request->session()->flush();
-        $request->session()->regenerate();
-        return redirect()->guest(route( '/user/home' ));
+        $profile =  User::where('provider_id', $user->getId())->first();
+        return redirect()->action('HomeUserController@show' , ['id' => $profile->id]);
     }
 }
