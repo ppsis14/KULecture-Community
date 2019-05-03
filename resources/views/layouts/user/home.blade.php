@@ -6,7 +6,7 @@
 @section('content')
     <div class="container-fluid">
         <div class="row">
-            <div class="col-md-6">
+            <div class="col-md-12">
                 <div class="card card-user">
                     <div class="image">
                         <img src="https://ununsplash.imgix.net/photo-1431578500526-4d9613015464?fit=crop&fm=jpg&h=300&q=75&w=400" alt="..."/>
@@ -22,11 +22,19 @@
                               </h4>
                             </a>
                         </div><br>
-                        <p class="description text-center"> {{ Auth::user()->bio }}</p>
+                        <div class="container-fluid">
+                            <p class="description text-center"> {{ $profile->bio }}</p>
+                        </div>
                     </div>
                     <hr>
                     <div class="text-center">
-                        <button href="#" class="btn btn-simple"><i class="fas fa-envelope"></i></button>
+                        <button href="#" class="btn btn-simple"><i class="fas fa-envelope"></i></button> <span>{{ Auth::user()->email }}</span>
+                    </div>
+                    <div class="text-center">
+                        <button href="#" class="btn btn-simple"><i class="fas fa-envelope"></i></button> <span>{{ $profile->facebook }}</span>
+                    </div>
+                    <div class="text-center">
+                        <button href="#" class="btn btn-simple"><i class="fas fa-envelope"></i></button> <span>{{ $profile->instagram }}</span>
                     </div>
                 </div>
             </div>

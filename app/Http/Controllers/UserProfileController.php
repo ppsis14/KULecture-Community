@@ -87,10 +87,8 @@ class UserProfileController extends Controller
         ]);
 
         $user = User::findOrFail($id);
-        $user->username = $request->input('username');
-        $user->save();
-
-        $user->profile()->saveMany(
+        
+        $user->profile()->update(
             [
                 'bio' => $request->input('bio'),
                 'facebook' => $request->input('facebook'),
@@ -99,14 +97,11 @@ class UserProfileController extends Controller
                 'line' => $request->input('line')
             ]
         );
-        // $user->bio = $request->input('bio');
-        // $user->facebook = $request->input('facebook');
-        // $user->twitter = $request->input('twitter');
-        // $user->instagram = $request->input('ig');
-        // $user->line = $request->input('line');
+        $user->username = $request->input('username');
+        $user->save();
         
 
-        return redirect()->action('UserProfileController@show',  ['id' => $user->id])->with('success','Update subject data successfully!');
+        return redirect()->action('UserProfileController@edit',  ['id' => $user->id])->with('success','Update subject data successfully!');
     }
 
     /**

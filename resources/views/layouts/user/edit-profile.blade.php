@@ -7,9 +7,9 @@
     <div class="container-fluid">
         @if (\Session::has('success'))
             <div class="row">
-                <div class="col-md-12">
+                <div class="col-md-8">
                     <div class="alert alert-success alert-dismissible">
-                        <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+                        <!-- <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a> -->
                         <strong>{{ \Session::get('success') }}</strong> 
                     </div>
                 </div>

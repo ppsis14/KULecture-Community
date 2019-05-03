@@ -2310,6 +2310,7 @@ fieldset[disabled] .btn-neutral.active {
 .card .description {
     font-size: 14px;
     color: #333;
+    width: 60%;
 }
 
 .card .footer {
