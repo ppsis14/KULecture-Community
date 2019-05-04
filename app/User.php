@@ -47,6 +47,12 @@ class User extends Authenticatable
 
     public function profile(){
         return $this->hasOne('\App\UserProfile');
+    // public function contacts(){
+    //     return $this->hasMany('\App\UserContact');
+    }
+
+    public function posts() {
+        return $this->hasMany('\App\Post');
     }
 
 }
