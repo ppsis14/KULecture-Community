@@ -11,7 +11,7 @@ class Post extends Model
     use SoftDeletes;
     use Taggable;
     
-    protected $fillable = ['post_title', 'post_detail', 'post_tag', 'hidden_status', 'post_cover', 'description', 'category', 'report_status', 'file'];
+    protected $fillable = ['post_title', 'post_detail', 'post_tag', 'hidden_status', 'post_cover', 'description', 'category', 'report_status', 'files'];
 
     // 01/05/62
     public function user()

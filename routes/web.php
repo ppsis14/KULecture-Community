@@ -32,7 +32,7 @@ Route::get('/user/explorer/advance', 'ExplorePostsController@advance');
 
 Route::resource('/user/posts', 'PostsController');
 Route::get('/user/posts/hidden/{id}', 'PostsController@hidden');
-Route::get('/user/posts/report/{id}', 'PostsController@report');
+Route::post('/user/posts/report/{id}', 'PostsController@report');
 Route::get('/user/posts/download/{file_name}', 'PostsController@download');
 
 Route::get('login/google', 'Auth\LoginGoogleController@redirectToProvider');

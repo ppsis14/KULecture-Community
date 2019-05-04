@@ -8,6 +8,7 @@ use App\User;
 use Auth;
 use Illuminate\Support\Facades\Storage;
 use Conner\Tagging\Taggable;
+use DB;
 
 
 class PostsController extends Controller
@@ -20,6 +21,8 @@ class PostsController extends Controller
     public function index()
     {
         $posts = Post::where('user_id', Auth::user()->id)->get();
+        // $username = User::select('username')->where('id', Auth::user()->id)->get();
+        // dd($posts);
         $categorys = ['Lecture', 'Book', 'Apartment', 'Appliance', 'News', 'Sport', 'Other..'];
         return view('layouts.user.posts', ['categorys' => $categorys])->withDetails($posts);;
     }
@@ -31,7 +34,6 @@ class PostsController extends Controller
      */
     public function create()
     {
-        // $this->autocomplete('hat');
         $categorys = ['Lecture', 'Book', 'Apartment', 'Appliance', 'News', 'Sport', 'Other..'];
         return view('layouts.user.create-posts', ['categorys' => $categorys]);
     }
@@ -46,8 +48,6 @@ class PostsController extends Controller
     {
         $attributes = request()->validate([
             'title' => ['required', 'min:3'],
-            // 'detail' => ['required', 'min:3']
-            // 'image' =>  'required|image'
         ]);
         
         // dd($request->all());
@@ -74,7 +74,6 @@ class PostsController extends Controller
         $tags = explode(",", $request->tags);
     
         $post->user_id = $user->id;
-        $post->username = $user->username;
         $post->post_title = $request->input('title');
         $post->description = $request->input('description');
         $post->post_detail = $request->input('post_detail');
@@ -99,10 +98,10 @@ class PostsController extends Controller
     {
         $post = Post::findOrFail($id);
         $tags = $post->tags;
-        // $file = $post->file;
-        // dd(json_decode($post->files));
         $files = json_decode($post->files);
-        return view('layouts.user.show-posts', ['post' => $post, 'tags' => $tags, 'files' => $files]);
+        $username = User::select('username')->where('id', $post->user_id)->get();
+
+        return view('layouts.user.show-posts', ['post' => $post, 'tags' => $tags, 'files' => $files, 'username' => $username]);
     }
 
     /**
@@ -129,11 +128,10 @@ class PostsController extends Controller
     {
         $attributes = request()->validate([
             'title' => ['required', 'min:3'],
-            // 'detail' => ['required', 'min:3']
-            // 'image' =>  'required|image'
         ]);
         // dd($request->all());
-        $post = Post::findOrFail($request->id);
+        $post = Post::findOrFail($id);
+        // $post = Post::findOrFail($request->id);
         
         $user = Auth::user();
 
@@ -157,15 +155,11 @@ class PostsController extends Controller
         $tags = explode(",", $request->tags);
         $post->untag();
     
-        $post->user_id = $user->id;
-        $post->username = $user->username;
         $post->post_title = $request->input('title');
         $post->description = $request->input('description');
         $post->post_detail = $request->input('post_detail');
         $post->category = $request->input('category');
         $post->post_tag = $request->input('tags');
-        $post->hidden_status = false;
-        $post->report_status = false;
         $post->save();
 
         $post->tag($tags);

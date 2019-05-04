@@ -67,13 +67,11 @@
         </div>
         <br>
 
-        <!-- @if(isset($details))
-            @if($details == null)
+        @if(count($details) == 0)
             <div class="row">
                 <h4 style="text-align: center;">No posts</h4>
             </div>
-            @endif
-        @endif -->
+        @endif
         
         <div class="row">
         @if(isset($details))
@@ -89,15 +87,23 @@
                 <div class="card-body">
                   <h4 class="card-title"><a href="{{ action('PostsController@show', ['id' => $post->id]) }}">{{$post->post_title}}</a></h4>
                   <p class="card-text">{{$post->description}}</p>
-                  <p class="card-text"><small class="text-muted">Category: <a>{{$post->category}}</a>&nbsp;&nbsp; Tag : 
-                    @foreach($post->tags as $tag)
-                        <a >#{{$tag->slug}}</a>
-                    @endforeach
+                  <p class="card-text"><small class="text-muted">Category: <a>{{$post->category}}</a>&nbsp;&nbsp; 
+                  @if($post->post_tag != null)
+                        Tag : 
+                        @foreach($post->tags as $tag)
+                            <a >#{{$tag->slug}}</a>
+                        @endforeach
+                    @endif
                   </small></p>
                   <hr>
                   <p class="card-text"><small class="text-muted">Post by : <a>{{$post->username}}</a></small></p>
-                  <p class="card-text"><small class="text-muted">Created: {{$post->created_at->format('j F Y')}} at {{$post->created_at->format('H:m')}}
-                    &nbsp;Last updated: {{$post->updated_at->format('j F Y')}} at {{$post->updated_at->format('H:m')}}</small>&nbsp;&nbsp;&nbsp;&nbsp;<span><i class="fas fa-download fa-fw"></i>&nbsp;&nbsp;10</span></p>
+
+                    <p class="card-text"><small class="text-muted">Created: {{date('j F Y', strtotime($post->created_at))}} at {{date('H:m', strtotime($post->created_at))}}
+                    &nbsp;Last updated: {{date('j F Y', strtotime($post->updated_at))}}  at {{date('H:m', strtotime($post->updated_at))}}</small>&nbsp;&nbsp;&nbsp;&nbsp;
+                    @if($post->files != null)
+                        <span style="color: #9A9A9A;"><i class="fas fa-download fa-fw"></i></span>
+                    @endif
+                    </p>
                 </div>
               </div>
             </div>

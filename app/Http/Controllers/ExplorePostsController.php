@@ -4,12 +4,19 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Post;
+use App\User;
+use DB;
 
 class ExplorePostsController extends Controller
 {
     public function index() {
-
-        $posts = Post::where('hidden_status', false)->get();
+        
+        $posts = DB::table('posts')
+        ->join('users', 'posts.user_id', '=', 'users.id')
+        ->select('posts.*', 'users.username')
+        ->where('hidden_status', false)
+        ->get();
+        // dd($posts);
         $categorys = ['Lecture', 'Book', 'Apartment', 'Appliance', 'News', 'Sport', 'Other..'];
         return view('layouts.user.explore', ['categorys' => $categorys])->withDetails($posts);
     }

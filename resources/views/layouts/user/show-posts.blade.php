@@ -26,7 +26,11 @@
                                 <a >#{{$tag->slug}}</a>
                             @endforeach
                             </small></p>
-                            <p class="card-text"><small class="text-muted">Post by : <a>{{$post->username}}</a></small></p>
+                            <p class="card-text"><small class="text-muted">Post by : <a>
+                                @foreach($username as $user)
+                                    {{$user->username}}
+                                @endforeach
+                            </a></small></p>
                             <p class="card-text"><small class="text-muted">
                                 Created: {{$post->created_at->format('j F Y')}} at {{$post->created_at->format('H:m')}}
                                 &nbsp;Last updated: {{$post->updated_at->format('j F Y')}} at {{$post->updated_at->format('H:m')}}
@@ -44,7 +48,7 @@
                                     <form action="{{ action('PostsController@destroy', ['id' => $post->id]) }}" method="post">
                                         @csrf
                                         @method('DELETE')
-                                        <button  style="border: transparent; color: tomato;" type="submit" class="btn btn-default btn-block" ><i class="fas fa-trash-alt fa-fw"></i> Delete</button>
+                                        <button style="border: transparent; color: tomato;" type="submit" class="btn btn-default btn-block delete-post" ><i class="fas fa-trash-alt fa-fw"></i> Delete</button>
                                     </form>
                                 </div>
                                 <div class="col-md-2">
@@ -57,18 +61,22 @@
                                     @endif
                                     @if($post->hidden_status == true)
                                         <button  style="border: transparent;" class="btn btn-default btn-block">
-                                            <a href="{{ action('PostsController@hidden', ['id' => $post->id]) }}" title="Click to show this post" >
-                                                <i class="fas fa-eye"></i> Show
+                                            <a href="{{ action('PostsController@hidden', ['id' => $post->id]) }}" title="Click to unhide this post" >
+                                                <i class="fas fa-eye"></i> Unhide
                                             </a>
                                         </button>
                                     @endif
                                 </div>
                                 <div class="col-md-2">
-                                    <button  style="border: transparent; color: tomato;" class="btn btn-default btn-block">
-                                        <a href="{{ action('PostsController@report', ['id' => $post->id]) }}" style="color: tomato;" title="Click to repost this post">
+                                    <form action="{{ action('PostsController@report', ['id' => $post->id]) }}" method="post">
+                                    @csrf
+                                    <button  style="border: transparent; color: tomato;" class="btn btn-default btn-block report-post">
+                                        <!-- <a href="{{ action('PostsController@report', ['id' => $post->id]) }}" style="color: tomato;" title="Click to repost this post">
                                             <i class="fas fa-flag"></i> &nbsp;Report
-                                        </a>
+                                        </a> -->
+                                        <i class="fas fa-flag"></i> &nbsp;Report
                                     </button>
+                                    </form>
                                 </div>
                             </div>
                         </div>
@@ -120,4 +128,28 @@
             </div>
         </div>
     </div>
+@endsection
+
+@section('script')
+    <script>
+        $(document).ready(function() {
+            $('.delete-post').click(function(e) {
+                e.preventDefault();
+                var is_confirm = confirm('Are you sure to delete this post ?');
+
+                if(is_confirm) {
+                    $(e.target).closest('form').submit();
+                }
+            });
+
+            $('.report-post').click(function(e) {
+                e.preventDefault();
+                var is_confirm = confirm('Are you sure to report this post ?');
+
+                if(is_confirm) {
+                    $(e.target).closest('form').submit();
+                }
+            });
+        });
+    </script>
 @endsection

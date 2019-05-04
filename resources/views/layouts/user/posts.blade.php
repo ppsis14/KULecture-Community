@@ -60,13 +60,11 @@
         </div>
         <br>
 
-        <!-- @if(isset($details))
-            @if($details == null)
+        @if(count($details) == 0)
             <div class="row">
                 <h4 style="text-align: center;">No posts</h4>
             </div>
-            @endif
-        @endif -->
+        @endif
 
         <div class="row">
             @foreach($details as $post)
@@ -93,7 +91,7 @@
                         @endforeach
                     </small></p>
                     <p class="card-text"><small class="text-muted">Created: {{$post->created_at->format('j F Y')}} at {{$post->created_at->format('H:m')}}
-                    &nbsp;Last updated: {{$post->updated_at->format('j F Y')}} at {{$post->updated_at->format('H:m')}}</small>&nbsp;&nbsp;&nbsp;&nbsp;<span><i class="fas fa-download fa-fw"></i>&nbsp;&nbsp;10</span></p>
+                    &nbsp;Last updated: {{$post->updated_at->format('j F Y')}} at {{$post->updated_at->format('H:m')}}</small>&nbsp;&nbsp;&nbsp;&nbsp;</p>
                     <hr>
                     <p> 
                         <div class="col-md-2">
@@ -121,7 +119,7 @@
                             @endif
                             @if($post->hidden_status == true)
                                 <button  style="border: transparent;" class="btn">
-                                    <a href="{{ action('PostsController@hidden', ['id' => $post->id]) }}" title="Click to show this post" >
+                                    <a href="{{ action('PostsController@hidden', ['id' => $post->id]) }}" title="Click to unhide this post" >
                                         <i class="fas fa-eye"></i>
                                     </a>
                                 </button>
