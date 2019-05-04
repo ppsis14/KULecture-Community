@@ -16,7 +16,7 @@
             </div> 
         @endif
         <div class="row">
-            <div class="col-md-8">
+            <div class="col-md-12">
                 <div class="card">
                     <div class="header">
                         <h4 class="title">Edit Profile</h4>
@@ -54,7 +54,7 @@
                             </div>
                     
                             <div class="row">
-                                <div class="col-md-12">
+                                <div class="col-md-6">
                                     <div class="form-group">
                                         <label for="exampleInputEmail1">Facebook</label>
                                         
@@ -64,13 +64,9 @@
                                                     {{ $errors->first('facebook') }}
                                                 </div>
                                             @endif
-                                        
                                     </div>
                                 </div>
-                            </div>
-                            
-                            <div class="row">
-                                <div class="col-md-12">
+                                <div class="col-md-6">
                                     <div class="form-group">
                                         <label for="exampleInputEmail1">Twitter</label>
                                         
@@ -85,7 +81,7 @@
                                 </div>
                             </div>
                             <div class="row">
-                                <div class="col-md-12">
+                                <div class="col-md-6">
                                     <div class="form-group">
                                         <label for="exampleInputEmail1">Instagram</label>
                                         
@@ -95,12 +91,9 @@
                                                     {{ $errors->first('ig') }}
                                                 </div>
                                             @endif
-                                        
                                     </div>
                                 </div>
-                            </div>
-                            <div class="row">
-                                <div class="col-md-12">
+                                <div class="col-md-6">
                                     <div class="form-group">
                                         <label for="exampleInputEmail1">Line ID</label>
                                         
@@ -110,7 +103,6 @@
                                                     {{ $errors->first('line') }}
                                                 </div>
                                             @endif
-                                        
                                     </div>
                                 </div>
                             </div>
@@ -118,7 +110,7 @@
                                 <div class="col-md-12">
                                     <div class="form-group">
                                         <label>About Me</label>
-                                        <textarea rows="5" class="form-control" name="bio" placeholder="Here can be your description">{{ $profile->bio}}</textarea>
+                                        <textarea rows="5" class="form-control" name="bio" placeholder="Text something to describe ypur persoanlity">{{ $profile->bio}}</textarea>
                                     </div>
                                 </div>
                             </div>
