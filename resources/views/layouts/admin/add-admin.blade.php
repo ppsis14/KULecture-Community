@@ -4,6 +4,25 @@
     <i class="pe-7s-add-user"></i>&nbsp;&nbsp;Add New Amin
 @endsection
 @section('content')
+    <!-- @if(session()->has('jsAlerrt'))
+    <script>
+        var msg ='{{Session::get('jsAlert')}}';
+        var exist = '{{Session::has('jsAlert')}}';
+        if(exist){
+            alert(msg);
+        }
+        // alert({{session()->get('jsAlert')}});
+    </script>
+    @endif -->
+    @if ($errors->any())
+    <div class="alert alert-danger">
+        <ul>
+            @foreach ($errors->all() as $error)
+                <li>{{ $error }}</li>
+            @endforeach
+        </ul>
+    </div>
+    @endif
     <div class="container-fluid">
         <div class="row">
             <div class="col-md-8">
@@ -12,12 +31,13 @@
                         <h4 class="title">Create New Admin</h4>
                     </div>
                     <div class="content">
-                        <form>
+                        <form action="{{URL::to('/admin/insert')}}" method="post">
+                        @csrf
                             <div class="row">
                                 <div class="col-md-12">
                                     <div class="form-group">
                                         <label>First Name</label>
-                                        <input type="text" class="form-control" placeholder="Enter First Name">
+                                        <input type="text" name="firstName" class="form-control" placeholder="Enter First Name">
                                     </div>
                                 </div>
                             </div>
@@ -25,7 +45,7 @@
                                 <div class="col-md-12">
                                     <div class="form-group">
                                         <label>Last Name</label>
-                                        <input type="text" class="form-control" placeholder="Enter Last Name">
+                                        <input type="text" name="lastName" class="form-control" placeholder="Enter Last Name">
                                     </div>
                                 </div>
                             </div>
@@ -33,7 +53,7 @@
                                 <div class="col-md-12">
                                     <div class="form-group">
                                         <label>Email</label>
-                                        <input type="text" class="form-control" placeholder="Enter Email">
+                                        <input type="text" name="email" class="form-control" placeholder="Enter Email">
                                     </div>
                                 </div>
                             </div>
@@ -41,7 +61,7 @@
                                 <div class="col-md-12">
                                     <div class="form-group">
                                         <label>Password</label>
-                                        <input type="password" class="form-control" placeholder="Enter new password">
+                                        <input type="password" name="password" class="form-control" placeholder="Enter new password">
                                     </div>
                                 </div>
                             </div>
@@ -49,7 +69,7 @@
                                 <div class="col-md-12">
                                     <div class="form-group">
                                         <label>Confirm your password</label>
-                                        <input type="password" class="form-control" placeholder="Enter password to confirm">
+                                        <input type="password" name="confirmPassword" class="form-control" placeholder="Enter password to confirm">
                                     </div>
                                 </div>
                             </div>

@@ -17,7 +17,7 @@
                                 <div class="col-md-12">
                                     <div class="form-group">
                                         <label>Current Password</label>
-                                        <input type="password" class="form-control" placeholder="Your current password">
+                                        <input type="password" name="currentPassword" class="form-control" placeholder="Your current password">
                                     </div>
                                 </div>
                             </div>
@@ -25,7 +25,7 @@
                                 <div class="col-md-12">
                                     <div class="form-group">
                                         <label>New Password</label>
-                                        <input type="password" class="form-control" placeholder="Enter new password">
+                                        <input type="password" name="newPassword" class="form-control" placeholder="Enter new password">
                                     </div>
                                 </div>
                             </div>
@@ -33,7 +33,7 @@
                                 <div class="col-md-12">
                                     <div class="form-group">
                                         <label>Confirm your new password</label>
-                                        <input type="password" class="form-control" placeholder="Enter new password to confirm">
+                                        <input type="password" name="confirmPassword" class="form-control" placeholder="Enter new password to confirm">
                                     </div>
                                 </div>
                             </div>
