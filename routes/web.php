@@ -30,11 +30,10 @@ Route::get('/user/explorer', 'ExplorePostsController@index');
 Route::get('/user/explorer/search', 'ExplorePostsController@search');
 Route::get('/user/explorer/advance', 'ExplorePostsController@advance');
 
-
-
-Route::get('/user/posts', 'PostsController@index');
-Route::get('/user/posts/edit', 'PostsController@update');
-Route::get('/user/posts/create', 'PostsController@create');
+Route::resource('/user/posts', 'PostsController');
+Route::get('/user/posts/hidden/{id}', 'PostsController@hidden');
+Route::get('/user/posts/report/{id}', 'PostsController@report');
+Route::get('/user/posts/download/{file_name}', 'PostsController@download');
 
 Route::get('login/google', 'Auth\LoginGoogleController@redirectToProvider');
 Route::get('login/google/callback', 'Auth\LoginGoogleController@handleProviderCallback');
