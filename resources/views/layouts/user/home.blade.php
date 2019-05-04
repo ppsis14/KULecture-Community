@@ -22,12 +22,14 @@
                                     </h4>
                                 </a>
                         </div><br><br>
+                        @if(!is_null($profile->bio))
                         <div class="card-body">
                             <hr><br>
                             <div class="container-bio">
                                 <p class="description"> {{ $profile->bio }}</p>
                             </div>
                         </div>
+                        @endif
                     </div>
                     <hr>
                     <div class="text-center">
