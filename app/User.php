@@ -38,8 +38,13 @@ class User extends Authenticatable
         'email_verified_at' => 'datetime',
     ];
 
-    public function contacts(){
-        return $this->hasMany('\App\UserContact');
+    // public function contacts(){
+    //     return $this->hasMany('\App\UserContact');
+    // }
+
+    // 01/05/62
+    public function posts() {
+        return $this->hasMany('\App\Post');
     }
 
 }

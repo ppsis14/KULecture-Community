@@ -1,27 +1,21 @@
-<<<<<<< HEAD
 <?php
 
 namespace App;
 
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
+use Conner\Tagging\Taggable;
 
 class Post extends Model
 {
     use SoftDeletes;
-    protected $fillable = ['post_title', 'post_detail', 'post_tag', 'hidden_status'];
+    use Taggable;
+    
+    protected $fillable = ['post_title', 'post_detail', 'post_tag', 'hidden_status', 'post_cover', 'description', 'category', 'report_status', 'file'];
+
+    // 01/05/62
+    public function user()
+    {
+        return $this->belongsTo('App\User')->nullable();
+    }
 }
-=======
-<?php
-
-namespace App;
-
-use Illuminate\Database\Eloquent\Model;
-use Illuminate\Database\Eloquent\SoftDeletes;
-
-class Post extends Model
-{
-    use SoftDeletes;
-    protected $fillable = ['post_title', 'post_detail', 'post_tag', 'hidden_status'];
-}
->>>>>>> 08742661ee61e2e95f5f69d499da22a0526c1500

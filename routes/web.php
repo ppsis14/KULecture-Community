@@ -29,13 +29,14 @@ Route::get('/user/login', 'UsersLoginController@index');
 Route::get('/user/explorer', 'ExplorePostsController@index');
 Route::get('/user/explorer/search', 'ExplorePostsController@search');
 Route::get('/user/explorer/advance', 'ExplorePostsController@advance');
-<<<<<<< HEAD
-Route::get('/user/editprofile', 'EditProfileController@index');
-=======
 // Route::get('/user/editprofile', 'EditProfileController@index');
->>>>>>> 08742661ee61e2e95f5f69d499da22a0526c1500
 Route::get('/user/home', 'HomeUsersController@index');
-Route::get('/user/posts', 'PostsController@index');
+// Route::get('/user/posts', 'PostsController@index');
+Route::resource('/user/posts', 'PostsController');
+Route::get('/user/posts/hidden/{id}', 'PostsController@hidden');
+Route::get('/user/posts/report/{id}', 'PostsController@report');
+Route::get('/user/posts/download/{file_name}', 'PostsController@download');
+// Route::get('autocomplete', 'PostsController@autocomplete')->name('autocomplete');
 Route::get('/user/posts/edit', 'PostsController@update');
 Route::get('/user/posts/create', 'PostsController@create');
 

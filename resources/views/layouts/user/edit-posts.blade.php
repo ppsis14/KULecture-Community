@@ -2,74 +2,107 @@
 @section('title-page', 'User Edit Post')
 @section('header', 'Edit Post')
 @section('content')
+
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/css/bootstrap.min.css" />
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-tagsinput/0.8.0/bootstrap-tagsinput.css" />
+	<script src="http://demo.itsolutionstuff.com/plugin/jquery.js"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-tagsinput/0.8.0/bootstrap-tagsinput.js"></script>
+    
     <div class="container-fluid">
         <div class="row">
             <div class="col-md-12">
                 <div class="card">
                     <div class="header">
-                        <h4 class="title">Edit Post</h4>
+                        <!-- <h4 class="title">Edit Post</h4> -->
                     </div>
                     <div class="content">
-                        <form>
-                            <h5>Information</h5><hr>
+                        <form action="{{ action('PostsController@update', ['id' => $post->id]) }}" method="post" enctype="multipart/form-data">
+                            @csrf
+                            @method('PUT')
                             <div class="row">
                                 <div class="col-md-12">
                                     <div class="form-group">
                                         <label>title</label>
-                                        <input rows="5" class="form-control" placeholder="Title">
+                                        <input rows="5" name="title" id="title" placeholder="Title" class="form-control {{ $errors->has('title') ? 'is-invalid' : '' }}" value="{{ old('title', $post->post_title)}}">
+                                        @if ($errors->has('title'))
+                                            <div class="invalid-feedback" style="color: red">
+                                                {{ $errors->first('title')}}
+                                            </div>
+                                        @endif
                                     </div>
                                 </div>
                             </div>
+
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <div class="form-group">
+                                        <label>image cover</label>
+                                        <input type="file" name="image" accept="image/*" class="form-control-file" id="image" value="{{ old('image')}}" onchange="readURL(this);">
+                                        <br>
+                                        @if($post->post_cover == null)
+                                            <img src="" id="profile-img-tag" width="300px" style="display: none"/>
+                                        @endif
+                                        @if($post->post_cover != null)
+                                            <img src="{{ URL::to('/') }}/images/{{ $post->post_cover }}" id="profile-img-tag" width="300px"/>
+                                        @endif
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <div class="form-group">
+                                        <label>description</label>
+                                        <input rows="5" name="description" class="form-control" value="{{ old('description', $post->description) }}">
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label for="category">category</label><br>
+                                        <select class="form-control" id="category" name="category" value="{{ old('category', $post->category) }}">
+                                            <option value="{{$post->category}}">{{$post->category}}</option>   
+                                            
+                                            @foreach($categorys as $category)
+                                                @if($post->category != $category)
+                                                    <option value="{{ $category}}" >{{ $category}}</option>
+                                                @endif
+                                            @endforeach
+                                        </select>
+
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label>Tags:</label>
+                                        <br/>
+                                        <input data-role="tagsinput" type="text" name="tags" id="input-tags" class="typeahead form-control" value="{{ old('tags', $post->post_tag)}}">
+                                    </div>
+                                </div>
+                            </div>
+
                             <div class="row">
                                 <div class="col-md-12">
                                     <div class="form-group">
                                         <label>detail</label>
-                                        <textarea rows="3" class="form-control" id="editor1" placeholder="Here can be your description">Lamborghini Mercy, Your chick she so thirsty, I'm in that two seat Lambo.</textarea>
-                                    </div>
-                                </div>
-                            </div>
-                            <h5>Contact</h5><hr>
-                            <div class="row">
-                                <div class="col-md-6">
-                                    <div class="form-group">
-                                        <label for="exampleInputEmail1">Email address</label>
-                                        <input type="email" class="form-control" placeholder="Email">
-                                    </div>
-                                </div>
-                                <div class="col-md-6">
-                                    <div class="form-group">
-                                        <label for="exampleInputEmail1">Facebook</label>
-                                        <input type="facebook" class="form-control" placeholder="Facebook">
+                                        <textarea name="post_detail" rows="3" class="form-control" id="editor1" >{{ old('detail', $post->post_detail) }}</textarea>
                                     </div>
                                 </div>
                             </div>
                             <h5>Upload Files</h5><hr>
                             <div class="row">
                                 <div class="col-md-6">
-                                    <form>
                                       <div class="form-group">
                                         <label for="exampleFormControlFile1">Example file input</label>
-                                        <input type="file" class="form-control-file" id="exampleFormControlFile1">
+                                        <input type="file" name="file[]" id="file" class="form-control-file" multiple>
                                       </div>
-                                    </form>
-                                </div>
-                                <div class="col-md-6">
-                                    <div class="form-check">
-                                      <input class="form-check-input" type="radio" name="exampleRadios" id="exampleRadios1" value="option1" checked>
-                                      <label class="form-check-label" for="exampleRadios1">
-                                        Free Download
-                                      </label>
-                                    </div>
-                                    <div class="form-check">
-                                      <input class="form-check-input" type="radio" name="exampleRadios" id="exampleRadios2" value="option2">
-                                      <label class="form-check-label" for="exampleRadios2">
-                                        Sale
-                                      </label>
-                                  </div>
                                 </div>
                             </div>
                             <hr>
-                            <button type="submit" class="btn btn-info btn-fill pull-right">Create Post</button>
+                            <button type="submit" class="btn btn-info btn-fill pull-right">Edit Post</button>
                             <div class="clearfix"></div>
                         </form>
                     </div>
@@ -83,4 +116,24 @@
     <script>
         CKEDITOR.replace( 'editor1' );
     </script>
+    <script type="text/javascript">
+        function readURL(input) {
+            if (input.files && input.files[0]) {
+                var reader = new FileReader();
+                
+                reader.onload = function (e) {
+                    $('#profile-img-tag').attr('src', e.target.result);
+                    $('#profile-img-tag').show();
+                }
+                reader.readAsDataURL(input.files[0]);
+            }
+        }
+        $("#profile-img").change(function(){
+            readURL(this);
+        });
+    </script>
+
+<script type="text/javascript">
+	$('#input-tags').tagsInput();
+</script>
 @endsection
