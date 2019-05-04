@@ -9,10 +9,10 @@
                     <div class="row">
                         <div class="col-md-6">
                         @if($post->post_cover == null)
-                            <img src="http://lorempixel.com/640/480/" class="card-img-top" alt="Card image cap" width="545" height="auto"/>
+                            <img src="http://lorempixel.com/640/480/" class="card-img-top" alt="Card image cap" width="100%"/>
                         @endif
                         @if($post->post_cover != null)
-                            <img src="{{ URL::to('/') }}/images/{{ $post->post_cover }}" class="card-img-top" alt="Card image cap" width="545" height="auto"/>
+                            <img src="{{ URL::to('/') }}/images/{{ $post->post_cover }}" class="card-img-top" alt="Card image cap" width="100%"/>
                         @endif
                         </div>
                         <div class="col-md-6">
