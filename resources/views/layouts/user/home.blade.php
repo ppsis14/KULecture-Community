@@ -14,45 +14,79 @@
                     <br>
                     <div class="content">
                         <div class="author">
-                             <a href="#">
                             <img class="avatar border-gray" src="{{ $profile->avatar }}" alt="..."/>
                                 <br>
-                              <h4 class="title">{{ Auth::user()->username }}<br /><br>
-                                 <small>{{ Auth::user()->name }}</small>
-                              </h4>
-                            </a>
-                        </div><br>
-                        <div class="container-fluid">
-                            <p class="description text-center"> {{ $profile->bio }}</p>
+                                <a href="{{ action('HomeUserController@show', ['id' => Auth::user()->id]) }}">
+                                    <h4 class="title">{{ Auth::user()->username }}<br><br>
+                                    <small>{{ Auth::user()->name }}</small>
+                                    </h4>
+                                </a>
+                        </div><br><br>
+                        <div class="card-body">
+                            <hr><br>
+                            <div class="container-bio">
+                                <p class="description"> {{ $profile->bio }}</p>
+                            </div>
                         </div>
                     </div>
                     <hr>
                     <div class="text-center">
                         <button href="#" class="btn btn-simple"><i class="fas fa-envelope"></i></button> <span>{{ Auth::user()->email }}</span>
                     </div>
+                    @if(!is_null($profile->facebook))
                     <div class="text-center">
                         <button href="#" class="btn btn-simple"><i class="fas fa-envelope"></i></button> <span>{{ $profile->facebook }}</span>
                     </div>
+                    @endif
+                    @if(!is_null($profile->instagram))
                     <div class="text-center">
                         <button href="#" class="btn btn-simple"><i class="fas fa-envelope"></i></button> <span>{{ $profile->instagram }}</span>
                     </div>
+                    @endif
+                    @if(!is_null($profile->twitter))
+                    <div class="text-center">
+                        <button href="#" class="btn btn-simple"><i class="fas fa-envelope"></i></button> <span>{{ $profile->twitter }}</span>
+                    </div>
+                    @endif
+                    @if(!is_null($profile->line))
+                    <div class="text-center">
+                        <button href="#" class="btn btn-simple"><i class="fas fa-envelope"></i></button> <span>{{ $profile->line }}</span>
+                    </div>
+                    @endif
                 </div>
             </div>
-            <div class="col-sm-4">
-                <div class="card text-black" style="padding: 30px;" align="center" >
-                  <div class="card-header"><h2 class="card-title">Posts</h2></div>
-                  <div class="card-body">
-                    <p class="card-text"><h3>3</h3></p>
-                  </div>
-                </div>
+        </div>
+        <div class="row">
+            <div class="col-sm-3">
+                <a href="">
+                    <div class="card text-black" style="padding: 30px;" align="center" >
+                        <div class="card-header"><h2 class="card-title">Posts</h2></div>
+                        <div class="card-body">
+                            <p class="card-text"><h3>3</h3></p>
+                        </div>
+                    </div>
+                </a>
+                
             </div>
             <div class="col-sm-4">
-                <div class="card text-black" style="padding: 30px;" align="center" >
-                  <div class="card-header"><h2 class="card-title">Download</h2></div>
-                  <div class="card-body">
-                    <p class="card-text"><h3>22</h3></p>
-                  </div>
-                </div>
+                <a href="">
+                    <div class="card text-black" style="padding: 30px;" align="center" >
+                        <div class="card-header"><h2 class="card-title">Hidden Posts</h2></div>
+                        <div class="card-body">
+                            <p class="card-text"><h3>22</h3></p>
+                        </div>
+                    </div>     
+                </a>
+            </div>
+            <div class="col-sm-5">
+                <a href="">
+                    <div class="card text-black" style="padding: 30px;" align="center" >
+                        <div class="card-header"><h2 class="card-title">Reported Posts</h2></div>
+                        <div class="card-body">
+                            <p class="card-text"><h3>22</h3></p>
+                        </div>
+                    </div>
+                </a>  
             </div>
         </div>
     </div>

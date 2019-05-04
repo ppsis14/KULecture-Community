@@ -16,7 +16,6 @@ class CreatePostsTable extends Migration
         Schema::create('posts', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->unsignedbigInteger('user_id');
-            $table->string('username');
             $table->string('post_title');
             $table->string('post_cover')->nullable();
             $table->string('description')->nullable();
@@ -32,10 +31,6 @@ class CreatePostsTable extends Migration
             ->on('users')
             ->onDelete('cascade');
             
-            $table->foreign('username')
-            ->references('username')
-            ->on('users')
-            ->onDelete('cascade');;
             $table->timestamps();
             $table->softDeletes();
         });

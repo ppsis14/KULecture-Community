@@ -74,7 +74,6 @@ class PostsController extends Controller
         $tags = explode(",", $request->tags);
     
         $post->user_id = $user->id;
-        $post->username = $user->username;
         $post->post_title = $request->input('title');
         $post->description = $request->input('description');
         $post->post_detail = $request->input('post_detail');
