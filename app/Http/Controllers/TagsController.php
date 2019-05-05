@@ -11,7 +11,7 @@ class TagsController extends Controller
     public function show($tag) 
     {
         $posts = Post::withAnyTag($tag)->where('hidden_status', false)->orderBy('updated_at', 'desc')->paginate(10);
-        $categorys = ['Lecture', 'Book', 'Apartment', 'Appliance', 'News', 'Sport', 'Other..'];
+        $categorys = ['Books', 'Lectures', 'Domitory', 'Electronics', 'News', 'Sports', 'Others'];
 
         return view('layouts.user.tag', ['categorys' => $categorys, 'tag' => $tag])->withDetails($posts);
     }
@@ -50,7 +50,7 @@ class TagsController extends Controller
             $key_tags = ', Tags: ' . $request->input('tags');
         }
 
-        $categorys = ['Lecture', 'Book', 'Apartment', 'Appliance', 'News', 'Sport', 'Other..'];
+        $categorys = ['Books', 'Lectures', 'Domitory', 'Electronics', 'News', 'Sports', 'Others'];
         $dropdown = $category;
 
         $q = $key_title . $key_category . $key_tags;

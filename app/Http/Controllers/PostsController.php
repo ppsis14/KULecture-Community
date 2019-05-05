@@ -22,7 +22,7 @@ class PostsController extends Controller
     public function index()
     {
         $posts = Post::where('user_id', Auth::user()->id)->orderBy('updated_at', 'desc')->paginate(10);
-        $categorys = ['Lecture', 'Book', 'Apartment', 'Appliance', 'News', 'Sport', 'Other..'];
+        $categorys = ['Books', 'Lectures', 'Domitory', 'Electronics', 'News', 'Sports', 'Others'];
         $dropdown = 'All';
 
         return view('layouts.user.posts',compact('posts'), ['categorys' => $categorys, 'dropdown' => $dropdown])->withDetails($posts);;
@@ -36,7 +36,7 @@ class PostsController extends Controller
     public function create()
     {
         $this->authorize('create', Post::class);
-        $categorys = ['Lecture', 'Book', 'Apartment', 'Appliance', 'News', 'Sport', 'Other..'];
+        $categorys = ['Books', 'Lectures', 'Domitory', 'Electronics', 'News', 'Sports', 'Others'];
         return view('layouts.user.create-posts', ['categorys' => $categorys]);
     }
 
@@ -121,7 +121,7 @@ class PostsController extends Controller
     {
         $post = Post::findOrFail($id);
         $this->authorize('update', $post);
-        $categorys = ['Lecture', 'Book', 'Apartment', 'Appliance', 'News', 'Sport', 'Other..'];
+        $categorys = ['Books', 'Lectures', 'Domitory', 'Electronics', 'News', 'Sports', 'Others'];
         return view('layouts.user.edit-posts' , ['post' => $post, 'categorys' => $categorys]);
     }
 
@@ -188,6 +188,10 @@ class PostsController extends Controller
         $this->authorize('delete', $post);
 
         $post->delete();
+
+        if(Auth::user()->isAdmin())
+            return view('layouts.admin.post-management');
+
         return redirect()->action('PostsController@index')->with('success','The post had delete');
     }
 
@@ -250,7 +254,7 @@ class PostsController extends Controller
     public function category($category) 
     {
         $posts = Post::where('category', $category)->paginate(10);
-        $categorys = ['Lecture', 'Book', 'Apartment', 'Appliance', 'News', 'Sport', 'Other..'];
+        $categorys = ['Books', 'Lectures', 'Domitory', 'Electronics', 'News', 'Sports', 'Others'];
         $dropdown = $category;
 
         return view('layouts.user.posts', ['categorys' => $categorys, 'dropdown' => $dropdown])->withDetails($posts);
@@ -259,7 +263,7 @@ class PostsController extends Controller
     public function search(Request $request, $dropdown) 
     {
         $key = $request->input('key');
-        $categorys = ['Lecture', 'Book', 'Apartment', 'Appliance', 'News', 'Sport', 'Other..'];
+        $categorys = ['Books', 'Lectures', 'Domitory', 'Electronics', 'News', 'Sports', 'Others'];
 
         if($dropdown == 'All') {
             $posts = Post::where('user_id', Auth::user()->id)
@@ -321,7 +325,7 @@ class PostsController extends Controller
             $key_tags = ', Tags: ' . $request->input('tags');
         }
 
-        $categorys = ['Lecture', 'Book', 'Apartment', 'Appliance', 'News', 'Sport', 'Other..'];
+        $categorys = ['Books', 'Lectures', 'Domitory', 'Electronics', 'News', 'Sports', 'Others'];
         $dropdown = $category;
 
         $q = $key_title . $key_category . $key_tags;
