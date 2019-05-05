@@ -3222,7 +3222,7 @@ fieldset[disabled] .btn-neutral.active {
     overflow-y:scroll;
 }
 
-.social-container {
+.social-container, .post-action-container {
     padding: 10px;
     margin: 10px;
     list-style: none;

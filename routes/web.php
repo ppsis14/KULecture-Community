@@ -25,7 +25,9 @@ Route::delete('/admin/users/{id}', 'UsersManagementController@destroy');
 Route::get('/admin/posts', 'PostsManagementController@index');
 Route::get('/admin/addadmin', 'AddNewAdminController@index');
 Route::get('/admin/changepassword', 'ChangePasswordController@index');
-Route::post('/admin/changepw','ChangePasswordController@update');
+Route::post('/admin/changepassword','ChangePasswordController@update');
+Route::get('/admin/notifications', 'AdminNotificationsController@index');
+
 Route::get('/user/login', 'UsersLoginController@index');
 Route::get('/user/explorer', 'ExplorePostsController@index');
 Route::get('/user/explorer/search/{category}', 'ExplorePostsController@search');
