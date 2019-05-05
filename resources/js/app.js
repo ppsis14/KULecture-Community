@@ -30,4 +30,13 @@ Vue.component('example-component', require('./components/ExampleComponent.vue').
 
 const app = new Vue({
     el: '#app',
+    data : {
+        title: 'Manage Users',
+        showTitle: true
+    },
+    methods: {
+        toggleTitle: function () {
+            this.showTitle = !this.showTitle;
+        } 
+    }
 });

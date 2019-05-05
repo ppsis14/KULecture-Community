@@ -66,7 +66,7 @@
                     <div class="card text-black" style="padding: 30px;" align="center" >
                         <div class="card-header"><h2 class="card-title">Posts</h2></div>
                         <div class="card-body">
-                            <p class="card-text"><h3>3</h3></p>
+                            <p class="card-text"><h3>{{$all_post}}</h3></p>
                         </div>
                     </div>
                 </a>
@@ -77,7 +77,7 @@
                     <div class="card text-black" style="padding: 30px;" align="center" >
                         <div class="card-header"><h2 class="card-title">Hidden Posts</h2></div>
                         <div class="card-body">
-                            <p class="card-text"><h3>22</h3></p>
+                            <p class="card-text"><h3>{{$hidden_post}}</h3></p>
                         </div>
                     </div>     
                 </a>
@@ -87,7 +87,7 @@
                     <div class="card text-black" style="padding: 30px;" align="center" >
                         <div class="card-header"><h2 class="card-title">Reported Posts</h2></div>
                         <div class="card-body">
-                            <p class="card-text"><h3>22</h3></p>
+                            <p class="card-text"><h3>{{$report_post}}</h3></p>
                         </div>
                     </div>
                 </a>  
