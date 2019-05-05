@@ -18,7 +18,7 @@
     <!-- Google signin  -->
     <meta name="google-signin-client_id" content="501911460198-chei8vru21ruejjfriuo787pebs0oaee.apps.googleusercontent.com">
 
-    <title>KU NSC Sign in</title>
+    <title>@yield('title')</title>
 </head>
 <body >
     <section>

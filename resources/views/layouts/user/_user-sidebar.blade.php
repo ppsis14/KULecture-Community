@@ -1,8 +1,10 @@
 <div class="logo">
     <a href="{{ action('HomeUserController@show', ['id' => Auth::user()->id]) }}" class="simple-text">
-        <div class="form-title">
+        <div class="row justify-content-center">
+            <img src="/img/kunsc-logo.png" alt="" class="logo-img">
+        </div>
+         <div class="form-title">
             <div class="name-box">
-                <div class="name">KU NSC</div>
                 <h6 class="full-name">KU Knowledge Share Community</h6>
             </div>
         </div>
