@@ -56,19 +56,19 @@
             </div>
         </div>
         <div class="row">
-            <div class="col-md-6">
+            <div class="col-md-12">
                 <div class="card ">
                     <div class="header">
                         <h4 class="title">2014 Sales</h4>
                         <p class="category">All products including Taxes</p>
                     </div>
                     <div class="content">
-                        <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.7.1/Chart.min.js" charset="utf-8"></script>
-
-                        {!! $chart->script() !!}
                         <div id="panel-body" class="ct-chart">
                             {!! $chart->container() !!}
                         </div>
+                        <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.7.1/Chart.min.js" charset="utf-8"></script>
+
+                        {!! $chart->script() !!}
 
                         <div class="footer">
                             <!-- <div class="legend">
