@@ -26,7 +26,6 @@ Route::get('/admin/posts', 'PostsManagementController@index');
 Route::get('/admin/addadmin', 'AddNewAdminController@index');
 Route::get('/admin/changepassword', 'ChangePasswordController@index');
 Route::post('/admin/changepw','ChangePasswordController@update');
-// Route::resource('/admin/post', 'PostsController');
 
 Route::get('/user/login', 'UsersLoginController@index');
 Route::get('/user/explorer', 'ExplorePostsController@index');
