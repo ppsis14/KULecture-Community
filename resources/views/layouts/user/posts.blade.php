@@ -278,7 +278,7 @@
                 var session_success = '{{ \Session::get('success') }}';
                 showNotification('top', 'center', 'pe-7s-check', session_success, 'danger');
             }else{
-                var session_error = '<b> Error </b> - Your information updating is error, please fill up in filed correctly';
+                var session_error = '<b> Error </b>';
                 showNotification('top', 'center', 'pe-7s-close-circle', session_error, 'danger');
             }
         });

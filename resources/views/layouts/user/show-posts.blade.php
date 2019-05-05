@@ -1,5 +1,5 @@
 @extends('layouts.user.user-master')
-@section('title-page', 'User Edit Post')
+@section('title-page', 'User Post')
 @section('header', 'Post')
 @section('content')
     <div class="content" id="app">
@@ -98,14 +98,16 @@
                                 @endif
 
                                 @if(Auth::user() and Auth::user()->can('unReport', $post))
-                                <div class="col-md-2">
-                                    <form action="{{ action('PostsController@unReport', ['id' => $post->id]) }}" method="post">
-                                    @csrf
-                                    <button  style="border: transparent; color: tomato;" class="btn btn-default btn-block unreport-post" >
-                                        <i class="fas fa-flag"></i> &nbsp;Unreport
-                                    </button>
-                                    </form>
-                                </div>
+                                    @if($post->report_status == true)
+                                    <div class="col-md-2">
+                                        <form action="{{ action('PostsController@unReport', ['id' => $post->id]) }}" method="post">
+                                        @csrf
+                                        <button  style="border: transparent; color: tomato;" class="btn btn-default btn-block unreport-post" >
+                                            <i class="fas fa-flag"></i> &nbsp;Unreport
+                                        </button>
+                                        </form>
+                                    </div>
+                                    @endif
                                 @endif
 
                             </div>
@@ -231,7 +233,7 @@
                 var session_success = '{{ \Session::get('success') }}';
                 showNotification('top', 'center', 'pe-7s-check', session_success, 'danger');
             }else{
-                var session_error = '<b> Error </b> - Your information updating is error, please fill up in filed correctly';
+                var session_error = '<b> Error </b>';
                 showNotification('top', 'center', 'pe-7s-close-circle', session_error, 'danger');
             }
         });

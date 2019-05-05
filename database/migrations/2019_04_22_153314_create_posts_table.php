@@ -20,7 +20,7 @@ class CreatePostsTable extends Migration
             $table->string('post_cover')->nullable();
             $table->string('description')->nullable();
             $table->text('post_detail')->nullable();
-            $table->enum('category', ['Lecture', 'Book', 'Apartment', 'Appliance', 'News', 'Sport', 'Other..']);	
+            $table->enum('category', ['Books', 'Lectures', 'Domitory', 'Electronics', 'News', 'Sports', 'Others']);	
             $table->string('post_tag')->nullable();
             $table->string('files')->nullable();
             $table->boolean('hidden_status');

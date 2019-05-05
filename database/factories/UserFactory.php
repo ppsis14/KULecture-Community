@@ -27,6 +27,7 @@ $factory->define(User::class, function (Faker $faker) {
 
 $factory->state(User::class, 'ADMINISTRATOR', [
     'role' => 'ADMINISTRATOR',
+    'username' => 'admin'
 ]);
 
 $factory->state(User::class, 'USER', [
