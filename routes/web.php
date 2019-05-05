@@ -1,5 +1,4 @@
 <?php
-
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -10,10 +9,12 @@
 | contains the "web" middleware group. Now create something great!
 |
 */
-
-
 Route::resource('/user/home', 'HomeUserController');
 Route::resource('/user/profile', 'UserProfileController');
+Route::get('/', function () {return view('welcome');});
+Route::get('/admin/login', 'AdminsLoginController@index');
+// Route::post('/admin/login', 'AdminsLoginController@login');
+Route::post('/admin/insert','AddNewAdminController@store');
 
 Route::get('/', function () {return view('index');});
 
@@ -24,7 +25,7 @@ Route::delete('/admin/users/{id}', 'UsersManagementController@destroy');
 Route::get('/admin/posts', 'PostsManagementController@index');
 Route::get('/admin/addadmin', 'AddNewAdminController@index');
 Route::get('/admin/changepassword', 'ChangePasswordController@index');
-
+Route::post('/admin/changepw','ChangePasswordController@update');
 Route::get('/user/login', 'UsersLoginController@index');
 Route::get('/user/explorer', 'ExplorePostsController@index');
 Route::get('/user/explorer/search/{category}', 'ExplorePostsController@search');
@@ -46,6 +47,8 @@ Route::get('/user/posts/advance/{id}', 'PostsController@advance');
 
 Route::get('login/google', 'Auth\LoginGoogleController@redirectToProvider');
 Route::get('login/google/callback', 'Auth\LoginGoogleController@handleProviderCallback');
-
 Auth::routes();
 // Route::get('/home', 'HomeController@index')->name('home');
+
+//for notification
+Route::get('notification','AddNewAdminController@notification');
