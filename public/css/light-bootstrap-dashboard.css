@@ -3244,7 +3244,7 @@ fieldset[disabled] .btn-neutral.active {
     height: 25px;
 }
 
-.is-invalid {
+.is-invalid, .invalid-feedback {
     border-color: red;
 }
 
