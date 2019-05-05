@@ -6,23 +6,46 @@
 @section('content')
     <div class="container-fluid">
         <div class="row" id="normal-search">
-            <form action="{{ action('ExplorePostsController@search') }}" role="search" method="get">
-            <div class="col-md-10">
-                <div class="form-group"> 
-                    <input class="form-control" type="text" name="title" placeholder="Search..." aria-label="Search" value="{{ old('title')}}">
-                </div>
-            </div>
             <div class="col-md-2">
-                <div class="form-group">
-                <button type="submit" class="btn" name="button" id="btn-search"><i class="fas fa-search" aria-hidden="true"></i></button>
-                </div>
+                <ul class="nav">
+                    <li class="dropdown">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                            <p>
+                                {{$dropdown}}
+                                <b class="caret"></b>
+                            </p>
+                        </a>
+                            <ul class="dropdown-menu">
+                            @foreach($categorys as $category)
+                            <li><a href="/user/explorer/category/{{ $category}}">{{ $category}}</a></li>
+                            @endforeach
+                            <li class="divider"></li>
+                            <li><a href="{{ action('ExplorePostsController@index')}}">All</a></li>
+                            </ul>
+                    </li>
+                </ul>
             </div>
-            </form>
-
-            <div class="col-md-3">
-                <div class="form-group">
-                    <button type="button" class="btn" name="button" id="btn-advance"><i class="fas fa-search" aria-hidden="true"></i>&nbsp;&nbsp; Advance Search</button>
+            <div class="col-md-4">
+                <form action="{{ action('ExplorePostsController@search', ['dropdown' => $dropdown]) }}" role="search" method="get">
+                <div class="col-md-10">
+                    <div class="form-group"> 
+                        <input class="form-control" type="text" name="title" placeholder="Search..." aria-label="Search" value="{{ old('title')}}">
+                    </div>
                 </div>
+                <div class="col-md-2">
+                    <div class="form-group">
+                    <button type="submit" class="btn" name="button" id="btn-search"><i class="fas fa-search" aria-hidden="true"></i></button>
+                    </div>
+                </div>
+                </form>
+            </div>
+        </div>
+
+        <div class="row" id="normal-search">
+            <div class="col-md-3">
+                    <div class="form-group">
+                        <button type="button" class="btn" name="button" id="btn-advance"><i class="fas fa-search" aria-hidden="true"></i>&nbsp;&nbsp; Advance Search</button>
+                    </div>
             </div>
         </div>
 
@@ -66,11 +89,12 @@
             </div>
         </div>
         <br>
-
-        @if(count($details) == 0)
-            <div class="row">
-                <h4 style="text-align: center;">No posts</h4>
-            </div>
+        @if(isset($details))
+            @if(count($details) == 0)
+                <div class="row">
+                    <h4 style="text-align: center;">No posts</h4>
+                </div>
+            @endif
         @endif
         
         <div class="row">
@@ -87,19 +111,17 @@
                 <div class="card-body">
                   <h4 class="card-title"><a href="{{ action('PostsController@show', ['id' => $post->id]) }}">{{$post->post_title}}</a></h4>
                   <p class="card-text">{{$post->description}}</p>
-                  <p class="card-text"><small class="text-muted">Category: <a>{{$post->category}}</a>&nbsp;&nbsp; 
-                  @if($post->post_tag != null)
+                  <p class="card-text"><small class="text-muted">Category: <a href="/user/explorer/category/{{$post->category}}">{{$post->category}}</a>&nbsp;&nbsp; 
+                    @if($post->post_tag != null)
                         Tag : 
                         @foreach($post->tags as $tag)
-                            <a >#{{$tag->slug}}</a>
+                            <a href="/user/explorer/tag/{{$tag->slug}}">#{{$tag->slug}}</a>
                         @endforeach
                     @endif
                   </small></p>
                   <hr>
-                  <p class="card-text"><small class="text-muted">Post by : <a>{{$post->username}}</a></small></p>
-
-                    <p class="card-text"><small class="text-muted">Created: {{date('j F Y', strtotime($post->created_at))}} at {{date('H:m', strtotime($post->created_at))}}
-                    &nbsp;Last updated: {{date('j F Y', strtotime($post->updated_at))}}  at {{date('H:m', strtotime($post->updated_at))}}</small>&nbsp;&nbsp;&nbsp;&nbsp;
+                    <p class="card-text"><small class="text-muted">Created: {{$post->created_at->format('j F Y')}} at {{$post->created_at->format('H:m')}}
+                    &nbsp;Last updated: {{$post->updated_at->format('j F Y')}} at {{$post->updated_at->format('H:m')}}</small>&nbsp;&nbsp;&nbsp;&nbsp;
                     @if($post->files != null)
                         <span style="color: #9A9A9A;"><i class="fas fa-download fa-fw"></i></span>
                     @endif
@@ -112,7 +134,7 @@
           
             <div class="row">
                 @if(isset($message))
-                    <p>{{ $message }}</p>
+                    <h4 style="text-align: center;">{{ $message }}</h4>
 			    @endif
             </div>
         </div>

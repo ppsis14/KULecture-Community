@@ -24,7 +24,9 @@ class PostsController extends Controller
         // $username = User::select('username')->where('id', Auth::user()->id)->get();
         // dd($posts);
         $categorys = ['Lecture', 'Book', 'Apartment', 'Appliance', 'News', 'Sport', 'Other..'];
-        return view('layouts.user.posts', ['categorys' => $categorys])->withDetails($posts);;
+        $dropdown = 'Category';
+
+        return view('layouts.user.posts', ['categorys' => $categorys, 'dropdown' => $dropdown])->withDetails($posts);;
     }
 
     /**
@@ -209,6 +211,36 @@ class PostsController extends Controller
 
         $file_path = public_path('files/'.$file_name);
         return response()->download($file_path);
+    }
+
+    public function category($category) 
+    {
+        $posts = Post::where('category', $category)->get();
+        $categorys = ['Lecture', 'Book', 'Apartment', 'Appliance', 'News', 'Sport', 'Other..'];
+        $dropdown = $category;
+
+        return view('layouts.user.posts', ['categorys' => $categorys, 'dropdown' => $dropdown])->withDetails($posts);
+    }
+
+    public function search(Request $request, $dropdown) 
+    {
+        $key = $request->input('title');
+        $categorys = ['Lecture', 'Book', 'Apartment', 'Appliance', 'News', 'Sport', 'Other..'];
+
+        if($dropdown == 'Category') {
+            $posts = Post::where('post_title', 'LIKE', '%'. $key . '%')
+            ->get();
+        }
+        else {
+            $posts = Post::where('post_title', 'LIKE', '%'. $key . '%')
+            ->where('category', $dropdown)
+            ->get();
+        }
+
+        if(count($posts) > 0)
+            return view('layouts.user.posts', ['categorys' => $categorys, 'dropdown' => $dropdown])->withQuery($key)->withDetails($posts);
+        
+        return view('layouts.user.posts', ['categorys' => $categorys, 'dropdown' => $dropdown])->withMessage('No posts found')->withQuery($key);
     }
 
 }

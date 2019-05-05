@@ -27,13 +27,17 @@ Route::get('/admin/changepassword', 'ChangePasswordController@index');
 
 Route::get('/user/login', 'UsersLoginController@index');
 Route::get('/user/explorer', 'ExplorePostsController@index');
-Route::get('/user/explorer/search', 'ExplorePostsController@search');
+Route::get('/user/explorer/search/{category}', 'ExplorePostsController@search');
 Route::get('/user/explorer/advance', 'ExplorePostsController@advance');
+Route::get('/user/explorer/category/{category}', 'ExplorePostsController@category');
+Route::get('/user/explorer/tag/{tag}', 'ExplorePostsController@tag');
 
 Route::resource('/user/posts', 'PostsController');
 Route::get('/user/posts/hidden/{id}', 'PostsController@hidden');
 Route::post('/user/posts/report/{id}', 'PostsController@report');
 Route::get('/user/posts/download/{file_name}', 'PostsController@download');
+Route::get('/user/posts/category/{category}', 'PostsController@category');
+Route::get('/user/posts/search/{category}', 'PostsController@search');
 
 Route::get('login/google', 'Auth\LoginGoogleController@redirectToProvider');
 Route::get('login/google/callback', 'Auth\LoginGoogleController@handleProviderCallback');
