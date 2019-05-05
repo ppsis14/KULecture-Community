@@ -20,13 +20,13 @@ class PostsController extends Controller
      */
     public function index()
     {
-        $posts = Post::where('user_id', Auth::user()->id)->get();
+        $posts = Post::where('user_id', Auth::user()->id)->paginate(10);
         // $username = User::select('username')->where('id', Auth::user()->id)->get();
         // dd($posts);
         $categorys = ['Lecture', 'Book', 'Apartment', 'Appliance', 'News', 'Sport', 'Other..'];
-        $dropdown = 'Category';
+        $dropdown = 'All';
 
-        return view('layouts.user.posts', ['categorys' => $categorys, 'dropdown' => $dropdown])->withDetails($posts);;
+        return view('layouts.user.posts',compact('posts'), ['categorys' => $categorys, 'dropdown' => $dropdown])->withDetails($posts);;
     }
 
     /**
@@ -190,19 +190,35 @@ class PostsController extends Controller
         if ($post->hidden_status == false)
             $post->hidden_status = true;
         else if ($post->hidden_status == true)
-        $post->hidden_status = false;
+            $post->hidden_status = false;
         $post->save();
-        return redirect()->action('PostsController@index');
+        return redirect()->action('PostsController@show', ['id' => $post->id])->with('success','Update subject data successfully!');
     }
 
     public function report($id)
     {
         $post = Post::findOrFail($id);
 
-        if ($post->report_status == false)
-            $post->report_status = true;
-        else if ($post->report_status == true)
+        // if ($post->report_status == false)
+        //     $post->report_status = true;
+        // else if ($post->report_status == true)
+        //     $post->report_status = false;
+
+        $post->report_status = true;
+        $post->hidden_status = true;
+        $post->save();
+        return redirect()->action('PostsController@index');
+    }
+
+    public function unReport($id)
+    {
+        $post = Post::findOrFail($id);
+
+        // if ($post->report_status == false)
+        //     $post->report_status = true;
+        // else if ($post->report_status == true)
         $post->report_status = false;
+        $post->hidden_status = false;
         $post->save();
         return redirect()->action('PostsController@index');
     }
@@ -215,7 +231,7 @@ class PostsController extends Controller
 
     public function category($category) 
     {
-        $posts = Post::where('category', $category)->get();
+        $posts = Post::where('category', $category)->paginate(10);
         $categorys = ['Lecture', 'Book', 'Apartment', 'Appliance', 'News', 'Sport', 'Other..'];
         $dropdown = $category;
 
@@ -224,23 +240,81 @@ class PostsController extends Controller
 
     public function search(Request $request, $dropdown) 
     {
-        $key = $request->input('title');
+        $key = $request->input('key');
         $categorys = ['Lecture', 'Book', 'Apartment', 'Appliance', 'News', 'Sport', 'Other..'];
 
-        if($dropdown == 'Category') {
-            $posts = Post::where('post_title', 'LIKE', '%'. $key . '%')
-            ->get();
+        if($dropdown == 'All') {
+            $posts = Post::where('user_id', Auth::user()->id)
+            ->where(function ($query) use ($key) {
+                $query->withAnyTag($key)
+                      ->orWhere('post_title', 'LIKE', '%'. $key . '%');
+            })
+            ->paginate(10)->appends(['key' => $request->input('key'), 'dropdown' => $dropdown]);
         }
         else {
-            $posts = Post::where('post_title', 'LIKE', '%'. $key . '%')
+            $posts = Post::where('user_id', Auth::user()->id)
             ->where('category', $dropdown)
-            ->get();
+            ->where(function ($query) use ($key) {
+                $query->withAnyTag($key)
+                      ->orWhere('post_title', 'LIKE', '%'. $key . '%');
+            })
+            ->paginate(10)->appends(['key' => $request->input('key'), 'dropdown' => $dropdown]);
         }
 
+        
+
         if(count($posts) > 0)
-            return view('layouts.user.posts', ['categorys' => $categorys, 'dropdown' => $dropdown])->withQuery($key)->withDetails($posts);
+            return view('layouts.user.posts',['categorys' => $categorys, 'dropdown' => $dropdown])->withQuery($key)->withDetails($posts);
         
         return view('layouts.user.posts', ['categorys' => $categorys, 'dropdown' => $dropdown])->withMessage('No posts found')->withQuery($key);
+    }
+
+    public function advance(Request $request, $id) 
+    {
+        $title = $request->input('post_title');
+        $category = $request->input('category');
+        $t = $request->input('tags');
+
+        $key_title = '';
+        $key_category = 'Category: ' . $category;
+        $key_tags = '';
+
+        if( $request->input('post_title') != null) {
+            $key_title = 'Title: ' . $request->input('post_title');
+            $key_category = ', Category: ' . $category;
+        }
+        else {
+            
+        }
+
+        if($request->input('tags') == null) {
+            $posts = Post::where('user_id', Auth::user()->id)
+            ->where('category', $category)
+            ->where('post_title', 'LIKE', '%'. $title . '%')
+            ->paginate(10)->appends(['post_title' => $request->input('post_title'), 'category' => $request->input('category'),
+            'tags' => $request->input('tags'), 'id' => $id]);
+        }
+        else {
+            $tags = explode(",", $t);
+            $posts = Post::where('user_id', Auth::user()->id)
+            ->where('category', $category)
+            ->where('post_title', 'LIKE', '%'. $title . '%')
+            ->withAnyTag($tags)
+            ->paginate(10)->appends(['post_title' => $request->input('post_title'), 'category' => $request->input('category'),
+            'tags' => $request->input('tags'), 'id' => $id]);
+            
+            $key_tags = ', Tags: ' . $request->input('tags');
+        }
+
+        $categorys = ['Lecture', 'Book', 'Apartment', 'Appliance', 'News', 'Sport', 'Other..'];
+        $dropdown = $category;
+
+        $q = $key_title . $key_category . $key_tags;
+
+        if(count($posts) > 0)
+            return view('layouts.user.posts', ['categorys' => $categorys, 'dropdown' => $dropdown])->withQuery($q)->withDetails($posts);
+        
+        return view('layouts.user.posts', ['categorys' => $categorys, 'dropdown' => $dropdown])->withMessage('No posts found')->withQuery($q);
     }
 
 }

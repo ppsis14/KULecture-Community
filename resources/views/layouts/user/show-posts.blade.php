@@ -23,7 +23,7 @@
                             <p class="card-text">{{$post->description}}</p>
                             <p class="card-text"><small class="text-muted">Category: <a href="/user/explorer/category/{{$post->category}}">{{$post->category}}</a>&nbsp;&nbsp; Tag :
                             @foreach($post->tags as $tag)
-                                <a href="/user/explorer/tag/{{$tag->slug}}">#{{$tag->slug}}</a>
+                                <a href="/user/explorer/tag/{{$tag->slug}}">{{$tag->slug}}</a>
                             @endforeach
                             </small></p>
                             <p class="card-text"><small class="text-muted">Post by : <a>
@@ -51,16 +51,16 @@
                                         <button style="border: transparent; color: tomato;" type="submit" class="btn btn-default btn-block delete-post" ><i class="fas fa-trash-alt fa-fw"></i> Delete</button>
                                     </form>
                                 </div>
-                                <div class="col-md-2">
+                                <div class="col-md-2" >
                                     @if($post->hidden_status == false)
-                                        <button  style="border: transparent;" class="btn btn-default btn-block">
+                                        <button style="border: transparent;" class="btn btn-default btn-block" onclick="demo.showNotificationHide('top','center')">
                                             <a href="{{ action('PostsController@hidden', ['id' => $post->id]) }}" title="Click to hide this post">
                                                 <i class="fas fa-eye-slash "></i> Hidden
                                             </a>
                                         </button>
                                     @endif
                                     @if($post->hidden_status == true)
-                                        <button  style="border: transparent;" class="btn btn-default btn-block">
+                                        <button  style="border: transparent;" class="btn btn-default btn-block" onclick="demo.showNotificationUnhide('top','center')">
                                             <a href="{{ action('PostsController@hidden', ['id' => $post->id]) }}" title="Click to unhide this post" >
                                                 <i class="fas fa-eye"></i> Unhide
                                             </a>
@@ -71,10 +71,15 @@
                                     <form action="{{ action('PostsController@report', ['id' => $post->id]) }}" method="post">
                                     @csrf
                                     <button  style="border: transparent; color: tomato;" class="btn btn-default btn-block report-post">
-                                        <!-- <a href="{{ action('PostsController@report', ['id' => $post->id]) }}" style="color: tomato;" title="Click to repost this post">
-                                            <i class="fas fa-flag"></i> &nbsp;Report
-                                        </a> -->
                                         <i class="fas fa-flag"></i> &nbsp;Report
+                                    </button>
+                                    </form>
+                                </div>
+                                <div class="col-md-2">
+                                    <form action="{{ action('PostsController@unReport', ['id' => $post->id]) }}" method="post">
+                                    @csrf
+                                    <button  style="border: transparent; color: tomato;" class="btn btn-default btn-block unreport-post" onclick="demo.showNotificationUnReport('top','center')">
+                                        <i class="fas fa-flag"></i> &nbsp;Unreport
                                     </button>
                                     </form>
                                 </div>
@@ -148,6 +153,7 @@
 
                 if(is_confirm) {
                     $(e.target).closest('form').submit();
+                    demo.showNotificationReport('top','center')
                 }
             });
         });

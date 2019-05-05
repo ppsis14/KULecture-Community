@@ -257,7 +257,77 @@ demo = {
                 align: align
             }
         });
-	}
+  },
+
+  showNotificationHide: function(from, align){
+    color = Math.floor((Math.random() * 4) + 1);
+
+    $.notify({
+        icon: "pe-7s-gift",
+        message: "Your post is hide now."
+
+      },{
+          type: type[color],
+          timer: 4000,
+          placement: {
+              from: from,
+              align: align
+          }
+      });
+  },
+
+  showNotificationUnhide: function(from, align){
+    color = Math.floor((Math.random() * 4) + 1);
+
+    $.notify({
+        icon: "pe-7s-gift",
+        message: "Your post is show now."
+
+      },{
+          type: type[color],
+          timer: 4000,
+          placement: {
+              from: from,
+              align: align
+          }
+      });
+  },
+
+  showNotificationUnReport: function(from, align){
+    color = Math.floor((Math.random() * 4) + 1);
+
+    $.notify({
+        icon: "pe-7s-gift",
+        message: "This post is unreport now."
+
+      },{
+          type: type[color],
+          timer: 4000,
+          placement: {
+              from: from,
+              align: align
+          }
+      });
+  },
+
+  showNotificationReport: function(from, align){
+    color = Math.floor((Math.random() * 4) + 1);
+
+    $.notify({
+        icon: "pe-7s-gift",
+        message: "Report success"
+
+      },{
+          type: type[color],
+          timer: 4000,
+          placement: {
+              from: from,
+              align: align
+          }
+      });
+  }
+  
+
 
 
 }

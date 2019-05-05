@@ -40,42 +40,9 @@
     </style>
 
     <div class="container-fluid">
-        <br>
-        <div class="row" id="normal-search" style="text-align: center;">
-            <ul class="nav navbar-nav">
-                <li >
-                    <a >
-                        <p>Category: </p>
-                    </a>
-                </li>
-                <li class="dropdown">
-                    <a href="#" class="dropdown-toggle" data-toggle="dropdown">
-                        <p>
-                            &nbsp;&nbsp;&nbsp;{{$dropdown}}
-                            <b class="caret"></b>
-                        </p>
-                    </a>
-                    <ul class="dropdown-menu">
-                        @foreach($categorys as $category)
-                            <li><a href="/user/explorer/category/{{ $category}}">{{ $category}}</a></li>
-                        @endforeach
-                        <li class="divider"></li>
-                        <li><a href="{{ action('ExplorePostsController@index')}}">All</a></li>
-                    </ul>
-                </li>
-            </ul>
-            <form action="{{ action('ExplorePostsController@search', ['dropdown' => $dropdown]) }}" role="search" method="get">
-                <div class="col-md-8">
-                    <div class="form-group"> 
-                        <input class="form-control" type="text" name="key" placeholder="Search..." aria-label="Search" value="{{ old('title')}}">
-                    </div>
-                </div>
-                <div class="col-md-1">
-                    <div class="form-group">
-                    <button type="submit" class="btn" name="button" id="btn-search"><i class="fas fa-search" aria-hidden="true"></i></button>
-                    </div>
-                </div>
-            </form>
+
+        <div class="row">
+            <h2 style="text-align: center;"><b>Tag: </b> {{ $tag }} </h2> <br>
         </div>
 
         <div class="row" id="normal-search">
@@ -86,10 +53,16 @@
 
         <div class="row" id="normal-search">
                 <div class="form-group" style="text-align: center;">
-                    <button style="border: transparent;" type="button" class="btn" id="btn-normal"><i class="fas fa-search" aria-hidden="true"></i>&nbsp;&nbsp; Back To Normal Search</button>
+                    <button style="border: transparent;" type="button" class="btn" id="btn-normal"><i class="fas fa-search" aria-hidden="true"></i>&nbsp;&nbsp; Back</button>
                 </div>
         </div>
 
+        <div >
+            @if(isset($query))
+            <hr>
+            <h4>The search result for <b>{{ $query }}</b> are :</h4>
+            @endif
+        </div>
         <div class="row" id="advance-search">
             <div class="col-sm-12">
                 <div class="card" style="padding: 20px;">
@@ -117,7 +90,7 @@
                                 <div class="col-md-5">
                                     <div class="form-group">
                                             <label>Tag</label><br/>
-                                            <input style="height: 40px;" data-role="tagsinput" type="text" name="tags" id="input-tags" class="typeahead form-control" value="{{ old('tags')}}">
+                                            <input style="height: 40px;" data-role="tagsinput" type="text" name="tags" id="input-tags" class="typeahead form-control" value="{{ old('tags', $tag)}}">
                                     </div>
                                 </div>
                             </div>
@@ -129,14 +102,7 @@
                 </div>
             </div>
         </div>
-
-        <div >
-            @if(isset($query))
-            <hr>
-            <h4>The search result for <b>{{ $query }}</b> are :</h4>
-            @endif
-        </div>
-
+        <br>
         @if(isset($details))
             @if(count($details) == 0)
                 <div class="row">
