@@ -43,10 +43,5 @@
             <p>Change Password</p>
         </a>
     </li>
-    <li id="change-password">
-        <a href="{{ action('AdminsController@notify') }}">
-            <i class="pe-7s-bell"></i>
-            <p>Noticication</p>
-        </a>
-    </li>
+    
 </ul>

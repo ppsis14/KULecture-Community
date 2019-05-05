@@ -17,7 +17,7 @@ class AdminsLoginController extends Controller
         return view('layouts.admin.admin-login');
         }
         else{
-            return redirect()->back();
+            return abort(404);
         }
     }
 

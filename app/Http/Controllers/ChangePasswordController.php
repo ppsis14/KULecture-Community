@@ -49,7 +49,7 @@ class ChangePasswordController extends Controller
             }
         }
         else{
-            echo "You can't do this.";
+            return abort(404);
         }              
     }
 }
