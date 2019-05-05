@@ -3244,6 +3244,10 @@ fieldset[disabled] .btn-neutral.active {
     height: 25px;
 }
 
+.is-invalid {
+    border-color: red;
+}
+
 @media (max-width: 600px) {
     .social-container {
       -webkit-flex-flow: column wrap;

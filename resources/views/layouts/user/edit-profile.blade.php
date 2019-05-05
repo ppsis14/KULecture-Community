@@ -155,17 +155,13 @@
             
             if({{ \Session::has('success') }}){
                 var session_success = '{{ \Session::get('success') }}';
-                showNotification('top', 'center', 'pe-7s-check', session_success, 'success');
-            }
-
-            else{
-                var session_error = '<b> Error </b> - Your information updating is error!, please fill up in filed correctly';
+                showNotification('top', 'center', 'pe-7s-check', '<b> Success </b>- '+session_success, 'success');
+            }else{
+                var session_error = '<b> Error </b> - Your information updating is error, please fill up in filed correctly';
                 showNotification('top', 'center', 'pe-7s-close-circle', session_error, 'danger');
             }
-
-            
-            
         });
+
         function showNotification(from, align, icon, message, color){
                 $.notify({
                     icon: icon,

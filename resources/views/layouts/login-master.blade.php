@@ -22,19 +22,10 @@
 </head>
 <body >
     <section>
-        <div class="container">
+        <div class="container d-flex justify-content-center">
             @yield('content')
         </div>
     </section>
-
-    <footer id="footer">
-        <div class="inner">
-            <div class="copyright">
-                &copy; Untitled. Design: <a href="https://templated.co">TEMPLATED</a>. Images: <a href="https://unsplash.com">Unsplash</a>.
-            </div>
-
-        </div>
-    </footer>
 
     <script src="{{ url('js/app.js') }}"></script>
 

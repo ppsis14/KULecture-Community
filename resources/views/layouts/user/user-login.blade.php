@@ -3,15 +3,11 @@
     <link rel="stylesheet" href="{{('/css/user-loginStyle.css')}}">
 @endsection
 @section('content')
-    <section id="banner">
-        <div class="login-title">
-            <div class="name-box">
-                <div class="name">KU NSC</div>
-                <h5 class="full-name">KU Knowledge Share Community</h5>
-            </div>
-        </div>
-    </section>
     <article>
+        <div class="row justify-content-center">
+            <img src="/img/kunsc-logo.png" alt="" class="logo-user">
+        </div>
+        <br><br>
         <div class="detail-box">
             <p>Let's share and share your knowledge and experiences with our community.</p>
         </div>

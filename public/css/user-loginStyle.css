@@ -2,7 +2,8 @@
 body {
     margin: 0;
     padding: 0;
-    background-size: cover;
+    background: no-repeat center center fixed;
+    background-size: auto;
     background-image: linear-gradient(to right top, #1c1c87, #2f1f93, #40219f, #5123ab, #6224b7, #7226c0, #8228c9, #922ad2, #a42edb, #b732e4, #c936ec, #dc3af4);
 }
 
@@ -129,61 +130,11 @@ button ~ button {
   margin-left: 20px;
 }
 
-#footer {
-		padding: 1em 0;
-		/* background: #6cc091; */
-		color: #fff;
-		text-align: center;
-	}
+.logo-user {
+    width: 400px;
+    height: 400px;
+}
 
-		#footer h3 {
-			color: #FFF;
-			margin-bottom: 2em !important;
-		}
-
-		#footer label {
-			text-align: left;
-			color: #FFF;
-		}
-
-		#footer .copyright {
-			color: rgba(255, 255, 255, 0.5);
-			font-size: 0.8em;
-			margin: 0 0 2em 0;
-			padding: 0;
-		}
-
-			#footer .copyright a {
-				color: rgba(255, 255, 255, 0.5);
-				text-decoration: none;
-			}
-
-				#footer .copyright a:hover {
-					color: #FFF;
-				}
-
-		@media screen and (max-width: 980px) {
-
-			#footer {
-				padding: 4em 0;
-			}
-
-		}
-
-		@media screen and (max-width: 736px) {
-
-			#footer {
-				padding: 3em 0;
-			}
-
-		}
-
-        #banner {
-                padding: 2em 0 1em 0;
-                text-align: center;
-                position: relative;
-                height: 50vh;
-            }
 
 
                 @media only screen and (min-device-width: 768px) and (max-device-width: 1024px) and (orientation: landscape) {

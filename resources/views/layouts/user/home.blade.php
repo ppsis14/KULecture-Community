@@ -98,17 +98,17 @@
 @section('script')
     <script type="text/javascript">
         $(document).ready(function(){
-            showNotification('top', 'center', 'pe-7s-check', 'Welcome to <b>Light Bootstrap Dashboard</b> - a beautiful freebie for every web developer', 'warning')
-            // $.notify({
-            //     icon: 'pe-7s-gift',
-            //     message: "Welcome to <b>Light Bootstrap Dashboard</b> - a beautiful freebie for every web developer."
+            
+            // if({{ \Session::has('oldUser') }}){
+            //     var session_user = '{{ Session::get('oldUser') }}';
+            //     showNotification('top', 'right', 'pe-7s-check', session_user, 'info');
+            // }
 
-            // },{
-            //     type: 'info',
-            //     timer: 4000
-            // });
-
-            $('#home').addClass('active');
+            if({{ \Session::has('newUser') }}){
+                var session_user = '{{ Session::get('newUser') }}';
+                showNotification('top', 'right', 'pe-7s-bell', session_user, 'info');
+            }
+            
 
             
         });
