@@ -34,7 +34,12 @@
                                         <td>5</td>
                                         <!-- <td>12</td>
                                         <td>Sun, 14 April 2019</td> -->
-                                        <td><button href="#" type="button" onclick="return confirm('Do you want to delete this account?')" class="btn btn-danger btn-sm"><i class="fas fa-trash-alt fa-fw"></i></button></td>
+                                        <td>
+                                        <form action="{{action('UsersManagementController@destroy', ['id' => $user->id])}}" method="post">
+                                            @csrf
+                                            @method('Delete')
+                                            <button onclick="return confirm('Do you want to delete this account?')" class="btn btn-danger btn-sm"><i class="fas fa-trash-alt fa-fw"></i></button></td>
+                                        </form>
                                     </tr>
                                 @endforeach
                                 </tbody>

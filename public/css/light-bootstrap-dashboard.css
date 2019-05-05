@@ -3244,8 +3244,14 @@ fieldset[disabled] .btn-neutral.active {
     height: 25px;
 }
 
-.is-invalid {
+.is-invalid, .invalid-feedback {
     border-color: red;
+}
+
+.logo-img {
+    margin-top: 25px;
+    width: 100px;
+    height: 100px;
 }
 
 @media (max-width: 600px) {

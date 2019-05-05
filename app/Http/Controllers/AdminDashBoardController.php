@@ -6,10 +6,12 @@ use Illuminate\Http\Request;
 use App\User;
 use App\Post;
 use App\Charts\PostType;
+use Illuminate\Support\Facades\Gate;
 
 class AdminDashBoardController extends Controller
 {
     public function showDashBoard(){
+        if(Gate::allows('isAdmin')){
         $users = User::where('role', 'USER')->count();
         $posts = Post::all()->count();
 
@@ -20,6 +22,10 @@ class AdminDashBoardController extends Controller
         $chart->displayAxes(false);
 
         return view('layouts.admin.dashboard', ['users' => $users, 'posts' => $posts, 'chart' => $chart]);
+        }
+        else{
+            echo "You have no permission";
+        }
     }
 
 }

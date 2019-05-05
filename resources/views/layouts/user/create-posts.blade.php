@@ -139,6 +139,7 @@
 @endsection
 @section('script')
     <script src="//cdn.ckeditor.com/4.11.4/full/ckeditor.js"></script>
+    <!-- <script src="//cdn.ckeditor.com/4.11.4/standard/ckeditor.js"></script> -->
     <script>
         CKEDITOR.replace( 'editor1' );
     </script>

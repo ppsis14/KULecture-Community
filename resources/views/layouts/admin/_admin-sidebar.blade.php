@@ -1,8 +1,10 @@
 <div class="logo">
     <a href="{{ action('AdminDashBoardController@showDashBoard') }}" class="simple-text">
-        <div class="form-title">
+        <div class="row justify-content-center">
+            <img src="/img/kunsc-logo.png" alt="" class="logo-img">
+        </div>
+         <div class="form-title">
             <div class="name-box">
-                <div class="name">KU NSC</div>
                 <h6 class="full-name">KU Knowledge Share Community</h6>
             </div>
         </div>
@@ -39,6 +41,12 @@
         <a href="{{ action('ChangePasswordController@index') }}">
             <i class="pe-7s-key"></i>
             <p>Change Password</p>
+        </a>
+    </li>
+    <li id="change-password">
+        <a href="{{ action('AdminsController@notify') }}">
+            <i class="pe-7s-bell"></i>
+            <p>Noticication</p>
         </a>
     </li>
 </ul>
