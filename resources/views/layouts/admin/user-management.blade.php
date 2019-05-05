@@ -15,118 +15,67 @@
                     </div>
                     <div class="card-body">
                         <div class="content">
-                            <table class="table table-hover table-striped table-responsive table-full-width" id="myTable">
+                            <table class="table table-hover table-striped table-responsive table-full-width" id="userTable">
                                 <thead>
                                     <th>ID</th>
                                     <th>Username</th>
                                     <th>Email Account</th>
                                     <th>Total Post</th>
-                                    <th>Total Download</th>
-                                    <th>Lastest Login</th>
+                                    <!-- <th>Total Download</th> -->
+                                    <!-- <th>Lastest Login</th> -->
                                     <th>Action</th>
                                 </thead>
                                 <tbody>
-                                foreach( users as user)
+                                @foreach( $users as $user)
                                     <tr>
-                                        <td>user->id</td>
-                                        <td>user->name</td>
-                                        <td>thikamporn.s@ku.th</td>
+                                        <td>{{$user->id}}</td>
+                                        <td>{{$user->name}}</td>
+                                        <td>{{$user->email}}</td>
                                         <td>5</td>
-                                        <td>12</td>
-                                        <td>Sun, 14 April 2019</td>
+                                        <!-- <td>12</td>
+                                        <td>Sun, 14 April 2019</td> -->
                                         <td><button href="#" type="button" onclick="return confirm('Do you want to delete this account?')" class="btn btn-danger btn-sm"><i class="fas fa-trash-alt fa-fw"></i></button></td>
                                     </tr>
-                                endforeach
-                                    <!-- <tr>
-                                        <td>1</td>
-                                        <td>Thikamporn Simud</td>
-                                        <td>thikamporn.s@ku.th</td>
-                                        <td>10</td>
-                                        <td>12</td>
-                                        <td>Sun, 14 April 2019</td>
-                                        <td><button href="#" type="button" class="btn btn-danger btn-sm"><i class="fas fa-trash-alt fa-fw"></i></button></td>
-                                    </tr>
+                                @endforeach
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-12">
+                <div class="card">
+                    <div class="header">
+                        <h4 class="title">Admin Table</h4>
+                        <!-- <p class="category">Here is a subtitle for this table</p> -->
+                        <hr>
+                    </div>
+                    <div class="card-body">
+                        <div class="content">
+                            <table class="table table-hover table-striped table-responsive table-full-width" id="adminTable">
+                                <thead>
+                                    <th>ID</th>
+                                    <th>Username</th>
+                                    <th>Email Account</th>
+                                    <!-- <th>Total Post</th> -->
+                                    <!-- <th>Total Download</th> -->
+                                    <!-- <th>Lastest Login</th> -->
+                                    <th>Action</th>
+                                </thead>
+                                <tbody>
+                                @foreach( $admins as $admin)
                                     <tr>
-                                        <td>1</td>
-                                        <td>Thikamporn Simud</td>
-                                        <td>thikamporn.s@ku.th</td>
-                                        <td>5</td>
-                                        <td>20</td>
-                                        <td>Sun, 14 April 2019</td>
-                                        <td><button href="#" type="button" class="btn btn-danger btn-sm"><i class="fas fa-trash-alt fa-fw"></i></button></td>
+                                        <td>{{$admin->id}}</td>
+                                        <td>{{$admin->name}}</td>
+                                        <td>{{$admin->email}}</td>
+                                        <!-- <td>5</td> -->
+                                        <!-- <td>12</td>
+                                        <td>Sun, 14 April 2019</td> -->
+                                        <td><button href="#" type="button" onclick="return confirm('Do you want to delete this account?')" class="btn btn-danger btn-sm"><i class="fas fa-trash-alt fa-fw"></i></button></td>
                                     </tr>
-                                    <tr>
-                                        <td>1</td>
-                                        <td>Thikamporn Simud</td>
-                                        <td>thikamporn.s@ku.th</td>
-                                        <td>5</td>
-                                        <td>12</td>
-                                        <td>Sun, 14 April 2019</td>
-                                        <td><button href="#" type="button" class="btn btn-danger btn-sm"><i class="fas fa-trash-alt fa-fw"></i></button></td>
-                                    </tr>
-                                    <tr>
-                                        <td>1</td>
-                                        <td>Thikamporn Simud</td>
-                                        <td>thikamporn.s@ku.th</td>
-                                        <td>5</td>
-                                        <td>12</td>
-                                        <td>Sun, 14 April 2019</td>
-                                        <td><button href="#" type="button" class="btn btn-danger btn-sm"><i class="fas fa-trash-alt fa-fw"></i></button></td>
-                                    </tr>
-                                    <tr>
-                                        <td>1</td>
-                                        <td>Thikamporn Simud</td>
-                                        <td>thikamporn.s@ku.th</td>
-                                        <td>5</td>
-                                        <td>12</td>
-                                        <td>Sun, 14 April 2019</td>
-                                        <td><button href="#" type="button" class="btn btn-danger btn-sm"><i class="fas fa-trash-alt fa-fw"></i></button></td>
-                                    </tr>
-                                    <tr>
-                                        <td>1</td>
-                                        <td>Thikamporn Simud</td>
-                                        <td>thikamporn.s@ku.th</td>
-                                        <td>5</td>
-                                        <td>12</td>
-                                        <td>Sun, 14 April 2019</td>
-                                        <td><button href="#" type="button" class="btn btn-danger btn-sm"><i class="fas fa-trash-alt fa-fw"></i></button></td>
-                                    </tr>
-                                    <tr>
-                                        <td>1</td>
-                                        <td>Thikamporn Simud</td>
-                                        <td>thikamporn.s@ku.th</td>
-                                        <td>5</td>
-                                        <td>12</td>
-                                        <td>Sun, 14 April 2019</td>
-                                        <td><button href="#" type="button" class="btn btn-danger btn-sm"><i class="fas fa-trash-alt fa-fw"></i></button></td>
-                                    </tr>
-                                    <tr>
-                                        <td>1</td>
-                                        <td>Thikamporn Simud</td>
-                                        <td>thikamporn.s@ku.th</td>
-                                        <td>5</td>
-                                        <td>12</td>
-                                        <td>Sun, 14 April 2019</td>
-                                        <td><button href="#" type="button" class="btn btn-danger btn-sm"><i class="fas fa-trash-alt fa-fw"></i></button></td>
-                                    </tr>
-                                    <tr>
-                                        <td>1</td>
-                                        <td>Thikamporn Simud</td>
-                                        <td>thikamporn.s@ku.th</td>
-                                        <td>5</td>
-                                        <td>12</td>
-                                        <td>Sun, 14 April 2019</td>
-                                        <td><button href="#" type="button" class="btn btn-danger btn-sm"><i class="fas fa-trash-alt fa-fw"></i></button></td>
-                                    </tr>
-                                    <tr>
-                                        <td>1</td>
-                                        <td>Thikamporn Simud</td>
-                                        <td>thikamporn.s@ku.th</td>
-                                        <td>5</td>
-                                        <td>12</td>
-                                        <td>Sun, 14 April 2019</td>
-                                        <td><button href="#" type="button" class="btn btn-danger btn-sm"><i class="fas fa-trash-alt fa-fw"></i></button></td>
-                                    </tr> -->
+                                @endforeach
                                 </tbody>
                             </table>
                         </div>
@@ -143,7 +92,8 @@
 
     <script type="text/javascript">
         $(document).ready( function () {
-            $('#myTable').DataTable();
+            $('#userTable').DataTable();
+            $('#adminTable').DataTable();
 
             $('#user-management').addClass('active');
         } );
