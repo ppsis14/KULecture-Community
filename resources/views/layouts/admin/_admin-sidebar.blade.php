@@ -43,7 +43,6 @@
             <p>Change Password</p>
         </a>
     </li>
-<<<<<<< HEAD
     
     <li id="notify">
         <a href="{{ action('AdminNotificationsController@index') }}">
@@ -52,6 +51,4 @@
             <span class="badge"></span>
         </a>
     </li>
-=======
->>>>>>> pair_dev
 </ul>
