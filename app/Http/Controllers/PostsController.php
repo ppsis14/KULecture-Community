@@ -108,7 +108,10 @@ class PostsController extends Controller
         $email = User::select('email')->where('id', $post->user_id)->get();
         $contact = UserProfile::where('user_id', $post->user_id)->first();
 
-        return view('layouts.user.show-posts', ['post' => $post, 'tags' => $tags, 'files' => $files, 'username' => $username, 'contact' => $contact, 'email' => $email]);
+        if(Auth::user()->isAdmin())
+            return view('layouts.admin.show-posts', ['post' => $post, 'tags' => $tags, 'files' => $files, 'username' => $username, 'contact' => $contact, 'email' => $email]);
+        
+            return view('layouts.user.show-posts', ['post' => $post, 'tags' => $tags, 'files' => $files, 'username' => $username, 'contact' => $contact, 'email' => $email]);
     }
 
     /**
@@ -242,7 +245,7 @@ class PostsController extends Controller
         $post->report_status = false;
 
         $post->save();
-        return redirect()->action('PostsController@show', ['id' => $post->id]);
+        return redirect()->action('PostsController@show', ['id' => $post->id])->with('success','Unreport complete');
     }
 
     public function download($file_name) {

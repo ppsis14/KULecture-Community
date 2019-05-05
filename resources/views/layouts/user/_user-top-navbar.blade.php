@@ -1,22 +1,33 @@
 <div class="collapse navbar-collapse">
+
+    @php
+        $posts = \App\Post::where('report_status', true)->where('user_id', Auth::user()->id)->get();
+        $count = count($posts);
+    @endphp
+
     <ul class="nav navbar-nav navbar-left">
         <li class="dropdown">
             <a href="#" class="dropdown-toggle" data-toggle="dropdown">
                 <i class="fa fa-globe"></i>
                 <b class="caret hidden-sm hidden-xs"></b>
-                <span class="notification hidden-sm hidden-xs"></span>
+                @if($count != 0)
+                    <span class="notification hidden-sm hidden-xs"> {{$count}}</span>
+                
 				<p class="hidden-lg hidden-md">
 					5 Notifications
 					<b class="caret"></b>
 				</p>
+                @endif
             </a>
+
+            @if($count != 0)
             <ul class="dropdown-menu">
-            <li><a href="#">Notification 1</a></li>
-            <li><a href="#">Notification 2</a></li>
-            <li><a href="#">Notification 3</a></li>
-            <li><a href="#">Notification 4</a></li>
-            <li><a href="#">Another notification</a></li>
+                @foreach ( $posts as $post) 
+                    <li><a href="{{ action('PostsController@show', ['id' => $post->id]) }}"> Your post title <b>{{$post->post_title}}</b> was reported from another user   </a></li>
+                @endforeach
             </ul>
+            @endif
+            
         </li>
     </ul>
     <ul class="nav navbar-nav navbar-right">
