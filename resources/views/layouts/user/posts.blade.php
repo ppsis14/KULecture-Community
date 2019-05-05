@@ -152,7 +152,10 @@
                 @if($post->report_status == true)
                     <div class="card" style="padding: 20px; background-color: #ffe5e1;">
                 @endif
-                @if($post->report_status == false)
+                @if($post->hidden_status == true && $post->report_status == false)
+                    <div class="card" style="padding: 20px; background-color: #e8f6fe;">
+                @endif
+                @if($post->report_status == false && $post->hidden_status == false)
                     <div class="card" style="padding: 20px;">
                 @endif
                 @if($post->post_cover == null)
@@ -189,17 +192,18 @@
                                 <button title="Click to delete this post" type="submit" class="btn delete-post" style="border: transparent; color: tomato;"><i class="fas fa-trash-alt fa-fw"></i></button>
                             </form>
                         </div>
-                        <div class="col-md-2">
+
+                            <div class="col-md-2">
                             @if($post->hidden_status == false)
-                                <button  style="border: transparent;" class="btn" onclick="demo.showNotificationHide('top','center')">
+                                <button  style="border: transparent;" class="btn" >
                                     <a href="{{ action('PostsController@hidden', ['id' => $post->id]) }}" title="Click to hide this post">
                                         <i class="fas fa-eye-slash "></i>
                                     </a>
                                 </button>
                             @endif
                             @if($post->hidden_status == true)
-                                <button  style="border: transparent;" class="btn" onclick="demo.showNotificationUnhide('top','center')">
-                                    <a href="{{ action('PostsController@hidden', ['id' => $post->id]) }}" title="Click to unhide this post" >
+                                <button  style="border: transparent;" class="btn" >
+                                    <a href="{{ action('PostsController@unHidden', ['id' => $post->id]) }}" title="Click to unhide this post" >
                                         <i class="fas fa-eye"></i>
                                     </a>
                                 </button>
@@ -251,10 +255,47 @@
                 $('#btn-normal').hide();
                 $('#btn-advance').show();
             });
+
+            $('.delete-post').click(function(e) {
+                e.preventDefault();
+                var is_confirm = confirm('Are you sure to delete this post ?');
+
+                if(is_confirm) {
+                    $(e.target).closest('form').submit();
+                }
+            });
         });
     </script>
 
     <script type="text/javascript">
 	    $('#input-tags').tagsInput();
+    </script>
+
+<script type="text/javascript">
+        $(document).ready(function (){
+            
+            if({{ \Session::has('success') }}){
+                var session_success = '{{ \Session::get('success') }}';
+                showNotification('top', 'center', 'pe-7s-check', session_success, 'danger');
+            }else{
+                var session_error = '<b> Error </b> - Your information updating is error, please fill up in filed correctly';
+                showNotification('top', 'center', 'pe-7s-close-circle', session_error, 'danger');
+            }
+        });
+
+        function showNotification(from, align, icon, message, color){
+                $.notify({
+                    icon: icon,
+                    message: message
+
+                },{
+                    type: color,
+                    timer: 4000,
+                    placement: {
+                        from: from,
+                        align: align
+                    }
+                });
+            }
     </script>
 @endsection

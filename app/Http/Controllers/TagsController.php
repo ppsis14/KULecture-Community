@@ -10,7 +10,7 @@ class TagsController extends Controller
 {
     public function show($tag) 
     {
-        $posts = Post::withAnyTag($tag)->where('hidden_status', false)->paginate(10);
+        $posts = Post::withAnyTag($tag)->where('hidden_status', false)->orderBy('updated_at', 'desc')->paginate(10);
         $categorys = ['Lecture', 'Book', 'Apartment', 'Appliance', 'News', 'Sport', 'Other..'];
 
         return view('layouts.user.tag', ['categorys' => $categorys, 'tag' => $tag])->withDetails($posts);
@@ -35,7 +35,7 @@ class TagsController extends Controller
             $posts = Post::where('hidden_status', false)
             ->where('category', $category)
             ->where('post_title', 'LIKE', '%'. $title . '%')
-            ->paginate(10)->appends(['post_title' => $request->input('post_title'), 'category' => $request->input('category'),
+            ->orderBy('updated_at', 'desc')->paginate(10)->appends(['post_title' => $request->input('post_title'), 'category' => $request->input('category'),
             'tags' => $request->input('tags')]);
         }
         else {
@@ -44,7 +44,7 @@ class TagsController extends Controller
             ->where('category', $category)
             ->where('post_title', 'LIKE', '%'. $title . '%')
             ->withAnyTag($tags)
-            ->paginate(10)->appends(['post_title' => $request->input('post_title'), 'category' => $request->input('category'),
+            ->orderBy('updated_at', 'desc')->paginate(10)->appends(['post_title' => $request->input('post_title'), 'category' => $request->input('category'),
             'tags' => $request->input('tags')]);
             
             $key_tags = ', Tags: ' . $request->input('tags');
@@ -59,5 +59,10 @@ class TagsController extends Controller
             return view('layouts.user.explore', ['categorys' => $categorys, 'dropdown' => $dropdown])->withQuery($q)->withDetails($posts);
         
         return view('layouts.user.explore', ['categorys' => $categorys, 'dropdown' => $dropdown])->withMessage('No posts found')->withQuery($q);
+    }
+
+    public function __construct()
+    {
+        $this->middleware('auth');
     }
 }

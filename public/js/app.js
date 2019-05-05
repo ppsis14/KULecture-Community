@@ -49287,7 +49287,16 @@ Vue.component('example-component', __webpack_require__(/*! ./components/ExampleC
  */
 
 var app = new Vue({
-  el: '#app'
+  el: '#app',
+  data: {
+    title: 'Manage Users',
+    showTitle: true
+  },
+  methods: {
+    toggleTitle: function toggleTitle() {
+      this.showTitle = !this.showTitle;
+    }
+  }
 });
 
 /***/ }),

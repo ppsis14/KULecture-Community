@@ -12,7 +12,7 @@ class ExplorePostsController extends Controller
         $posts = Post::join('users', 'posts.user_id', '=', 'users.id')
         ->select('posts.*', 'users.username')
         ->where('hidden_status', false)
-        ->paginate(10);
+        ->orderBy('updated_at', 'desc')->paginate(10);
 
         $categorys = ['Lecture', 'Book', 'Apartment', 'Appliance', 'News', 'Sport', 'Other..'];
         $dropdown = 'All';
@@ -30,7 +30,7 @@ class ExplorePostsController extends Controller
             ->where(function ($query) use ($key) {
                 $query->withAnyTag($key)
                 ->orWhere('post_title', 'LIKE', '%'. $key . '%');
-            })->paginate(10)->appends(['key' => $request->input('key'), 'dropdown' => $dropdown]);
+            })->orderBy('updated_at', 'desc')->paginate(10)->appends(['key' => $request->input('key'), 'dropdown' => $dropdown]);
         }
         else {
             $posts = Post::where('hidden_status', false)
@@ -38,7 +38,7 @@ class ExplorePostsController extends Controller
             ->where(function ($query) use ($key) {
                 $query->withAnyTag($key)
                 ->orWhere('post_title', 'LIKE', '%'. $key . '%');
-            })->paginate(10)->appends(['key' => $request->input('key'), 'dropdown' => $dropdown]);
+            })->orderBy('updated_at', 'desc')->paginate(10)->appends(['key' => $request->input('key'), 'dropdown' => $dropdown]);
         }
 
 
@@ -66,7 +66,7 @@ class ExplorePostsController extends Controller
             $posts = Post::where('hidden_status', false)
             ->where('category', $category)
             ->where('post_title', 'LIKE', '%'. $title . '%')
-            ->paginate(10)->appends(['post_title' => $request->input('post_title'), 'category' => $request->input('category'),
+            ->orderBy('updated_at', 'desc')->paginate(10)->appends(['post_title' => $request->input('post_title'), 'category' => $request->input('category'),
             'tags' => $request->input('tags')]);
         }
         else {
@@ -75,7 +75,7 @@ class ExplorePostsController extends Controller
             ->where('category', $category)
             ->where('post_title', 'LIKE', '%'. $title . '%')
             ->withAnyTag($tags)
-            ->paginate(10)->appends(['post_title' => $request->input('post_title'), 'category' => $request->input('category'),
+            ->orderBy('updated_at', 'desc')->paginate(10)->appends(['post_title' => $request->input('post_title'), 'category' => $request->input('category'),
             'tags' => $request->input('tags')]);
             
             $key_tags = ', Tags: ' . $request->input('tags');
@@ -95,10 +95,15 @@ class ExplorePostsController extends Controller
     public function category($category) 
     {
         $posts = Post::where('category', $category)
-        ->where('hidden_status', false)->paginate(10);
+        ->where('hidden_status', false)->orderBy('updated_at', 'desc')->paginate(10);
         $categorys = ['Lecture', 'Book', 'Apartment', 'Appliance', 'News', 'Sport', 'Other..'];
         $dropdown = $category;
 
         return view('layouts.user.explore', ['categorys' => $categorys, 'dropdown' => $dropdown])->withDetails($posts);
+    }
+
+    public function __construct()
+    {
+        $this->middleware('auth');
     }
 }

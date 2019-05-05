@@ -36,6 +36,7 @@ Route::get('/user/explorer/tag', 'TagsController@advance');
 
 Route::resource('/user/posts', 'PostsController');
 Route::get('/user/posts/hidden/{id}', 'PostsController@hidden');
+Route::get('/user/posts/unhidden/{id}', 'PostsController@unHidden');
 Route::post('/user/posts/report/{id}', 'PostsController@report');
 Route::post('/user/posts/unreport/{id}', 'PostsController@unReport');
 Route::get('/user/posts/download/{file_name}', 'PostsController@download');
