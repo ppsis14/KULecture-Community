@@ -15,7 +15,7 @@
 Route::resource('/user/home', 'HomeUserController');
 Route::resource('/user/profile', 'UserProfileController');
 
-Route::get('/', function () {return view('welcome');});
+Route::get('/', function () {return view('index');});
 
 Route::get('/admin/login', 'AdminsLoginController@index');
 Route::get('/admin/dashboard', 'AdminDashBoardController@showDashBoard');

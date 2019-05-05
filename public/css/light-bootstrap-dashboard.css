@@ -3248,6 +3248,12 @@ fieldset[disabled] .btn-neutral.active {
     border-color: red;
 }
 
+.logo-img {
+    margin-top: 25px;
+    width: 100px;
+    height: 100px;
+}
+
 @media (max-width: 600px) {
     .social-container {
       -webkit-flex-flow: column wrap;

@@ -2,6 +2,7 @@
 @section('style-css')
     <link rel="stylesheet" href="{{('/css/admin-loginStyle.css')}}">
 @endsection
+@section('title', 'Sign in for Admin')
 @section('content')
     <div class="row col-lg-12 offset=md-1 justify-content-center">
         <div class="row">
