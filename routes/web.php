@@ -18,9 +18,9 @@ Route::resource('/user/profile', 'UserProfileController');
 Route::get('/', function () {return view('welcome');});
 
 Route::get('/admin/login', 'AdminsLoginController@index');
-// Route::post('/admin/login', 'AdminsLoginController@login');
 Route::get('/admin/dashboard', 'AdminDashBoardController@showDashBoard');
 Route::get('/admin/users', 'UsersManagementController@index');
+Route::delete('/admin/users/{id}', 'UsersManagementController@destroy');
 Route::get('/admin/posts', 'PostsManagementController@index');
 Route::get('/admin/addadmin', 'AddNewAdminController@index');
 Route::get('/admin/changepassword', 'ChangePasswordController@index');

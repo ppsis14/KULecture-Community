@@ -15,8 +15,7 @@ class UsersManagementController extends Controller
 
     public function destroy($id) {
         $user = User::findORFail($id);
-        dd($user);
         $user->delete();
-        return redirect('layouts.admin.user-management');
+        return redirect()->action('UsersManagementController@index');
     }
 }
