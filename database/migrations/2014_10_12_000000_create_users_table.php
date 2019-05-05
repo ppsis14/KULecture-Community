@@ -3,6 +3,7 @@
 use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
+use Illuminate\Database\Eloquent\SoftDeletes;
 
 class CreateUsersTable extends Migration
 {
@@ -15,14 +16,16 @@ class CreateUsersTable extends Migration
     {
         Schema::create('users', function (Blueprint $table) {
             $table->bigIncrements('id');
-            $table->string('username');
-            $table->string('provider_id');
             $table->string('name');
             $table->string('email')->unique();
             $table->timestamp('email_verified_at')->nullable();
+            $table->string('provider_id')->nullable();
+            $table->string('username')->unique();
             $table->string('password');
+            $table->enum('role',['ADMINISTRATOR','USER'])->default('USER');
             $table->rememberToken();
             $table->timestamps();
+            $table->softDeletes();
         });
     }
 

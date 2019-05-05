@@ -6,49 +6,53 @@
 @section('content')
     <div class="container-fluid">
         <div class="row" id="normal-search">
+            <form action="{{ action('ExplorePostsController@search') }}" role="search" method="get">
             <div class="col-md-10">
-                <div class="form-group">
-                    <input class="form-control" type="text" placeholder="Search..." aria-label="Search">
+                <div class="form-group"> 
+                    <input class="form-control" type="text" name="title" placeholder="Search..." aria-label="Search" value="{{ old('title')}}">
                 </div>
             </div>
             <div class="col-md-2">
                 <div class="form-group">
+                <button type="submit" class="btn" name="button" id="btn-search"><i class="fas fa-search" aria-hidden="true"></i></button>
+                </div>
+            </div>
+            </form>
+
+            <div class="col-md-3">
+                <div class="form-group">
                     <button type="button" class="btn" name="button" id="btn-advance"><i class="fas fa-search" aria-hidden="true"></i>&nbsp;&nbsp; Advance Search</button>
                 </div>
             </div>
+        </div>
+
+        <div >
+            @if(isset($query))
+            <p>The search result for <b>{{ $query }}</b> are :</p>
+            @endif
         </div>
         <div class="row" id="advance-search">
             <div class="col-sm-12">
                 <div class="card" style="padding: 20px;">
                     <h4 class="card-title">Advance Search</h4>
                     <div class="card-body">
-                        <form class="">
+                        <form action="{{ action('ExplorePostsController@advance') }}" role="search" method="get">
                             <div class="row">
                                 <div class="col-md-6">
                                     <div class="form-group">
-                                        <label>First Name</label>
-                                        <input type="text" class="form-control" placeholder="First Name" value="Mike">
+                                        <label>Post Title</label>
+                                        <input type="text" class="form-control" name="post_title">
                                     </div>
                                 </div>
-                                <div class="col-md-6">
-                                    <div class="form-group">
-                                        <label>Last Name</label>
-                                        <input type="text" class="form-control" placeholder="Last Name" value="Andrew">
-                                    </div>
-                                </div>
-                            </div>
 
-                            <div class="row">
                                 <div class="col-md-6">
                                     <div class="form-group">
-                                        <label for="exampleInputEmail1">Email address</label>
-                                        <input type="email" class="form-control" placeholder="Email">
-                                    </div>
-                                </div>
-                                <div class="col-md-6">
-                                    <div class="form-group">
-                                        <label for="exampleInputEmail1">Facebook</label>
-                                        <input type="facebook" class="form-control" placeholder="Facebook">
+                                        <label for="category">Category</label><br>
+                                        <select class="form-control" id="category" name="category" value="{{ old('category')}}">
+                                            @foreach($categorys as $category)
+                                                <option value="{{ $category}}" >{{ $category}}</option>
+                                            @endforeach
+                                        </select>
                                     </div>
                                 </div>
                             </div>
@@ -62,72 +66,48 @@
             </div>
         </div>
         <br>
+
+        <!-- @if(isset($details))
+            @if($details == null)
+            <div class="row">
+                <h4 style="text-align: center;">No posts</h4>
+            </div>
+            @endif
+        @endif -->
+        
         <div class="row">
+        @if(isset($details))
+          @foreach($details as $post)
             <div class="col-sm-6">
               <div class="card" style="padding: 20px;">
+                @if($post->post_cover == null)
+                    <img src="http://lorempixel.com/400/200" class="card-img-top" alt="Card image cap" width="100%"/>
+                @endif
+                @if($post->post_cover != null)
+                    <img src="{{ URL::to('/') }}/images/{{ $post->post_cover }}" class="card-img-top" alt="Card image cap" width="100%"/>
+                @endif
                 <div class="card-body">
-                  <h4 class="card-title"><a href="#">Lecture note : Calculus 1</a></h4>
-                  <p class="card-text">This is a wider card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>
-                  <p class="card-text"><small class="text-muted">Post by : <a>Thikamporn Simud</a></small></p>
+                  <h4 class="card-title"><a href="{{ action('PostsController@show', ['id' => $post->id]) }}">{{$post->post_title}}</a></h4>
+                  <p class="card-text">{{$post->description}}</p>
+                  <p class="card-text"><small class="text-muted">Category: <a>{{$post->category}}</a>&nbsp;&nbsp; Tag : 
+                    @foreach($post->tags as $tag)
+                        <a >#{{$tag->slug}}</a>
+                    @endforeach
+                  </small></p>
                   <hr>
-                  <p class="card-text"><small class="text-muted">Last updated 3 mins ago</small><span><a class="close" href="#"><i class="fas fa-download fa-fw"></i></a></span></p>
+                  <p class="card-text"><small class="text-muted">Post by : <a>{{$post->username}}</a></small></p>
+                  <p class="card-text"><small class="text-muted">Created: {{$post->created_at->format('j F Y')}} at {{$post->created_at->format('H:m')}}
+                    &nbsp;Last updated: {{$post->updated_at->format('j F Y')}} at {{$post->updated_at->format('H:m')}}</small>&nbsp;&nbsp;&nbsp;&nbsp;<span><i class="fas fa-download fa-fw"></i>&nbsp;&nbsp;10</span></p>
                 </div>
               </div>
             </div>
-            <div class="col-sm-6">
-              <div class="card" style="padding: 20px;">
-                <div class="card-body">
-                  <h4 class="card-title"><a href="#">Text Book : Calculus 1</a></h4>
-                  <p class="card-text">This is a wider card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>
-                  <p class="card-text"><small class="text-muted">Post by : <a>Thikamporn Simud</a></small></p>
-                  <hr>
-                  <p class="card-text"><small class="text-muted">Last updated 3 mins ago</small><span><a class="close" href="#"><i class="fas fa-donate fa-fw"></i></a></span></p>
-                </div>
-              </div>
-            </div>
-            <div class="col-sm-6">
-              <div class="card" style="padding: 20px;">
-                <div class="card-body">
-                  <h4 class="card-title"><a href="#">Text Book : Calculus 2</a></h4>
-                  <p class="card-text">This is a wider card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>
-                  <p class="card-text"><small class="text-muted">Post by : <a>Thikamporn Simud</a></small></p>
-                  <hr>
-                  <p class="card-text"><small class="text-muted">Last updated 3 mins ago</small><span><a class="close" href="#"><i class="fas fa-donate fa-fw"></i></a></span></p>
-                </div>
-              </div>
-            </div>
-            <div class="col-sm-6">
-              <div class="card" style="padding: 20px;">
-                <div class="card-body">
-                  <h4 class="card-title"><a href="#">Lecture note : Calculus 1</a></h4>
-                  <p class="card-text">This is a wider card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>
-                  <p class="card-text"><small class="text-muted">Post by : <a>Thikamporn Simud</a></small></p>
-                  <hr>
-                  <p class="card-text"><small class="text-muted">Last updated 3 mins ago</small><span><a class="close" href="#"><i class="fas fa-download fa-fw"></i></a></span></p>
-                </div>
-              </div>
-            </div>
-            <div class="col-sm-6">
-              <div class="card" style="padding: 20px;">
-                <div class="card-body">
-                  <h4 class="card-title"><a href="#">Lecture note : Calculus 1</a></h4>
-                  <p class="card-text">This is a wider card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>
-                  <p class="card-text"><small class="text-muted">Post by : <a>Thikamporn Simud</a></small></p>
-                  <hr>
-                  <p class="card-text"><small class="text-muted">Last updated 3 mins ago</small><span><a class="close" href="#"><i class="fas fa-download fa-fw"></i></a></span></p>
-                </div>
-              </div>
-            </div>
-            <div class="col-sm-6">
-              <div class="card" style="padding: 20px;">
-                <div class="card-body">
-                  <h4 class="card-title"><a href="#">Lecture note : Calculus 1</a></h4>
-                  <p class="card-text">This is a wider card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>
-                  <p class="card-text"><small class="text-muted">Post by : <a>Thikamporn Simud</a></small></p>
-                  <hr>
-                  <p class="card-text"><small class="text-muted">Last updated 3 mins ago</small><span><a class="close" href="#"><i class="fas fa-download fa-fw"></i></a></span></p>
-                </div>
-              </div>
+            @endforeach
+        @endif
+          
+            <div class="row">
+                @if(isset($message))
+                    <p>{{ $message }}</p>
+			    @endif
             </div>
         </div>
     </div>

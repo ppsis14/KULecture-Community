@@ -20,6 +20,7 @@ Route::get('/admin/users', 'UsersManagementController@index');
 Route::get('/admin/posts', 'PostsManagementController@index');
 Route::get('/admin/addadmin', 'AddNewAdminController@index');
 Route::get('/admin/changepassword', 'ChangePasswordController@index');
+Route::post('/admin/changepw','ChangePasswordController@update');
 Route::get('/user/login', 'UsersLoginController@index');
 Route::get('/user/explorer', 'ExplorePostsController@index');
 Route::get('/user/explorer/search', 'ExplorePostsController@search');
@@ -32,3 +33,6 @@ Route::get('login/google', 'Auth\LoginGoogleController@redirectToProvider');
 Route::get('login/google/callback', 'Auth\LoginGoogleController@handleProviderCallback');
 Auth::routes();
 // Route::get('/home', 'HomeController@index')->name('home');
+
+//for notification
+Route::get('notification','AddNewAdminController@notification');

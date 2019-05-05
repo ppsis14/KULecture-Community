@@ -15,21 +15,26 @@
                     <div class="content">
                         <div class="author">
                              <a href="#">
-                            <img class="avatar border-gray" src="/img/faces/face-3.jpg" alt="..."/>
+                            <img class="avatar border-gray" src="{{ $profile->avatar }}" alt="..."/>
                                 <br>
-                              <h4 class="title">Mike Andrew<br />
-                                 <small>michael24</small>
+                              <h4 class="title">{{ Auth::user()->username }}<br /><br>
+                                 <small>{{ Auth::user()->name }}</small>
                               </h4>
                             </a>
+                        </div><br>
+                        <div class="container-fluid">
+                            <p class="description text-center"> {{ $profile->bio }}</p>
                         </div>
-                        <p class="description text-center"> "Lamborghini Mercy <br>
-                                            Your chick she so thirsty <br>
-                                            I'm in that two seat Lambo"
-                        </p>
                     </div>
                     <hr>
                     <div class="text-center">
-                        <button href="#" class="btn btn-simple"><i class="fas fa-envelope"></i></button>
+                        <button href="#" class="btn btn-simple"><i class="fas fa-envelope"></i></button> <span>{{ Auth::user()->email }}</span>
+                    </div>
+                    <div class="text-center">
+                        <button href="#" class="btn btn-simple"><i class="fas fa-envelope"></i></button> <span>{{ $profile->facebook }}</span>
+                    </div>
+                    <div class="text-center">
+                        <button href="#" class="btn btn-simple"><i class="fas fa-envelope"></i></button> <span>{{ $profile->instagram }}</span>
                     </div>
                 </div>
             </div>
@@ -46,14 +51,6 @@
                   <div class="card-header"><h2 class="card-title">Download</h2></div>
                   <div class="card-body">
                     <p class="card-text"><h3>22</h3></p>
-                  </div>
-                </div>
-            </div>
-            <div class="col-sm-4">
-                <div class="card text-black" style="padding: 30px;" align="center" >
-                  <div class="card-header"><h2 class="card-title">Purchase</h2></div>
-                  <div class="card-body">
-                    <p class="card-text"><h3>0</h3></p>
                   </div>
                 </div>
             </div>

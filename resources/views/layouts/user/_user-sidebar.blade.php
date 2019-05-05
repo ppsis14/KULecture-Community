@@ -1,5 +1,5 @@
 <div class="logo">
-    <a href="{{ action('HomeUsersController@index') }}" class="simple-text">
+    <a href="{{ action('HomeUserController@show', ['id' => Auth::user()->id]) }}" class="simple-text">
         <div class="form-title">
             <div class="name-box">
                 <div class="name">KU NSC</div>
@@ -12,15 +12,15 @@
 
 <ul class="nav">
     <li id="home">
-        <a href="{{ action('HomeUsersController@index') }}">
+        <a href="{{ action('HomeUserController@show', ['id' => Auth::user()->id]) }}">
             <i class="pe-7s-home"></i>
             <p>Home</p>
         </a>
     </li>
     <li id="profile">
-        <a href="{{ action('EditProfileController@index') }}">
+        <a href="{{ action('UserProfileController@edit' , ['id' => Auth::user()->id]) }}">
             <i class="pe-7s-user"></i>
-            <p>Edit Profile</p>
+            <p>User Profile</p>
         </a>
     </li>
     <li id="posts">

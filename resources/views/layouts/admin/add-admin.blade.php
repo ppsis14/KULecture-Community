@@ -4,16 +4,6 @@
     <i class="pe-7s-add-user"></i>&nbsp;&nbsp;Add New Amin
 @endsection
 @section('content')
-    <!-- @if(session()->has('jsAlerrt'))
-    <script>
-        var msg ='{{Session::get('jsAlert')}}';
-        var exist = '{{Session::has('jsAlert')}}';
-        if(exist){
-            alert(msg);
-        }
-        // alert({{session()->get('jsAlert')}});
-    </script>
-    @endif -->
     @if ($errors->any())
     <div class="alert alert-danger">
         <ul>
@@ -21,6 +11,18 @@
                 <li>{{ $error }}</li>
             @endforeach
         </ul>
+    </div>
+    @endif
+    @if ($message = Session::get('success'))
+    <div class="alert alert-success alert-block">
+        <button type="button" class="close" data-dismiss="alert">×</button>	
+            <strong>{{ $message }}</strong>
+    </div>
+    @endif
+    @if ($message = Session::get('error'))
+    <div class="alert alert-danger alert-block">
+        <button type="button" class="close" data-dismiss="alert">×</button>	
+            <strong>{{ $message }}</strong>
     </div>
     @endif
     <div class="container-fluid">
@@ -37,7 +39,13 @@
                                 <div class="col-md-12">
                                     <div class="form-group">
                                         <label>First Name</label>
-                                        <input type="text" name="firstName" class="form-control" placeholder="Enter First Name">
+                                        <!-- <input type="text" name="firstName" class="form-control" placeholder="Enter First Name"> -->
+                                        <input type="text" class="form-control{{ $errors->has('firstName') ? ' is-invalid' : '' }}" id="firstName" name ="firstName" placeholder="Enter First Name">
+                                        @if ($errors->has('firstName'))
+                                            <span class="invalid-feedback" role="alert">
+                                                <strong>{{ $errors->first('firstName') }}</strong>
+                                            </span>
+                                        @endif
                                     </div>
                                 </div>
                             </div>
@@ -45,7 +53,13 @@
                                 <div class="col-md-12">
                                     <div class="form-group">
                                         <label>Last Name</label>
-                                        <input type="text" name="lastName" class="form-control" placeholder="Enter Last Name">
+                                        <!-- <input type="text" name="lastName" class="form-control" placeholder="Enter Last Name"> -->
+                                        <input type="text" class="form-control{{ $errors->has('lastName') ? ' is-invalid' : '' }}" id="lastName" name ="lastName" placeholder="Enter Last Name">
+                                        @if ($errors->has('lastName'))
+                                            <span class="invalid-feedback" role="alert">
+                                                <strong>{{ $errors->first('lastName') }}</strong>
+                                            </span>
+                                        @endif
                                     </div>
                                 </div>
                             </div>
@@ -53,7 +67,13 @@
                                 <div class="col-md-12">
                                     <div class="form-group">
                                         <label>Email</label>
-                                        <input type="text" name="email" class="form-control" placeholder="Enter Email">
+                                        <!-- <input type="text" name="email" class="form-control" placeholder="Enter Email"> -->
+                                        <input type="text" class="form-control{{ $errors->has('email') ? ' is-invalid' : '' }}" id="email" name ="email" placeholder="Enter Email">
+                                        @if ($errors->has('email'))
+                                            <span class="invalid-feedback" role="alert">
+                                                <strong>{{ $errors->first('email') }}</strong>
+                                            </span>
+                                        @endif
                                     </div>
                                 </div>
                             </div>
@@ -61,7 +81,13 @@
                                 <div class="col-md-12">
                                     <div class="form-group">
                                         <label>Password</label>
-                                        <input type="password" name="password" class="form-control" placeholder="Enter new password">
+                                        <!-- <input type="password" name="password" class="form-control" placeholder="Enter new password"> -->
+                                        <input type="password" class="form-control{{ $errors->has('password') ? ' is-invalid' : '' }}" id="password" name ="password" placeholder="Enter new password">
+                                        @if ($errors->has('password'))
+                                            <span class="invalid-feedback" role="alert">
+                                                <strong>{{ $errors->first('password') }}</strong>
+                                            </span>
+                                        @endif
                                     </div>
                                 </div>
                             </div>
@@ -69,7 +95,13 @@
                                 <div class="col-md-12">
                                     <div class="form-group">
                                         <label>Confirm your password</label>
-                                        <input type="password" name="confirmPassword" class="form-control" placeholder="Enter password to confirm">
+                                        <!-- <input type="password" name="confirmPassword" class="form-control" placeholder="Enter password to confirm"> -->
+                                        <input type="password" class="form-control{{ $errors->has('confirmPassword') ? ' is-invalid' : '' }}" id="confirmPassword" name ="confirmPassword" placeholder="Enter password to confirm">
+                                        @if ($errors->has('confirmPassword'))
+                                            <span class="invalid-feedback" role="alert">
+                                                <strong>{{ $errors->first('confirmPassword') }}</strong>
+                                            </span>
+                                        @endif
                                     </div>
                                 </div>
                             </div>

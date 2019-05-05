@@ -6,6 +6,9 @@ use App\Http\Controllers\Controller;
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
 use Socialite;
 use App\User;
+use App\UserProfile;
+use Hash;
+use DB;
 
 class LoginGoogleController extends Controller
 {
@@ -38,6 +41,7 @@ class LoginGoogleController extends Controller
     {
         $this->middleware('guest')->except('logout');
     }
+    
     public function redirectToProvider()
     {
         return Socialite::driver('google')->redirect();
@@ -51,12 +55,12 @@ class LoginGoogleController extends Controller
     public function handleProviderCallback()
     {
         try{
-           $user = Socialite::driver('google')->stateless()->user(); 
+           $user = Socialite::driver('google')->stateless()->user();
         } catch(Exception $e){
             return redirect('user/login');
         }
         //allow only ku account to use the system
-        if(explode("@",$user->email)[1]!=='ku.th'){
+        if(explode("@",$user->email)[1] !== 'ku.th'){
             return redirect()->to('/');
         }
         //check if they're an existing user
@@ -66,13 +70,21 @@ class LoginGoogleController extends Controller
             auth()->login($existingUser,true);
         }else{
             //create a new user
-            $newUser = new User;
-            $newUser->name = $user->name;
-            $newUser->email = $user->email;
-            $newUser->google_id       = $user->id;
+            $newUser                    = new User;
+            $newUser->provider_id       = $user->getId();
+            $newUser->name              = $user->getName();
+            $newUser->email             = $user->getEmail();
+            $newUser->email_verified_at = now();
+            $newUser->username          = $user->getName();
+            $newUser->password          = Hash::make($user->getId());
             $newUser->save();
+
+            $newUser->profile()->create(['avatar' =>  $user->getAvatar()]);
+
             auth()->login($newUser,true);
         }
-        return redirect()->to("user/home");
+
+        $profile =  User::where('provider_id', $user->getId())->first();
+        return redirect()->action('HomeUserController@show' , ['id' => $profile->id]);
     }
 }
