@@ -3,17 +3,29 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\Admin;
+use App\User;
+use App\Post;
+use App\Charts\PostType;
+use Illuminate\Support\Facades\Gate;
 
 class AdminDashBoardController extends Controller
 {
     public function showDashBoard(){
-        return view('layouts.admin.dashboard');
+        if(Gate::allows('isAdmin')){
+        $users = User::where('role', 'USER')->count();
+        $posts = Post::all()->count();
+
+        $chart = new PostType;
+        $chart->labels(['Books', 'Lectures', 'Domitory', 'Electronics', 'News', 'Sports', 'Others']);
+        $dataset =  $chart->dataset('My dataset 1', 'pie', [10, 20, 10, 5, 15, 10, 10]);
+        $dataset->backgroundColor(collect(["#003f5c", "#374c80", "#7a5195", "#bc5090", "#ef5675", "#ff764a", "#ffa600"]));
+        $chart->displayAxes(false);
+
+        return view('layouts.admin.dashboard', ['users' => $users, 'posts' => $posts, 'chart' => $chart]);
+        }
+        else{
+            echo "You have no permission";
+        }
     }
 
-    public function delete($id) {
-        $admin = Admin::findOrFail($id);
-        $admin->delete();
-        return redirect('layouts.admin.dashboard');
-    }
 }

@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Gate;
 
 class AdminsLoginController extends Controller
 {
@@ -12,7 +13,12 @@ class AdminsLoginController extends Controller
     // }
     
     public function index(){
+        if(Gate::allows('isAdmin')){
         return view('layouts.admin.admin-login');
+        }
+        else{
+            return redirect()->back();
+        }
     }
 
 }

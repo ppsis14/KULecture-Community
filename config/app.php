@@ -176,6 +176,8 @@ return [
         App\Providers\RouteServiceProvider::class,
         Intervention\Image\ImageServiceProvider::class,
         \Conner\Tagging\Providers\TaggingServiceProvider::class,
+        ConsoleTVs\Charts\ChartsServiceProvider::class,
+
     ],
 
     /*

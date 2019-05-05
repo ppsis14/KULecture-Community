@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Database\Query\Builder;
 use App\UserProfile;
+use App\Post;
 use DB;
 
 class HomeUserController extends Controller
@@ -55,7 +56,15 @@ class HomeUserController extends Controller
     {
         $profile = UserProfile::where('user_id', $id)->first();
         // dd($profile);
-        return view('layouts.user.home', ['profile' => $profile]);
+        $all_post = Post::where('user_id', $id)->get();
+        $hidden_post = Post::where('user_id', $id)
+                    ->where('hidden_status', true)
+                    ->get();
+        $report_post = Post::where('user_id', $id)
+                    ->where('report_status', true)
+                    ->get();            
+
+        return view('layouts.user.home', ['profile' => $profile, 'all_post' => count($all_post), 'hidden_post' => count($hidden_post), 'report_post' => count($report_post)]);
     }
 
     /**

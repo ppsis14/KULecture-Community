@@ -18,23 +18,14 @@
     <!-- Google signin  -->
     <meta name="google-signin-client_id" content="501911460198-chei8vru21ruejjfriuo787pebs0oaee.apps.googleusercontent.com">
 
-    <title>KU NSC Sign in</title>
+    <title>@yield('title')</title>
 </head>
 <body >
     <section>
-        <div class="container">
+        <div class="container d-flex justify-content-center">
             @yield('content')
         </div>
     </section>
-
-    <footer id="footer">
-        <div class="inner">
-            <div class="copyright">
-                &copy; Untitled. Design: <a href="https://templated.co">TEMPLATED</a>. Images: <a href="https://unsplash.com">Unsplash</a>.
-            </div>
-
-        </div>
-    </footer>
 
     <script src="{{ url('js/app.js') }}"></script>
 

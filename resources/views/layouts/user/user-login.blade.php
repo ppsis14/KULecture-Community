@@ -2,18 +2,19 @@
 @section('style-css')
     <link rel="stylesheet" href="{{('/css/user-loginStyle.css')}}">
 @endsection
+@section('title', 'Sign in for User')
 @section('content')
-    <section id="banner">
-        <div class="login-title">
-            <div class="name-box">
-                <div class="name">KU NSC</div>
-                <h5 class="full-name">KU Knowledge Share Community</h5>
-            </div>
-        </div>
-    </section>
     <article>
-        <div class="detail-box">
-            <p>Let's share and share your knowledge and experiences with our community.</p>
+        <div class="row justify-content-center">
+            <img src="/img/kunsc-logo.png" alt="" class="logo-user">
+        </div>
+        <br><br>
+        <div class="row justify-content-center">
+            <h4>KU Knowledge Share Community</h4>
+        </div>
+        <hr>
+        <div class="detail-box justify-content-center">
+            <p>Let's share what we have, what we know for others. In addition to sharing, you will still get something new that has never been known. Have fun with it.</p>
         </div>
         <div class="row justify-content-center">
             <a href="{{ url('login/google') }}" class="google-button">
@@ -25,7 +26,6 @@
                 </button>
             </a>   
         </div>
- 
     </article>
 
 @endsection

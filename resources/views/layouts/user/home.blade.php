@@ -14,45 +14,83 @@
                     <br>
                     <div class="content">
                         <div class="author">
-                             <a href="#">
                             <img class="avatar border-gray" src="{{ $profile->avatar }}" alt="..."/>
                                 <br>
-                              <h4 class="title">{{ Auth::user()->username }}<br /><br>
-                                 <small>{{ Auth::user()->name }}</small>
-                              </h4>
-                            </a>
-                        </div><br>
-                        <div class="container-fluid">
-                            <p class="description text-center"> {{ $profile->bio }}</p>
+                                <a href="{{ action('HomeUserController@show', ['id' => Auth::user()->id]) }}">
+                                    <h4 class="title">{{ Auth::user()->username }}<br><br>
+                                    <small>{{ Auth::user()->name }}</small><br><br>
+                                    <small><i class="fas fa-envelope fa-fw"></i>&nbsp;&nbsp;{{ Auth::user()->email }}</small>
+                                    </h4>
+                                </a>
+                        </div><br><br>
+                        @if(!is_null($profile->bio))
+                        <div class="card-body">
+                            <hr><br>
+                            <div class="container-bio">
+                                <p class="description"> {{ $profile->bio }}</p>
+                            </div>
                         </div>
+                        @endif
                     </div>
                     <hr>
-                    <div class="text-center">
-                        <button href="#" class="btn btn-simple"><i class="fas fa-envelope"></i></button> <span>{{ Auth::user()->email }}</span>
-                    </div>
-                    <div class="text-center">
-                        <button href="#" class="btn btn-simple"><i class="fas fa-envelope"></i></button> <span>{{ $profile->facebook }}</span>
-                    </div>
-                    <div class="text-center">
-                        <button href="#" class="btn btn-simple"><i class="fas fa-envelope"></i></button> <span>{{ $profile->instagram }}</span>
-                    </div>
+                    <!-- flex box -->
+                    <ul class="social-container">
+                        @if(!is_null($profile->facebook))
+                        <li>
+                            <img src="/img/icon-img/icons8-facebook.svg" class="img-icon">&nbsp;&nbsp;&nbsp;&nbsp;<span><a href="{{ $profile->facebook }}" target="_blank">{{ $profile->facebook_username }}</a></span>
+                        </li>
+                        @endif
+                        @if(!is_null($profile->instagram))
+                        <li>
+                            <img src="/img/icon-img/icons8-instagram.svg" class="img-icon"">&nbsp;&nbsp;&nbsp;&nbsp;<span><a href="{{ $profile->instagram }}" target="_blank">{{ $profile->instagram_username }}</a></span>
+                        </li>
+                        @endif
+                        @if(!is_null($profile->twitter))
+                        <li>
+                            <img src="/img/icon-img/icons8-twitter.svg" class="img-icon">&nbsp;&nbsp;&nbsp;&nbsp;<span><a href="{{ $profile->twitter }}" target="_blank">{{ $profile->twitter_username }}</a></span>
+                        </li>
+                        @endif
+                        @if(!is_null($profile->line))
+                        <li>
+                            <img src="/img/icon-img/icons8-line.svg" class="img-icon">&nbsp;&nbsp;&nbsp;&nbsp;<span>{{ $profile->line }}</span>
+                        </li>
+                        @endif
+                    </ul>
+                    <br>
                 </div>
             </div>
-            <div class="col-sm-4">
-                <div class="card text-black" style="padding: 30px;" align="center" >
-                  <div class="card-header"><h2 class="card-title">Posts</h2></div>
-                  <div class="card-body">
-                    <p class="card-text"><h3>3</h3></p>
-                  </div>
-                </div>
+        </div>
+        <div class="row">
+            <div class="col-sm-3">
+                <a href="">
+                    <div class="card text-black" style="padding: 30px;" align="center" >
+                        <div class="card-header"><h2 class="card-title">Posts</h2></div>
+                        <div class="card-body">
+                            <p class="card-text"><h3>{{$all_post}}</h3></p>
+                        </div>
+                    </div>
+                </a>
+                
             </div>
             <div class="col-sm-4">
-                <div class="card text-black" style="padding: 30px;" align="center" >
-                  <div class="card-header"><h2 class="card-title">Download</h2></div>
-                  <div class="card-body">
-                    <p class="card-text"><h3>22</h3></p>
-                  </div>
-                </div>
+                <a href="">
+                    <div class="card text-black" style="padding: 30px;" align="center" >
+                        <div class="card-header"><h2 class="card-title">Hidden Posts</h2></div>
+                        <div class="card-body">
+                            <p class="card-text"><h3>{{$hidden_post}}</h3></p>
+                        </div>
+                    </div>     
+                </a>
+            </div>
+            <div class="col-sm-5">
+                <a href="">
+                    <div class="card text-black" style="padding: 30px;" align="center" >
+                        <div class="card-header"><h2 class="card-title">Reported Posts</h2></div>
+                        <div class="card-body">
+                            <p class="card-text"><h3>{{$report_post}}</h3></p>
+                        </div>
+                    </div>
+                </a>  
             </div>
         </div>
     </div>
@@ -60,17 +98,36 @@
 @section('script')
     <script type="text/javascript">
         $(document).ready(function(){
-            $.notify({
-                icon: 'pe-7s-gift',
-                message: "Welcome to <b>Light Bootstrap Dashboard</b> - a beautiful freebie for every web developer."
+            
+            // if({{ \Session::has('oldUser') }}){
+            //     var session_user = '{{ Session::get('oldUser') }}';
+            //     showNotification('top', 'right', 'pe-7s-check', session_user, 'info');
+            // }
 
-            },{
-                type: 'info',
-                timer: 4000
-            });
+            if({{ \Session::has('newUser') }}){
+                var session_user = '{{ Session::get('newUser') }}';
+                showNotification('top', 'right', 'pe-7s-bell', session_user, 'info');
+            }
+            
 
-            $('#home').addClass('active');
-
+            
         });
+        function showNotification(from, align, icon, message, color){
+                // color = Math.floor((Math.random() * 4) + 1);
+
+                $.notify({
+                    icon: icon,
+                    message: message
+
+                },{
+                    type: color,
+                    timer: 4000,
+                    placement: {
+                        from: from,
+                        align: align
+                    }
+                });
+            }
+        
     </script>
 @endsection

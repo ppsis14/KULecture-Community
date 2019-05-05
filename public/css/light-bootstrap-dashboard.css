@@ -163,7 +163,7 @@ body {
 }
 
 a {
-    color: #1DC7EA;
+    color: #000000;
 }
 
 a:hover, a:focus {
@@ -1686,7 +1686,7 @@ fieldset[disabled] .btn-neutral.active {
 }
 
 .navbar > .container .navbar-brand,
-.navbar > .container-fluid .navbar-brand {
+.navbar > .media-body .navbar-brand {
     margin-left: 0;
 }
 
@@ -1744,7 +1744,7 @@ fieldset[disabled] .btn-neutral.active {
     font-size: 16px;
 }
 
-.navbar.fixed {
+.navbar .fixed {
     width: calc(100% - $sidebar-width);
     right: 0;
     left: auto;
@@ -2267,7 +2267,7 @@ fieldset[disabled] .btn-neutral.active {
 }
 
 .card .content {
-    padding: 15px 15px 10px 15px;
+    padding: 15px 15px 15px 15px;
 }
 
 .card .header {
@@ -2310,7 +2310,7 @@ fieldset[disabled] .btn-neutral.active {
 .card .description {
     font-size: 14px;
     color: #333;
-    width: 60%;
+    width: 100%;
 }
 
 .card .footer {
@@ -2386,7 +2386,7 @@ fieldset[disabled] .btn-neutral.active {
 }
 
 .card-user .image {
-    height: 110px;
+    height: 200px;
 }
 
 .card-user .image-plain {
@@ -2401,8 +2401,8 @@ fieldset[disabled] .btn-neutral.active {
 }
 
 .card-user .avatar {
-    width: 124px;
-    height: 124px;
+    width: 200px;
+    height: 200px;
     border: 5px solid #FFFFFF;
     position: relative;
     margin-bottom: 15px;
@@ -3214,6 +3214,58 @@ fieldset[disabled] .btn-neutral.active {
     left: 0;
 }
 
+.container-bio {
+    padding-left: 90px;
+    padding-right: 90px;
+    width: 100%;
+    height: 150px;
+    overflow-y:scroll;
+}
+
+.social-container {
+    padding: 10px;
+    margin: 10px;
+    list-style: none;
+    
+    display: -webkit-box;
+    display: -moz-box;
+    display: -ms-flexbox;
+    display: -webkit-flex;
+    display: flex;
+
+    flex-flow: row wrap;
+    /* This aligns items to the end line on main-axis */
+    align-items: center;
+    justify-content: space-around;
+}
+
+.img-icon {
+    width: 25px; 
+    height: 25px;
+}
+
+.is-invalid {
+    border-color: red;
+}
+
+.logo-img {
+    margin-top: 25px;
+    width: 100px;
+    height: 100px;
+}
+
+@media (max-width: 600px) {
+    .social-container {
+      -webkit-flex-flow: column wrap;
+      flex-flow: column wrap;
+      padding: 0;
+    }
+    .social-container li {
+        margin-top: 20px;
+    }
+    
+}
+
 @media (min-width: 992px) {
     .navbar-form {
         margin-top: 21px;
@@ -3876,5 +3928,9 @@ fieldset[disabled] .btn-neutral.active {
         overflow-y: hidden;
         -ms-overflow-style: -ms-autohiding-scrollbar;
         -webkit-overflow-scrolling: touch;
+    }
+
+    .card .description {
+        width: 100%;
     }
 }
