@@ -80,9 +80,12 @@ class UserProfileController extends Controller
         $this->validate($request, [
             'username' => 'required|distinct',
             'bio' => 'nullable|string',
-            'facebook' => 'nullable|string',
-            'twitter' => 'nullable|string',
-            'ig' => 'nullable|string',
+            'facebook' => 'nullable|string|required_with:facebook_username',
+            'facebook_username' => 'nullable|string|required_with:facebook',
+            'twitter' => 'nullable|string|required_with:twitter_username',
+            'twitter_username' => 'nullable|string|required_with:twitter',
+            'ig' => 'nullable|string|required_with:ig_username',
+            'ig_username' => 'nullable|string|required_with:ig',
             'line' => 'nullable|string'
         ]);
 
@@ -94,6 +97,9 @@ class UserProfileController extends Controller
                 'facebook' => $request->input('facebook'),
                 'twitter' => $request->input('twitter'),
                 'instagram' => $request->input('ig'),
+                'facebook_username' => $request->input('facebook_username'),
+                'twitter_username' => $request->input('twitter_username'),
+                'instagram_username' => $request->input('ig_username'),
                 'line' => $request->input('line')
             ]
         );
@@ -101,7 +107,7 @@ class UserProfileController extends Controller
         $user->save();
         
 
-        return redirect()->action('UserProfileController@edit',  ['id' => $user->id])->with('success','Update subject data successfully!');
+        return redirect()->action('UserProfileController@edit',  ['id' => $user->id])->with('success','Your information is updated successfully!');
     }
 
     /**

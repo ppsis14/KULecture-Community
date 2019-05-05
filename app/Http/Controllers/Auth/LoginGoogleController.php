@@ -67,7 +67,10 @@ class LoginGoogleController extends Controller
         $existingUser = User::where('email',$user->email)->first();
         if($existingUser){
             // log them in
+            $existingUser->profile()->update(['avatar' =>  $user->getAvatar()]);
             auth()->login($existingUser,true);
+            $profile =  User::where('provider_id', $user->getId())->first();
+            return redirect()->action('HomeUserController@show' , ['id' => $profile->id]);
         }else{
             //create a new user
             $newUser                    = new User;
@@ -82,9 +85,13 @@ class LoginGoogleController extends Controller
             $newUser->profile()->create(['avatar' =>  $user->getAvatar()]);
 
             auth()->login($newUser,true);
+             
+            $profile =  User::where('provider_id', $user->getId())->first();
+            return redirect()->action('HomeUserController@show' , ['id' => $profile->id])->with('newUser','Welcome to KU Knowledge Share Community - please enjoy with sharing your knowledge with others');
         }
 
-        $profile =  User::where('provider_id', $user->getId())->first();
-        return redirect()->action('HomeUserController@show' , ['id' => $profile->id]);
+       
+
+        
     }
 }

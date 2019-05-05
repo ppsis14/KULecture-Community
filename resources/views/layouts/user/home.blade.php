@@ -18,7 +18,8 @@
                                 <br>
                                 <a href="{{ action('HomeUserController@show', ['id' => Auth::user()->id]) }}">
                                     <h4 class="title">{{ Auth::user()->username }}<br><br>
-                                    <small>{{ Auth::user()->name }}</small>
+                                    <small>{{ Auth::user()->name }}</small><br><br>
+                                    <small><i class="fas fa-envelope fa-fw"></i>&nbsp;&nbsp;{{ Auth::user()->email }}</small>
                                     </h4>
                                 </a>
                         </div><br><br>
@@ -32,29 +33,30 @@
                         @endif
                     </div>
                     <hr>
-                    <div class="text-center">
-                        <button href="#" class="btn btn-simple"><i class="fas fa-envelope"></i></button> <span>{{ Auth::user()->email }}</span>
-                    </div>
-                    @if(!is_null($profile->facebook))
-                    <div class="text-center">
-                        <button href="#" class="btn btn-simple"><i class="fas fa-envelope"></i></button> <span>{{ $profile->facebook }}</span>
-                    </div>
-                    @endif
-                    @if(!is_null($profile->instagram))
-                    <div class="text-center">
-                        <button href="#" class="btn btn-simple"><i class="fas fa-envelope"></i></button> <span>{{ $profile->instagram }}</span>
-                    </div>
-                    @endif
-                    @if(!is_null($profile->twitter))
-                    <div class="text-center">
-                        <button href="#" class="btn btn-simple"><i class="fas fa-envelope"></i></button> <span>{{ $profile->twitter }}</span>
-                    </div>
-                    @endif
-                    @if(!is_null($profile->line))
-                    <div class="text-center">
-                        <button href="#" class="btn btn-simple"><i class="fas fa-envelope"></i></button> <span>{{ $profile->line }}</span>
-                    </div>
-                    @endif
+                    <!-- flex box -->
+                    <ul class="social-container">
+                        @if(!is_null($profile->facebook))
+                        <li>
+                            <img src="/img/icon-img/icons8-facebook.svg" class="img-icon">&nbsp;&nbsp;&nbsp;&nbsp;<span><a href="{{ $profile->facebook }}" target="_blank">{{ $profile->facebook_username }}</a></span>
+                        </li>
+                        @endif
+                        @if(!is_null($profile->instagram))
+                        <li>
+                            <img src="/img/icon-img/icons8-instagram.svg" class="img-icon"">&nbsp;&nbsp;&nbsp;&nbsp;<span><a href="{{ $profile->instagram }}" target="_blank">{{ $profile->instagram_username }}</a></span>
+                        </li>
+                        @endif
+                        @if(!is_null($profile->twitter))
+                        <li>
+                            <img src="/img/icon-img/icons8-twitter.svg" class="img-icon">&nbsp;&nbsp;&nbsp;&nbsp;<span><a href="{{ $profile->twitter }}" target="_blank">{{ $profile->twitter_username }}</a></span>
+                        </li>
+                        @endif
+                        @if(!is_null($profile->line))
+                        <li>
+                            <img src="/img/icon-img/icons8-line.svg" class="img-icon">&nbsp;&nbsp;&nbsp;&nbsp;<span>{{ $profile->line }}</span>
+                        </li>
+                        @endif
+                    </ul>
+                    <br>
                 </div>
             </div>
         </div>
@@ -96,17 +98,36 @@
 @section('script')
     <script type="text/javascript">
         $(document).ready(function(){
-            $.notify({
-                icon: 'pe-7s-gift',
-                message: "Welcome to <b>Light Bootstrap Dashboard</b> - a beautiful freebie for every web developer."
+            
+            // if({{ \Session::has('oldUser') }}){
+            //     var session_user = '{{ Session::get('oldUser') }}';
+            //     showNotification('top', 'right', 'pe-7s-check', session_user, 'info');
+            // }
 
-            },{
-                type: 'info',
-                timer: 4000
-            });
+            if({{ \Session::has('newUser') }}){
+                var session_user = '{{ Session::get('newUser') }}';
+                showNotification('top', 'right', 'pe-7s-bell', session_user, 'info');
+            }
+            
 
-            $('#home').addClass('active');
-
+            
         });
+        function showNotification(from, align, icon, message, color){
+                // color = Math.floor((Math.random() * 4) + 1);
+
+                $.notify({
+                    icon: icon,
+                    message: message
+
+                },{
+                    type: color,
+                    timer: 4000,
+                    placement: {
+                        from: from,
+                        align: align
+                    }
+                });
+            }
+        
     </script>
 @endsection

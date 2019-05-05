@@ -18,8 +18,11 @@ class CreateUserProfilesTable extends Migration
             $table->string('avatar')->nullable();
             $table->text('bio')->nullable();
             $table->string('facebook')->nullable();
+            $table->string('facebook_username')->nullable();
             $table->string('twitter')->nullable();
+            $table->string('twitter_username')->nullable();
             $table->string('instagram')->nullable();
+            $table->string('instagram_username')->nullable();
             $table->string('line')->nullable();
             $table->unsignedBigInteger('user_id');
             $table->timestamps();
