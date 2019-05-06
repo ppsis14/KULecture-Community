@@ -8,6 +8,14 @@ use App\User;
 
 class TagsController extends Controller
 {
+    public function index() 
+    {
+        $tags = Post::existingTags();
+        $categorys = ['Books', 'Lectures', 'Domitory', 'Electronics', 'News', 'Sports', 'Others'];
+
+        return view('layouts.user.all-tags', ['categorys' => $categorys,'tags' => $tags]);
+    }
+
     public function show($tag) 
     {
         $posts = Post::withAnyTag($tag)->where('hidden_status', false)->orderBy('updated_at', 'desc')->paginate(10);
