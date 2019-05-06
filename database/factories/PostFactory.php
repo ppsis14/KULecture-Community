@@ -12,6 +12,7 @@ $factory->define(Post::class, function (Faker $faker) {
         'description' => $faker->realText(100),
         'post_detail' => $faker->realText(200),
         'category' => $faker->randomElement(['Books', 'Lectures', 'Domitory', 'Electronics', 'News', 'Sports', 'Others']),
+        'post_tag' => $faker->word(),
         'hidden_status' => false,
         'report_status' => false
         // 'hidden_status' => $faker->boolean()
