@@ -48,10 +48,9 @@
                                     <div class="form-group">
                                         <label>New Password</label>
                                         <div>
-                                            <li><label>Length is equal or more than 6 digits</label></li> 
-                                            <li><label>Non-alphanumeric (For example: !, $, #, or %)</label> </li>
+                                        <li><small>Length is equal or more than 6 digits</small></li> 
+                                            <li><small>Non-alphanumeric (For example: !, $, #, or %)</small> </li>
                                         </div>
-                                        <!-- <input type="password" name="newPassword" class="form-control" placeholder="Enter new password"> -->
                                         <input type="password" class="form-control{{ $errors->has('newPassword') ? ' is-invalid' : '' }}" name ="newPassword" placeholder="Enter new password">
                                         @if ($errors->has('newPassword'))
                                             <span class="invalid-feedback" role="alert">
@@ -65,7 +64,6 @@
                                 <div class="col-md-12">
                                     <div class="form-group">
                                         <label>Confirm your new password</label>
-                                        <!-- <input type="password" name="confirmPassword" class="form-control" placeholder="Enter new password to confirm"> -->
                                         <input type="password" class="form-control{{ $errors->has('confirmPassword') ? ' is-invalid' : '' }}" name ="confirmPassword" placeholder="Enter new password to confirm">
                                         @if ($errors->has('confirmPassword'))
                                             <span class="invalid-feedback" role="alert">

@@ -67,7 +67,6 @@
                                 <div class="col-md-12">
                                     <div class="form-group">
                                         <label>Email</label>
-                                        <!-- <input type="text" name="email" class="form-control" placeholder="Enter Email"> -->
                                         <input type="text" class="form-control{{ $errors->has('email') ? ' is-invalid' : '' }}" id="email" name ="email" placeholder="Enter Email">
                                         @if ($errors->has('email'))
                                             <span class="invalid-feedback" role="alert">
@@ -81,7 +80,10 @@
                                 <div class="col-md-12">
                                     <div class="form-group">
                                         <label>Password</label>
-                                        <!-- <input type="password" name="password" class="form-control" placeholder="Enter new password"> -->
+                                        <div>
+                                            <li><small>Length is equal or more than 6 digits</small></li> 
+                                            <li><small>Non-alphanumeric (For example: !, $, #, or %)</small> </li>
+                                        </div>
                                         <input type="password" class="form-control{{ $errors->has('password') ? ' is-invalid' : '' }}" id="password" name ="password" placeholder="Enter new password">
                                         @if ($errors->has('password'))
                                             <span class="invalid-feedback" role="alert">
@@ -95,7 +97,10 @@
                                 <div class="col-md-12">
                                     <div class="form-group">
                                         <label>Confirm your password</label>
-                                        <!-- <input type="password" name="confirmPassword" class="form-control" placeholder="Enter password to confirm"> -->
+                                        <div>
+                                            <li><small>Length is equal or more than 6 digits</small></li> 
+                                            <li><small>Non-alphanumeric (For example: !, $, #, or %)</small> </li>
+                                        </div>
                                         <input type="password" class="form-control{{ $errors->has('confirmPassword') ? ' is-invalid' : '' }}" id="confirmPassword" name ="confirmPassword" placeholder="Enter password to confirm">
                                         @if ($errors->has('confirmPassword'))
                                             <span class="invalid-feedback" role="alert">
