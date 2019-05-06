@@ -14,6 +14,11 @@ use App\UserProfile;
 
 class PostsController extends Controller
 {
+    
+    public function __construct()
+    {
+        $this->middleware('auth');
+    }
     /**
      * Display a listing of the resource.
      *
@@ -325,9 +330,6 @@ class PostsController extends Controller
         return view('layouts.user.posts', ['categorys' => $categorys, 'dropdown' => $dropdown])->withMessage('No posts found')->withQuery($q);
     }
 
-    public function __construct()
-    {
-        $this->middleware('auth');
-    }
+    
 
 }

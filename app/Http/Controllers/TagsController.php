@@ -8,6 +8,11 @@ use App\User;
 
 class TagsController extends Controller
 {
+    public function __construct()
+    {
+      $this->middleware('auth');
+    }
+
     public function index() 
     {
         $tags = Post::existingTags();
@@ -70,10 +75,5 @@ class TagsController extends Controller
             return view('layouts.user.explore', ['categorys' => $categorys, 'dropdown' => $dropdown])->withQuery($q)->withDetails($posts);
         
         return view('layouts.user.explore', ['categorys' => $categorys, 'dropdown' => $dropdown])->withMessage('No posts found')->withQuery($q);
-    }
-
-    public function __construct()
-    {
-        $this->middleware('auth');
     }
 }

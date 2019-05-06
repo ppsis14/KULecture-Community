@@ -8,6 +8,11 @@ use Illuminate\Support\Facades\Gate;
 
 class UsersManagementController extends Controller
 {
+    public function __construct()
+    {
+      $this->middleware('auth');
+    }
+    
     public function index() {
         if(Gate::allows('isAdmin')){
             $users = User::where('role', 'USER')->get();

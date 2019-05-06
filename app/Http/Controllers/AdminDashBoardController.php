@@ -10,6 +10,11 @@ use Illuminate\Support\Facades\Gate;
 
 class AdminDashBoardController extends Controller
 {
+    public function __construct()
+    {
+      $this->middleware('auth');
+    }
+    
     public function showDashBoard(){
         if(Gate::allows('isAdmin')){
         $users = User::where('role', 'USER')->count();

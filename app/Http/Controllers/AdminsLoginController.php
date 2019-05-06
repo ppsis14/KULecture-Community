@@ -7,10 +7,10 @@ use Illuminate\Support\Facades\Gate;
 
 class AdminsLoginController extends Controller
 {
-    // public function __construct()
-    // {
-    //     $this->middleware('auth:admin');
-    // }
+    public function __construct()
+    {
+        $this->middleware('auth');
+    }
     
     public function index(){
         if(Gate::allows('isAdmin')){
