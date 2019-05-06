@@ -2,6 +2,8 @@
 
 use Illuminate\Database\Seeder;
 use App\User;
+use App\Post;
+use App\UserProfile;
 
 class UsersTableSeeder extends Seeder
 {
@@ -12,6 +14,14 @@ class UsersTableSeeder extends Seeder
      */
     public function run()
     {
-        factory(User::class)->state('ADMINISTRATOR')->create();
+        factory(User::class, 1)->state('ADMINISTRATOR')->create();
+        factory(User::class,10)->state('USER')->create()->each(function ($user) {
+            $user->posts()->saveMany(
+                factory(Post::class, 50)->make()
+            );
+            $user->profile()->save(
+                factory(UserProfile::class)->make()
+            );
+        });
     }
 }
