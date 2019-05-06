@@ -20,9 +20,8 @@ class PostsManagementController extends Controller
         if(Gate::allows('isAdmin')){
             $posts = Post::join('users', 'posts.user_id', '=', 'users.id')
             ->select('posts.*', 'users.username')
-            ->where('hidden_status', false)
             ->orderBy('updated_at', 'desc')->paginate(10);
-            return view('layouts.admin.post-management');
+            return view('layouts.admin.post-management', ['posts' => $posts]);
         }
         else {
             return abort(404);
@@ -151,7 +150,7 @@ class PostsManagementController extends Controller
         $post->report_status = false;
 
         $post->save();
-        return redirect()->action('PostsManagementController@show', ['id' => $post->id])->with('success','Unreport complete');
+        return redirect()->action('PostsManagementController@show', ['id' => $post->id])->with('success','Unreport this post complete');
     }
         else {
             return abort(404);

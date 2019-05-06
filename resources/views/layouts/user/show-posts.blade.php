@@ -19,10 +19,15 @@
 
                         @if(Auth::user() and Auth::user()->can('view', $post))
                             @if($post->report_status == true)
-                                <h3 style="color: red"> <b> This post get report! </b></h3>
+                                <button type="button" class="btn btn-danger">
+                                    <b> This post get report! </b>
+                                </button>
+                                
                             @endif
                             @if($post->hidden_status == true)
-                                <h3 style="color: #3eb0f7"> <b> This post is hidden. </b></h3>
+                                <button type="button" class="btn btn-info">
+                                    <b> This post is hidden. </b>
+                                </button>
                             @endif
                         @endif
 

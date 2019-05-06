@@ -26,25 +26,28 @@
                                 </thead>
                                 @if(!is_null($posts))
                                 <tbody>
+                                    @foreach ($posts as $post)
                                     <tr>
-                                        <td></td>
-                                        <td></td>
-                                        <td></td>
-                                        <td></td>
+                                        <td>{{ $post->id }}</td>
+                                        <td>{{ $post->post_title }}</td>
+                                        <td>{{ $post->username }}</td>
+                                        <td>{{$post->created_at->format('j F Y')}} at {{$post->created_at->format('H:m')}}</td>
                                         <td>
-                                            <button href="#" type="button" onclick="return confirm('Do you want to delete this account?')" class="btn btn-primary btn-sm"><i class="fas fa-sign-in-alt fa-fw"></i></button>
+                                            <a href="{{ action('PostsManagementController@show', ['id' => $post->id]) }}"><button type="button"  class="btn btn-primary btn-sm"><i class="fas fa-sign-in-alt fa-fw"></i></button></a>
                                         </td>
                                         <td>
-                                            <button href="#" type="button" onclick="return confirm('Do you want to delete this account?')" class="btn btn-danger btn-sm"><i class="fas fa-trash-alt fa-fw"></i></button>
+                                            <a href="{{ action('PostsManagementController@destroy', ['id' => $post->id]) }}"><button type="button" class="btn btn-danger btn-sm" onclick="return confirm('Do you want to delete this post?')"><i class="fas fa-trash-alt fa-fw"></i></button></a>
                                         </td>
                                         <td>
                                             @if($post->hidden_status == false)
-                                            <button href="#" type="button" onclick="return confirm('Do you want to delete this account?')" class="btn btn-danger btn-sm"><i class="fas fa-eye-slash fa-fw"></i></button>
-                                            @elseif($post->hidden_status == true)
-                                            <button href="#" type="button" onclick="return confirm('Do you want to delete this account?')" class="btn btn-danger btn-sm"><i class="fas fa-eye fa-fw"></i></button>
+                                            <a href="{{ action('PostsManagementController@hidden', ['id' => $post->id]) }}"><button type="button" class="btn btn-waring btn-sm"><i class="fas fa-eye-slash fa-fw"></i></button></a>
+                                            @endif
+                                            @if($post->hidden_status == true)
+                                            <a href="{{ action('PostsManagementController@unHidden', ['id' => $post->id]) }}"><button type="button" class="btn btn-success btn-sm"><i class="fas fa-eye fa-fw"></i></button></a>
                                             @endif
                                         </td>
                                     </tr>
+                                    @endforeach
                                 </tbody>
                                 @endif
                             </table>
