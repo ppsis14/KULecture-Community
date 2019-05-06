@@ -47,7 +47,7 @@
                                 <div class="col-md-6">
                                     <div class="form-group">
                                         <label for="exampleInputEmail1">Facebook Username</label>
-                                        <input type="text" class="form-control {{$errors->has('facebook_username')? 'is-invalid' : '' }}" name="facebook_username" placeholder="Facebook username" value="{{ $profile->facebook_username }}">
+                                        <input type="text" class="form-control {{$errors->has('facebook_username')? 'is-invalid' : '' }}" name="facebook_username" placeholder="Facebook username" value="{{ old('facebook_username') }}">
                                             @if( $errors->has('facebook_username'))
                                                 <div class="invalid-feedback">
                                                     {{ $errors->first('facebook_username') }}
@@ -58,7 +58,7 @@
                                 <div class="col-md-6">
                                     <div class="form-group">
                                         <label for="exampleInputEmail1">Facebook url link</label>
-                                        <input type="text" class="form-control {{$errors->has('facebook')? 'is-invalid' : '' }}" name="facebook" placeholder="URL of your facebook profile" value="{{ $profile->facebook }}">
+                                        <input type="text" class="form-control {{$errors->has('facebook')? 'is-invalid' : '' }}" name="facebook" placeholder="URL of your facebook profile" value="{{ old('facebook') }}">
                                             @if( $errors->has('facebook'))
                                                 <div class="invalid-feedback">
                                                     {{ $errors->first('facebook') }}
@@ -71,7 +71,7 @@
                                 <div class="col-md-6">
                                     <div class="form-group">
                                         <label for="exampleInputEmail1">Twitter Username</label>
-                                        <input type="text" class="form-control {{$errors->has('twitter_username')? 'is-invalid' : '' }}" name="twitter_username" placeholder="Twitter username" value="{{ $profile->twitter_username}}">
+                                        <input type="text" class="form-control {{$errors->has('twitter_username')? 'is-invalid' : '' }}" name="twitter_username" placeholder="Twitter username" value="{{ old('twitter_username') }}">
                                             @if( $errors->has('twitter_username'))
                                                 <div class="invalid-feedback">
                                                     {{ $errors->first('twitter_username') }}
@@ -82,7 +82,7 @@
                                 <div class="col-md-6">
                                     <div class="form-group">
                                         <label for="exampleInputEmail1">Twitter url link</label>
-                                        <input type="text" class="form-control {{$errors->has('twitter')? 'is-invalid' : '' }}" name="twitter" placeholder="URL of your twitter profile" value="{{ $profile->twitter}}">
+                                        <input type="text" class="form-control {{$errors->has('twitter')? 'is-invalid' : '' }}" name="twitter" placeholder="URL of your twitter profile" value="{{ old('twitter') }}">
                                             @if( $errors->has('twitter'))
                                                 <div class="invalid-feedback">
                                                     {{ $errors->first('twitter') }}
@@ -95,7 +95,7 @@
                                 <div class="col-md-6">
                                     <div class="form-group">
                                         <label for="exampleInputEmail1">Instagram Username</label>
-                                        <input type="text" class="form-control {{$errors->has('ig_username')? 'is-invalid' : '' }}" name="ig_username" placeholder="Instagram username" value="{{ $profile->instagram_username }}">
+                                        <input type="text" class="form-control {{$errors->has('ig_username')? 'is-invalid' : '' }}" name="ig_username" placeholder="Instagram username" value="{{ old('instagram_username') }}">
                                             @if( $errors->has('ig_username'))
                                                 <div class="invalid-feedback">
                                                     {{ $errors->first('ig_username') }}
@@ -106,7 +106,7 @@
                                 <div class="col-md-6">
                                     <div class="form-group">
                                         <label for="exampleInputEmail1">Instagram url link</label>
-                                        <input type="text" class="form-control {{$errors->has('ig')? 'is-invalid' : '' }}" name="ig" placeholder="URL of your instagram profile" value="{{ $profile->instagram }}">
+                                        <input type="text" class="form-control {{$errors->has('ig')? 'is-invalid' : '' }}" name="ig" placeholder="URL of your instagram profile" value="{{ old('instagram') }}">
                                             @if( $errors->has('ig'))
                                                 <div class="invalid-feedback">
                                                     {{ $errors->first('ig') }}
@@ -120,7 +120,7 @@
                                     <div class="form-group">
                                         <label for="exampleInputEmail1">Line ID</label>
                                         
-                                        <input type="text" class="form-control {{$errors->has('line')? 'is-invalid' : '' }}" name="line" placeholder="Line ID" value="{{ $profile->line }}">
+                                        <input type="text" class="form-control {{$errors->has('line')? 'is-invalid' : '' }}" name="line" placeholder="Line ID" value="{{ old('line') }}">
                                             @if( $errors->has('line'))
                                                 <div class="invalid-feedback">
                                                     {{ $errors->first('line') }}
