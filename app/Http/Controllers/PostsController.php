@@ -237,7 +237,8 @@ class PostsController extends Controller
 
     public function category($category) 
     {
-        $posts = Post::where('category', $category)->paginate(10);
+        $posts = Post::join('users', 'posts.user_id', '=', 'users.id')
+        ->select('posts.*', 'users.username')->where('category', $category)->orderBy('updated_at', 'desc')->paginate(10);
         $categorys = ['Books', 'Lectures', 'Domitory', 'Electronics', 'News', 'Sports', 'Others'];
         $dropdown = $category;
 
@@ -250,7 +251,8 @@ class PostsController extends Controller
         $categorys = ['Books', 'Lectures', 'Domitory', 'Electronics', 'News', 'Sports', 'Others'];
 
         if($dropdown == 'All') {
-            $posts = Post::where('user_id', Auth::user()->id)
+            $posts = Post::join('users', 'posts.user_id', '=', 'users.id')
+            ->select('posts.*', 'users.username')->where('user_id', Auth::user()->id)
             ->where(function ($query) use ($key) {
                 $query->withAnyTag($key)
                       ->orWhere('post_title', 'LIKE', '%'. $key . '%');
@@ -258,7 +260,8 @@ class PostsController extends Controller
             ->orderBy('updated_at', 'desc')->paginate(10)->appends(['key' => $request->input('key'), 'dropdown' => $dropdown]);
         }
         else {
-            $posts = Post::where('user_id', Auth::user()->id)
+            $posts = Post::join('users', 'posts.user_id', '=', 'users.id')
+            ->select('posts.*', 'users.username')->where('user_id', Auth::user()->id)
             ->where('category', $dropdown)
             ->where(function ($query) use ($key) {
                 $query->withAnyTag($key)
@@ -291,7 +294,8 @@ class PostsController extends Controller
         }
 
         if($request->input('tags') == null) {
-            $posts = Post::where('user_id', Auth::user()->id)
+            $posts = Post::join('users', 'posts.user_id', '=', 'users.id')
+            ->select('posts.*', 'users.username')->where('user_id', Auth::user()->id)
             ->where('category', $category)
             ->where('post_title', 'LIKE', '%'. $title . '%')
             ->orderBy('updated_at', 'desc')->paginate(10)->appends(['post_title' => $request->input('post_title'), 'category' => $request->input('category'),
@@ -299,7 +303,8 @@ class PostsController extends Controller
         }
         else {
             $tags = explode(",", $t);
-            $posts = Post::where('user_id', Auth::user()->id)
+            $posts = Post::join('users', 'posts.user_id', '=', 'users.id')
+            ->select('posts.*', 'users.username')->where('user_id', Auth::user()->id)
             ->where('category', $category)
             ->where('post_title', 'LIKE', '%'. $title . '%')
             ->withAnyTag($tags)

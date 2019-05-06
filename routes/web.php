@@ -28,6 +28,11 @@ Route::get('/admin/posts/unhidden/{id}', 'PostsManagementController@unHidden');
 Route::post('/admin/posts/unreport/{id}', 'PostsManagementController@unReport');
 Route::get('/admin/addadmin', 'AddNewAdminController@index');
 Route::get('/admin/changepassword', 'ChangePasswordController@index');
+Route::get('/admin/posts/category/{category}', 'PostsManagementController@category');
+Route::get('/admin/posts/tags/{tag}', 'PostsManagementController@all_tag');
+Route::get('/admin/posts/tag/{tag}', 'PostsManagementController@tag');
+Route::get('/admin/explorer/search/{category}', 'PostsManagementController@search');
+Route::get('/admin/explorer/advance', 'PostsManagementController@advance');
 
 Route::post('/admin/changepassword','ChangePasswordController@update');
 Route::get('/admin/notifications', 'AdminNotificationsController@index');
