@@ -22,6 +22,7 @@
                                     <th>Create at</th>
                                     <th>View</th>
                                     <th>Delete</th>
+                                    <th>Hidden/unhidden</th>
                                 </thead>
                                 <tbody>
 
@@ -34,6 +35,10 @@
                                             <button href="#" type="button" onclick="return confirm('Do you want to delete this account?')" class="btn btn-primary btn-sm"><i class="fas fa-sign-in-alt fa-fw"></i></button>
                                         </td>
                                         <td>
+                                            <button href="#" type="button" onclick="return confirm('Do you want to delete this account?')" class="btn btn-danger btn-sm"><i class="fas fa-trash-alt fa-fw"></i></button>
+                                        </td>
+                                        <td>
+                                            @if
                                             <button href="#" type="button" onclick="return confirm('Do you want to delete this account?')" class="btn btn-danger btn-sm"><i class="fas fa-trash-alt fa-fw"></i></button>
                                         </td>
                                     </tr>
@@ -49,12 +54,12 @@
             <div class="col-md-12">
                 <div class="card">
                     <div class="header">
-                        <h4 class="title">Hidden Posts Table</h4>
+                        <h4 class="title">Reported Posts Table</h4>
                         <hr>
                     </div>
                     <div class="card-body">
                         <div class="content">
-                            <table class="table table-hover table-striped table-responsive table-full-width" id="postTable">
+                            <table class="table table-hover table-striped table-responsive table-full-width" id="reportedPostTable">
                                 <thead>
                                     <th>Post ID</th>
                                     <th>Post title</th>
@@ -62,6 +67,7 @@
                                     <th>Create at</th>
                                     <th>View</th>
                                     <th>Delete</th>
+                                    <th>Hidden/unhidden</th>
                                 </thead>
                                 <tbody>
 
@@ -77,7 +83,6 @@
                                             <button href="#" type="button" onclick="return confirm('Do you want to delete this account?')" class="btn btn-danger btn-sm"><i class="fas fa-trash-alt fa-fw"></i></button>
                                         </td>
                                     </tr>
-                                
                                 </tbody>
                             </table>
                         </div>
@@ -85,6 +90,7 @@
                 </div>
             </div>
         </div>
+        
     </div>
 @endsection
 @section('script')
@@ -95,6 +101,8 @@
     <script type="text/javascript">
         $(document).ready(function (){
             $('#postTable').DataTable();
+
+            $('#reportedPostTable').DataTable();
 
             $('#post-management').addClass('active');
         });
