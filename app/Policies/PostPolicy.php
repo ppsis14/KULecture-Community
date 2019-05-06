@@ -100,4 +100,9 @@ class PostPolicy
     {
         return $user->isAdmin();
     }
+
+    public function view_all(User $user)
+    {
+        return $user->isUser();
+    }
 }
