@@ -11,6 +11,14 @@
 **กลุ่มที่ 3 Philanthropist**
 * **นางสาวฑิฆัมพร สิมอุด 5910401033**  - github link -> [ppsis14](https://github.com/ppsis14)
 * **นายเกียรติศักดิ์ ธีรพงษ์พิพัฒน์ 5910406060** - github link -> [robinker](https://github.com/robinker)
+    * **งานที่รับผิดชอบ :**
+        * **admin**
+            * login ของ admin
+            * หน้า dashboard ในการแสดงจำนวน user, จำนวน post และกราฟแสดงจำนวนโพสต์ในแต่ละ category
+            * หน้า usermanagement แสดงตารางข้อมูลของ user และ admin
+            * สร้าง api สำหรับการดูข้อมูล user และ post
+            * กำหนด policy ในการลบข้อมูลในหน้า usermanagement ให้ admin เท่านั้นที่ลบข้อมูลได้ แต่จะลบข้อมูลของตนเองไม่ได้
+            
 * **นายปิยวัฒน์ นามทะจันทร์ 5910406256** - github link -> [Faeng](https://github.com/Faeng)
 * **นางสาวพรรณกาญจน์ ปิ่นศรีเพ็ชรกูล 5910406302** - github link -> [pannakarn](https://github.com/pannakarn)
     * **งานที่รับผิดชอบ :** 
