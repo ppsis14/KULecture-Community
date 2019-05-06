@@ -95,7 +95,8 @@ class UserProfileController extends Controller
         ]);
 
         $user = User::findOrFail($id);
-        $this->authorize('update', $user->profile());
+        $profile = UserProfile::where('user_id', $user->id)->first();
+        $this->authorize('update', $profile);
         
         $user->profile()->update(
             [
