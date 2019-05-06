@@ -14,7 +14,7 @@ class UsersManagementController extends Controller
             $admins = User::where('role', 'ADMINISTRATOR')->get();
             return view('layouts.admin.user-management', ['users' => $users, 'admins' => $admins]);
         }else{
-            return redirect()->back();
+            return abort(404);
         }
     }
 
@@ -24,7 +24,7 @@ class UsersManagementController extends Controller
             $user->delete();
             return redirect()->action('UsersManagementController@index');
         }else{
-            return redirect()->back();
+            return abort(404);
         }   
     }
 }

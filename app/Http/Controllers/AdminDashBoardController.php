@@ -24,7 +24,7 @@ class AdminDashBoardController extends Controller
         return view('layouts.admin.dashboard', ['users' => $users, 'posts' => $posts, 'chart' => $chart]);
         }
         else{
-            echo "You have no permission";
+            return abort(404);
         }
     }
 

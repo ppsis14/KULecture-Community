@@ -17,7 +17,7 @@ class AddNewAdminController extends Controller
             return view('layouts.admin.add-admin');
         }
         else{
-            return redirect()->back();
+            return abort(404);
         }
     }
 
@@ -53,7 +53,7 @@ class AddNewAdminController extends Controller
             }
         }
         else{
-            return redirect()->back();
+            return abort(404);
         }
         
     }
