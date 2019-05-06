@@ -43,4 +43,12 @@
             <p>Change Password</p>
         </a>
     </li>
+    
+    <li id="notify">
+        <a href="{{ action('AdminNotificationsController@index') }}">
+            <i class="pe-7s-bell"></i>
+            <p>Notification&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{{ $count }}</p>
+            <span class="badge"></span>
+        </a>
+    </li>
 </ul>

@@ -152,7 +152,7 @@
             <div class="card" style="padding: 20px;">
                 <h5>Contact</h5>
                 <div class="content">
-                <ul class="social-container">
+                    <ul class="social-container">
                         <li>
                             @foreach($email as $e)
                                 <i class="fas fa-envelope fa-fw"></i>&nbsp;&nbsp; {{$e->email}}

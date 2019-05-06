@@ -12,7 +12,7 @@ class PostsManagementController extends Controller
         return view('layouts.admin.post-management');
         }
         else{
-            return redirect()->back();
+            return abort(404);
         }
     }
 }

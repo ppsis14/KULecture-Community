@@ -107,6 +107,9 @@ class PostsController extends Controller
         $username = User::select('username')->where('id', $post->user_id)->get();
         $email = User::select('email')->where('id', $post->user_id)->get();
         $contact = UserProfile::where('user_id', $post->user_id)->first();
+        
+        // dd($post);
+        // dd($contact);
 
         if(Auth::user()->isAdmin())
             return view('layouts.admin.show-posts', ['post' => $post, 'tags' => $tags, 'files' => $files, 'username' => $username, 'contact' => $contact, 'email' => $email]);
