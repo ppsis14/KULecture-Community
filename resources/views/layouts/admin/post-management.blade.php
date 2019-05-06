@@ -36,7 +36,11 @@
                                             <a href="{{ action('PostsManagementController@show', ['id' => $post->id]) }}"><button type="button"  class="btn btn-primary btn-sm"><i class="fas fa-sign-in-alt fa-fw"></i></button></a>
                                         </td>
                                         <td>
-                                            <a href="{{ action('PostsManagementController@destroy', ['id' => $post->id]) }}"><button type="button" class="btn btn-danger btn-sm" onclick="return confirm('Do you want to delete this post?')"><i class="fas fa-trash-alt fa-fw"></i></button></a>
+                                            <form action="{{ action('PostsManagementController@destroy', ['id' => $post->id]) }}" method="post">
+                                            @csrf
+                                            @method('DELETE')
+                                                <a href="{{ action('PostsManagementController@destroy', ['id' => $post->id]) }}"><button type="submit" class="btn btn-danger btn-sm" onclick="return confirm('Do you want to delete this post?')"><i class="fas fa-trash-alt fa-fw"></i></button></a>
+                                            </form>
                                         </td>
                                         <td>
                                             @if($post->hidden_status == false)
@@ -77,6 +81,14 @@
 
     <script type="text/javascript">
         $(document).ready(function (){
+            $('.delete-post').click(function(e) {
+                e.preventDefault();
+                var is_confirm = confirm('Are you sure to delete this post ?');
+
+                if(is_confirm) {
+                    $(e.target).closest('form').submit();
+                }
+            });
             $('#postTable').DataTable();
 
             $('#reportedPostTable').DataTable();
