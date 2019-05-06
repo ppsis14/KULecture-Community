@@ -18,9 +18,9 @@ class ChangePasswordController extends Controller
     
     public function index() {
         if(Gate::allows('isAdmin')){
-        return view('layouts.admin.change-password');
+            return view('layouts.admin.change-password');
         }else{
-            return redirect()->back();
+            return abort(404);
         }
     }
 
