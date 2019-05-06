@@ -1,4 +1,4 @@
-@extends('layouts.user.user-master')
+@extends('layouts.admin.admin-master')
 @section('title-page', 'Posts Explorer')
 @section('header')
     <i class="pe-7s-global"></i>&nbsp;&nbsp;Posts Explorer
@@ -57,14 +57,14 @@
                     </a>
                     <ul class="dropdown-menu">
                         @foreach($categorys as $category)
-                            <li><a href="/user/explorer/category/{{ $category}}">{{ $category}}</a></li>
+                            <li><a href="/admin/posts/category/{{ $category}}">{{ $category}}</a></li>
                         @endforeach
                         <li class="divider"></li>
-                        <li><a href="{{ action('ExplorePostsController@index')}}">All</a></li>
+                        <li><a href="/admin/posts/category/All">All</a></li>
                     </ul>
                 </li>
             </ul>
-            <form action="{{ action('ExplorePostsController@search', ['dropdown' => $dropdown]) }}" role="search" method="get">
+            <form action="{{ action('PostsManagementController@search', ['dropdown' => $dropdown]) }}" role="search" method="get">
                 <div class="col-md-8">
                     <div class="form-group"> 
                         <input class="form-control" type="text" name="key" placeholder="Search..." aria-label="Search" value="{{ old('title')}}">
@@ -82,9 +82,9 @@
             <div class="form-group" style="text-align: center;">
                 <button style="border: transparent;" type="button" class="btn" name="button" id="btn-advance"><i class="fas fa-search" aria-hidden="true"></i>&nbsp;&nbsp; Advance Search</button>
                 <button style="border: transparent;" class="btn" id="line-advance"> | </button>
-                <button style="border: transparent;" type="button" class="btn" name="button" id="btn-tag-advance"><a href="{{ action('TagsController@index') }}" style="color: #888888">All tags</a> </button>
+                <button style="border: transparent;" type="button" class="btn" name="button" id="btn-tag-advance"><a href="{{ action('PostsManagementController@all_tag', ['id' => Auth::user()->id]) }}" style="color: #888888">All tags</a> </button>
                 <button style="border: transparent;" class="btn" id="line2-advance"> | </button>
-                <button style="border: transparent;" type="button" class="btn" name="button" id="btn-cate-advance"><a href="{{ action('ExplorePostsController@index')}}" style="color: #888888">Category</a> </button>
+                <button style="border: transparent;" type="button" class="btn" name="button" id="btn-cate-advance"><a href="/admin/posts/category/All" style="color: #888888">Category</a> </button>
             </div>
         </div>
 
@@ -92,9 +92,9 @@
             <div class="form-group" style="text-align: center;">
                 <button style="border: transparent; display: none;" type="button" class="btn" name="button" id="btn-normal"><i class="fas fa-search" aria-hidden="true"></i>&nbsp;&nbsp; Back To Normal Search</button>
                 <button style="border: transparent; display: none;" class="btn" id="line-normal"> | </button>
-                <button style="border: transparent; display: none;" type="button" class="btn" name="button" id="btn-tag-normal"> <a href="{{ action('TagsController@index') }}" style="color: #888888">All tags</a></button>
+                <button style="border: transparent; display: none;" type="button" class="btn" name="button" id="btn-tag-normal"> <a href="{{ action('PostsManagementController@all_tag', ['id' => Auth::user()->id]) }}" style="color: #888888">All tags</a></button>
                 <button style="border: transparent; display: none;" class="btn" id="line2-normal"> | </button>
-                <button style="border: transparent; display: none;" type="button" class="btn" name="button" id="btn-cate-normal"><a href="{{ action('ExplorePostsController@index')}}" style="color: #888888">Category</a> </button>
+                <button style="border: transparent; display: none;" type="button" class="btn" name="button" id="btn-cate-normal"><a href="/admin/posts/category/All" style="color: #888888">Category</a> </button>
             </div>
         </div>
 
@@ -103,7 +103,7 @@
                 <div class="card" style="padding: 20px;">
                     <h4 class="card-title">Advance Search</h4>
                     <div class="card-body">
-                        <form action="{{ action('ExplorePostsController@advance') }}" role="search" method="get">
+                        <form action="{{ action('PostsManagementController@advance') }}" role="search" method="get">
                             <div class="row">
                                 <div class="col-md-5">
                                     <div class="form-group">
@@ -165,13 +165,13 @@
                     <img src="{{ URL::to('/') }}/images/{{ $post->post_cover }}" class="card-img-top" alt="Card image cap" width="100%"/>
                 @endif
                 <div class="card-body">
-                  <h4 class="card-title"><a href="{{ action('PostsController@show', ['id' => $post->id]) }}">{{$post->post_title}}</a></h4>
+                  <h4 class="card-title"><a href="{{ action('PostsManagementController@show', ['id' => $post->id]) }}">{{$post->post_title}}</a></h4>
                   <p class="card-text">{{$post->description}}</p>
-                  <p class="card-text"><small class="text-muted">Category: <a href="/user/explorer/category/{{$post->category}}">{{$post->category}}</a>&nbsp;&nbsp; 
+                  <p class="card-text"><small class="text-muted">Category: <a href="/admin/posts/category/{{$post->category}}">{{$post->category}}</a>&nbsp;&nbsp; 
                     @if($post->post_tag != null)
                         Tag : 
                         @foreach($post->tags as $tag)
-                            <a href="/user/explorer/tag/{{$tag->slug}}">{{$tag->slug}}</a>
+                            <a href="/admin/posts/tag/{{$tag->slug}}">{{$tag->slug}}</a>
                         @endforeach
                     @endif
                   </small></p>
@@ -224,6 +224,7 @@
                 $('#line-normal').show();
                 $('#btn-cate-normal').show();
                 $('#line2-normal').show();
+                
             });
 
             $('#btn-normal').click(function () {

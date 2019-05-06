@@ -18,7 +18,8 @@ class TagsController extends Controller
 
     public function show($tag) 
     {
-        $posts = Post::withAnyTag($tag)->where('hidden_status', false)->orderBy('updated_at', 'desc')->paginate(10);
+        $posts = Post::join('users', 'posts.user_id', '=', 'users.id')
+        ->select('posts.*', 'users.username')->withAnyTag($tag)->where('hidden_status', false)->orderBy('updated_at', 'desc')->paginate(10);
         $categorys = ['Books', 'Lectures', 'Domitory', 'Electronics', 'News', 'Sports', 'Others'];
 
         return view('layouts.user.tag', ['categorys' => $categorys, 'tag' => $tag])->withDetails($posts);
@@ -40,7 +41,8 @@ class TagsController extends Controller
         }
 
         if($request->input('tags') == null) {
-            $posts = Post::where('hidden_status', false)
+            $posts = Post::join('users', 'posts.user_id', '=', 'users.id')
+            ->select('posts.*', 'users.username')->where('hidden_status', false)
             ->where('category', $category)
             ->where('post_title', 'LIKE', '%'. $title . '%')
             ->orderBy('updated_at', 'desc')->paginate(10)->appends(['post_title' => $request->input('post_title'), 'category' => $request->input('category'),
@@ -48,7 +50,8 @@ class TagsController extends Controller
         }
         else {
             $tags = explode(",", $t);
-            $posts = Post::where('hidden_status', false)
+            $posts = Post::join('users', 'posts.user_id', '=', 'users.id')
+            ->select('posts.*', 'users.username')->where('hidden_status', false)
             ->where('category', $category)
             ->where('post_title', 'LIKE', '%'. $title . '%')
             ->withAnyTag($tags)

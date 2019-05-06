@@ -4,6 +4,20 @@
     <i class="pe-7s-news-paper"></i>&nbsp;&nbsp;Post Management
 @endsection
 @section('content')
+
+<script src="//code.jquery.com/jquery-1.12.3.js"></script>
+<script src="//cdn.datatables.net/1.10.12/js/jquery.dataTables.min.js"></script>
+<script
+    src="https://cdn.datatables.net/1.10.12/js/dataTables.bootstrap.min.js"></script>
+<link rel="stylesheet"
+    href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
+<link rel="stylesheet"
+    href="https://cdn.datatables.net/1.10.12/css/dataTables.bootstrap.min.css">
+
+
+
+
+
     <div class="container-fluid">
         <div class="row">
             <div class="col-md-12">
@@ -40,7 +54,7 @@
                                         </td>
                                         <td>
                                             @if($post->hidden_status == false)
-                                            <a href="{{ action('PostsManagementController@hidden', ['id' => $post->id]) }}"><button type="button" class="btn btn-waring btn-sm"><i class="fas fa-eye-slash fa-fw"></i></button></a>
+                                            <a href="{{ action('PostsManagementController@hidden', ['id' => $post->id]) }}"><button type="button" class="btn btn-warning btn-sm"><i class="fas fa-eye-slash fa-fw"></i></button></a>
                                             @endif
                                             @if($post->hidden_status == true)
                                             <a href="{{ action('PostsManagementController@unHidden', ['id' => $post->id]) }}"><button type="button" class="btn btn-success btn-sm"><i class="fas fa-eye fa-fw"></i></button></a>
@@ -53,6 +67,18 @@
                             </table>
                         </div>
                     </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-md-12">
+                <div class="card">
+                        <div class="form-group" style="text-align: center;">
+                            <button style="border: transparent;" type="button" class="btn" name="button" id="btn-cate-advance"><a href="/admin/posts/category/All" >Posts Explorer</a> </button>
+                            <button style="border: transparent;" class="btn" id="line-advance"> | </button>
+                            <button style="border: transparent;" type="button" class="btn" name="button" id="btn-tag-advance"><a href="{{ action('PostsManagementController@all_tag', ['id' => Auth::user()->id]) }}">See All tags</a> </button>         
+                        </div>
                 </div>
             </div>
         </div>

@@ -81,16 +81,16 @@
         <div class="row" id="normal-search">
             <div class="form-group" style="text-align: center;">
                 <button style="border: transparent;" type="button" class="btn" name="button" id="btn-advance"><i class="fas fa-search" aria-hidden="true"></i>&nbsp;&nbsp; Advance Search</button>
-                <button style="border: transparent;" class="btn" id="line-advance"> | </button>
-                <button style="border: transparent;" type="button" class="btn" name="button" id="btn-tag-advance"><a href="{{ action('TagsController@index') }}" style="color: #888888">All tags</a> </button>
+                <button style="border: transparent;" class="btn" id="line2-advance"> | </button>
+                <button style="border: transparent;" type="button" class="btn" name="button" id="btn-cate-advance"><a href="{{ action('PostsController@index')}}" style="color: #888888">Category</a> </button>
             </div>
         </div>
 
         <div class="row" id="normal-search">
             <div class="form-group" style="text-align: center;">
                 <button style="border: transparent; display: none;" type="button" class="btn" name="button" id="btn-normal"><i class="fas fa-search" aria-hidden="true"></i>&nbsp;&nbsp; Back To Normal Search</button>
-                <button style="border: transparent; display: none;" class="btn" id="line-normal"> | </button>
-                <button style="border: transparent; display: none;" type="button" class="btn" name="button" id="btn-tag-normal"> <a href="{{ action('TagsController@index') }}" style="color: #888888">All tags</a></button>
+                <button style="border: transparent; display: none;" class="btn" id="line2-normal"> | </button>
+                <button style="border: transparent; display: none;" type="button" class="btn" name="button" id="btn-cate-normal"><a href="{{ action('PostsController@index')}}" style="color: #888888">Category</a> </button>
             </div>
         </div>
 
@@ -255,11 +255,11 @@
                 $('#advance-search').show();
                 $('#normal-search').hide();
                 $('#btn-advance').hide();
-                $('#btn-tag-advance').hide();
-                $('#line-advance').hide();
+                $('#btn-cate-advance').hide();
+                $('#line2-advance').hide();
                 $('#btn-normal').show();
-                $('#btn-tag-normal').show();
-                $('#line-normal').show();
+                $('#btn-cate-normal').show();
+                $('#line2-normal').show();
             });
 
             $('#btn-normal').click(function () {
@@ -267,10 +267,10 @@
                 $('#normal-search').show();
                 $('#btn-normal').hide();
                 $('#btn-advance').show();
-                $('#btn-tag-normal').hide();
-                $('#btn-tag-advance').show();
-                $('#line-normal').hide();
-                $('#line-advance').show();
+                $('#btn-cate-normal').hide();
+                $('#btn-cate-advance').show();
+                $('#line2-normal').hide();
+                $('#line2-advance').show();
             });
 
             $('.delete-post').click(function(e) {
