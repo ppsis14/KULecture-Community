@@ -62,35 +62,35 @@
         </div>
         <div class="row">
             <div class="col-sm-3">
-                <a href="">
+
                     <div class="card text-black" style="padding: 30px;" align="center" >
                         <div class="card-header"><h2 class="card-title">Posts</h2></div>
                         <div class="card-body">
                             <p class="card-text"><h3>{{$all_post}}</h3></p>
                         </div>
                     </div>
-                </a>
+                
                 
             </div>
             <div class="col-sm-4">
-                <a href="">
+                
                     <div class="card text-black" style="padding: 30px;" align="center" >
                         <div class="card-header"><h2 class="card-title">Hidden Posts</h2></div>
                         <div class="card-body">
                             <p class="card-text"><h3>{{$hidden_post}}</h3></p>
                         </div>
                     </div>     
-                </a>
+                
             </div>
             <div class="col-sm-5">
-                <a href="">
+                
                     <div class="card text-black" style="padding: 30px;" align="center" >
                         <div class="card-header"><h2 class="card-title">Reported Posts</h2></div>
                         <div class="card-body">
                             <p class="card-text"><h3>{{$report_post}}</h3></p>
                         </div>
                     </div>
-                </a>  
+                
             </div>
         </div>
     </div>

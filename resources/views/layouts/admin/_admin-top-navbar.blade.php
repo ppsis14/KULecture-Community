@@ -3,7 +3,7 @@
         <ul class="nav navbar-nav navbar-right">
             <li>
                 <a href="#" class="username">
-                    <i class="fas fa-user-circle fa-fw"></i>&nbsp;&nbsp;{{ Auth::user()->username }}
+                    <i class="fas fa-user-circle fa-fw"></i>&nbsp;&nbsp;{{ Auth::user()->name }}
                 </a>
             </li>
             <li>

@@ -28,11 +28,13 @@
                                         <td>{{$admin->name}}</td>
                                         <td>{{$admin->email}}</td>
                                         <td>
+                                        @if(Auth::user() and Auth::user()->can('delete', $admin))
                                         <form action="{{action('UsersManagementController@destroy', ['id' => $admin->id])}}" method="post">
                                             @csrf
                                             @method('Delete')
                                             <button onclick="return confirm('Do you want to delete this account?')" class="btn btn-danger btn-sm"><i class="fas fa-trash-alt fa-fw"></i></button>
                                         </form>
+                                        @endif
                                         </td>
                                     </tr>
                                 @endforeach
@@ -75,8 +77,9 @@
                                         <form action="{{action('UsersManagementController@destroy', ['id' => $user->id])}}" method="post">
                                             @csrf
                                             @method('Delete')
-                                            <button onclick="return confirm('Do you want to delete this account?')" class="btn btn-danger btn-sm"><i class="fas fa-trash-alt fa-fw"></i></button></td>
+                                            <button onclick="return confirm('Do you want to delete this account?')" class="btn btn-danger btn-sm"><i class="fas fa-trash-alt fa-fw"></i></button>
                                         </form>
+                                        </td>
                                     </tr>
                                 @endforeach
                                 </tbody>
