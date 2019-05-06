@@ -24,4 +24,9 @@
             Change Password
         </a>
     </li>
+    <li id="notify">
+        <a href="{{ action('AdminNotificationsController@index') }}">
+            <p>Notification</p>
+        </a>
+    </li>
 </ul>

@@ -1,4 +1,4 @@
-@extends('layouts.user.user-master')
+@extends('layouts.admin.admin-master')
 @section('title-page', 'User Post')
 @section('header', 'Post')
 @section('content')
@@ -18,6 +18,7 @@
                         <div class="col-md-6">
 
                         @if(Auth::user() and Auth::user()->can('view', $post))
+                            
                             @if($post->report_status == true)
                                 <button type="button" class="btn btn-danger">
                                     <b> This post get report! </b>
@@ -28,14 +29,15 @@
                                 <button type="button" class="btn btn-info">
                                     <b> This post is hidden. </b>
                                 </button>
+                                
                             @endif
                         @endif
 
                             <h2> <b> {{$post->post_title}} </b></h2>
                             <p class="card-text">{{$post->description}}</p>
-                            <p class="card-text"><small class="text-muted">Category: <a href="/user/explorer/category/{{$post->category}}">{{$post->category}}</a>&nbsp;&nbsp; Tag :
+                            <p class="card-text"><small class="text-muted">Category: <a href="/admin/posts/category/{{$post->category}}">{{$post->category}}</a>&nbsp;&nbsp; Tag :
                             @foreach($post->tags as $tag)
-                                <a href="/user/explorer/tag/{{$tag->slug}}">{{$tag->slug}}</a>
+                                <a href="/admin/posts/tag/{{$tag->slug}}">{{$tag->slug}}</a>
                             @endforeach
                             </small></p>
                             <p class="card-text"><small class="text-muted">Post by : <a>
@@ -49,19 +51,9 @@
                             </small>&nbsp;&nbsp;&nbsp;&nbsp;</p>
                             <br>
                             <div class="row">
-                                @if(Auth::user() and Auth::user()->can('update', $post))
-                                    <div class="col-md-2">
-                                        <button style="border: transparent;" class="btn btn-default btn-block">
-                                            <a href="{{ action('PostsController@edit', ['id' => $post->id]) }}" title="Click to edit this post">
-                                                <i class="fas fa-edit fa-fw"></i> Edit
-                                            </a>
-                                        </button>
-                                    </div>
-                                @endif
-
                                 @if(Auth::user() and Auth::user()->can('delete', $post))
                                 <div class="col-md-2">
-                                    <form action="{{ action('PostsController@destroy', ['id' => $post->id]) }}" method="post">
+                                    <form action="{{ action('PostsManagementController@destroy', ['id' => $post->id]) }}" method="post">
                                         @csrf
                                         @method('DELETE')
                                         <button style="border: transparent; color: tomato;" type="submit" class="btn btn-default btn-block delete-post" ><i class="fas fa-trash-alt fa-fw"></i> Delete</button>
@@ -74,7 +66,7 @@
                                     <div class="col-md-2">
                                         @if($post->hidden_status == false)
                                             <button style="border: transparent;" class="btn btn-default btn-block" >
-                                                <a href="{{ action('PostsController@hidden', ['id' => $post->id]) }}" title="Click to hide this post">
+                                                <a href="{{ action('PostsManagementController@hidden', ['id' => $post->id]) }}" title="Click to hide this post">
                                                     <i class="fas fa-eye-slash "></i> Hidden
                                                 </a>
                                             </button>
@@ -82,24 +74,24 @@
 
                                         @if($post->hidden_status == true)
                                             <button  style="border: transparent;" class="btn btn-default btn-block" >
-                                                <a href="{{ action('PostsController@unHidden', ['id' => $post->id]) }}" title="Click to unhide this post" >
+                                                <a href="{{ action('PostsManagementController@unHidden', ['id' => $post->id]) }}" title="Click to unhide this post" >
                                                     <i class="fas fa-eye"></i> Unhide
                                                 </a>
                                             </button>
                                         @endif
                                     </div>
                                 @endif   
-                                
-                                
-                                @if(Auth::user() and Auth::user()->can('report', $post))
+                                @if(Auth::user() and Auth::user()->can('unReport', $post))
+                                    @if($post->report_status == true)
                                     <div class="col-md-2">
-                                        <form action="{{ action('PostsController@report', ['id' => $post->id]) }}" method="post">
+                                        <form action="{{ action('PostsManagementController@unReport', ['id' => $post->id]) }}" method="post">
                                         @csrf
-                                        <button  style="border: transparent; color: tomato;" class="btn btn-default btn-block report-post">
-                                            <i class="fas fa-flag"></i> &nbsp;Report
+                                        <button  style="border: transparent; color: tomato;" class="btn btn-default btn-block unreport-post" >
+                                            <i class="fas fa-flag"></i> &nbsp;Unreport
                                         </button>
                                         </form>
                                     </div>
+                                    @endif
                                 @endif
 
                             </div>
@@ -144,7 +136,7 @@
             <div class="card" style="padding: 20px;">
                 <h5>Contact</h5>
                 <div class="content">
-                    <ul class="social-container">
+                <ul class="social-container">
                         <li>
                             @foreach($email as $e)
                                 <i class="fas fa-envelope fa-fw"></i>&nbsp;&nbsp; {{$e->email}}

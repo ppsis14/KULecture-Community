@@ -14,6 +14,11 @@ use App\UserProfile;
 
 class PostsController extends Controller
 {
+    
+    public function __construct()
+    {
+        $this->middleware('auth');
+    }
     /**
      * Display a listing of the resource.
      *
@@ -22,7 +27,7 @@ class PostsController extends Controller
     public function index()
     {
         $posts = Post::where('user_id', Auth::user()->id)->orderBy('updated_at', 'desc')->paginate(10);
-        $categorys = ['Lecture', 'Book', 'Apartment', 'Appliance', 'News', 'Sport', 'Other..'];
+        $categorys = ['Books', 'Lectures', 'Domitory', 'Electronics', 'News', 'Sports', 'Others'];
         $dropdown = 'All';
 
         return view('layouts.user.posts',compact('posts'), ['categorys' => $categorys, 'dropdown' => $dropdown])->withDetails($posts);;
@@ -36,7 +41,7 @@ class PostsController extends Controller
     public function create()
     {
         $this->authorize('create', Post::class);
-        $categorys = ['Lecture', 'Book', 'Apartment', 'Appliance', 'News', 'Sport', 'Other..'];
+        $categorys = ['Books', 'Lectures', 'Domitory', 'Electronics', 'News', 'Sports', 'Others'];
         return view('layouts.user.create-posts', ['categorys' => $categorys]);
     }
 
@@ -52,10 +57,9 @@ class PostsController extends Controller
 
         $attributes = request()->validate([
             'title' => ['required', 'min:3'],
+            'condition' => 'required|in:accept',
         ]);
         
-        // dd($request->all());
-
         $user = Auth::user();
         $post = new Post;
 
@@ -107,7 +111,7 @@ class PostsController extends Controller
         $username = User::select('username')->where('id', $post->user_id)->get();
         $email = User::select('email')->where('id', $post->user_id)->get();
         $contact = UserProfile::where('user_id', $post->user_id)->first();
-
+        
         return view('layouts.user.show-posts', ['post' => $post, 'tags' => $tags, 'files' => $files, 'username' => $username, 'contact' => $contact, 'email' => $email]);
     }
 
@@ -121,7 +125,7 @@ class PostsController extends Controller
     {
         $post = Post::findOrFail($id);
         $this->authorize('update', $post);
-        $categorys = ['Lecture', 'Book', 'Apartment', 'Appliance', 'News', 'Sport', 'Other..'];
+        $categorys = ['Books', 'Lectures', 'Domitory', 'Electronics', 'News', 'Sports', 'Others'];
         return view('layouts.user.edit-posts' , ['post' => $post, 'categorys' => $categorys]);
     }
 
@@ -188,6 +192,10 @@ class PostsController extends Controller
         $this->authorize('delete', $post);
 
         $post->delete();
+
+        if(Auth::user()->isAdmin())
+            return view('layouts.admin.post-management');
+
         return redirect()->action('PostsController@index')->with('success','The post had delete');
     }
 
@@ -200,7 +208,6 @@ class PostsController extends Controller
         $post->hidden_status = true;
         $post->save();
 
-        // return response()->with('้hide','This post is hidden now!');
         return redirect()->action('PostsController@show', ['id' => $post->id])->with('success','This post is hidden now.');;
     }
 
@@ -212,8 +219,6 @@ class PostsController extends Controller
 
         $post->hidden_status = false;
         $post->save();
-
-        // return response()->with('้hide','This post is hidden now!');
         return redirect()->action('PostsController@show', ['id' => $post->id])->with('success','This post is show now!');
     }
 
@@ -229,18 +234,6 @@ class PostsController extends Controller
         return redirect()->action('PostsController@show', ['id' => $post->id])->with('success','Report complete');
     }
 
-    public function unReport($id)
-    {
-        $post = Post::findOrFail($id);
-
-        $this->authorize('unReport', $post);
-
-        $post->report_status = false;
-
-        $post->save();
-        return redirect()->action('PostsController@show', ['id' => $post->id]);
-    }
-
     public function download($file_name) {
 
         $file_path = public_path('files/'.$file_name);
@@ -249,8 +242,9 @@ class PostsController extends Controller
 
     public function category($category) 
     {
-        $posts = Post::where('category', $category)->paginate(10);
-        $categorys = ['Lecture', 'Book', 'Apartment', 'Appliance', 'News', 'Sport', 'Other..'];
+        $posts = Post::join('users', 'posts.user_id', '=', 'users.id')
+        ->select('posts.*', 'users.username')->where('category', $category)->orderBy('updated_at', 'desc')->paginate(10);
+        $categorys = ['Books', 'Lectures', 'Domitory', 'Electronics', 'News', 'Sports', 'Others'];
         $dropdown = $category;
 
         return view('layouts.user.posts', ['categorys' => $categorys, 'dropdown' => $dropdown])->withDetails($posts);
@@ -259,10 +253,11 @@ class PostsController extends Controller
     public function search(Request $request, $dropdown) 
     {
         $key = $request->input('key');
-        $categorys = ['Lecture', 'Book', 'Apartment', 'Appliance', 'News', 'Sport', 'Other..'];
+        $categorys = ['Books', 'Lectures', 'Domitory', 'Electronics', 'News', 'Sports', 'Others'];
 
         if($dropdown == 'All') {
-            $posts = Post::where('user_id', Auth::user()->id)
+            $posts = Post::join('users', 'posts.user_id', '=', 'users.id')
+            ->select('posts.*', 'users.username')->where('user_id', Auth::user()->id)
             ->where(function ($query) use ($key) {
                 $query->withAnyTag($key)
                       ->orWhere('post_title', 'LIKE', '%'. $key . '%');
@@ -270,7 +265,8 @@ class PostsController extends Controller
             ->orderBy('updated_at', 'desc')->paginate(10)->appends(['key' => $request->input('key'), 'dropdown' => $dropdown]);
         }
         else {
-            $posts = Post::where('user_id', Auth::user()->id)
+            $posts = Post::join('users', 'posts.user_id', '=', 'users.id')
+            ->select('posts.*', 'users.username')->where('user_id', Auth::user()->id)
             ->where('category', $dropdown)
             ->where(function ($query) use ($key) {
                 $query->withAnyTag($key)
@@ -303,7 +299,8 @@ class PostsController extends Controller
         }
 
         if($request->input('tags') == null) {
-            $posts = Post::where('user_id', Auth::user()->id)
+            $posts = Post::join('users', 'posts.user_id', '=', 'users.id')
+            ->select('posts.*', 'users.username')->where('user_id', Auth::user()->id)
             ->where('category', $category)
             ->where('post_title', 'LIKE', '%'. $title . '%')
             ->orderBy('updated_at', 'desc')->paginate(10)->appends(['post_title' => $request->input('post_title'), 'category' => $request->input('category'),
@@ -311,7 +308,8 @@ class PostsController extends Controller
         }
         else {
             $tags = explode(",", $t);
-            $posts = Post::where('user_id', Auth::user()->id)
+            $posts = Post::join('users', 'posts.user_id', '=', 'users.id')
+            ->select('posts.*', 'users.username')->where('user_id', Auth::user()->id)
             ->where('category', $category)
             ->where('post_title', 'LIKE', '%'. $title . '%')
             ->withAnyTag($tags)
@@ -321,7 +319,7 @@ class PostsController extends Controller
             $key_tags = ', Tags: ' . $request->input('tags');
         }
 
-        $categorys = ['Lecture', 'Book', 'Apartment', 'Appliance', 'News', 'Sport', 'Other..'];
+        $categorys = ['Books', 'Lectures', 'Domitory', 'Electronics', 'News', 'Sports', 'Others'];
         $dropdown = $category;
 
         $q = $key_title . $key_category . $key_tags;
@@ -332,9 +330,6 @@ class PostsController extends Controller
         return view('layouts.user.posts', ['categorys' => $categorys, 'dropdown' => $dropdown])->withMessage('No posts found')->withQuery($q);
     }
 
-    public function __construct()
-    {
-        $this->middleware('auth');
-    }
+    
 
 }

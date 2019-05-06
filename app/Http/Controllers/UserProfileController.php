@@ -12,6 +12,10 @@ use App\UserProfile;
 
 class UserProfileController extends Controller
 {
+    public function __construct()
+    {
+      $this->middleware('auth');
+    }
     /**
      * Display a listing of the resource.
      *
@@ -64,6 +68,7 @@ class UserProfileController extends Controller
     {
         $user = User::findOrFail($id);
         $profile = UserProfile::where('user_id', $id)->first();
+        $this->authorize('update', $profile);
         return view('layouts.user.edit-profile', ['user' => $user, 'profile' => $profile]);
     }
 
@@ -90,6 +95,7 @@ class UserProfileController extends Controller
         ]);
 
         $user = User::findOrFail($id);
+        $this->authorize('update', $user->profile());
         
         $user->profile()->update(
             [

@@ -9,37 +9,31 @@
             <div class="col-md-12">
                 <div class="card">
                     <div class="header">
-                        <h4 class="title">User Table</h4>
-                        <!-- <p class="category">Here is a subtitle for this table</p> -->
+                        <h4 class="title">Admins Table</h4>
                         <hr>
                     </div>
                     <div class="card-body">
                         <div class="content">
-                            <table class="table table-hover table-striped table-responsive table-full-width" id="userTable">
+                            <table class="table table-hover table-striped table-responsive table-full-width" id="adminTable">
                                 <thead>
                                     <th>ID</th>
                                     <th>Username</th>
                                     <th>Email Account</th>
-                                    <th>Total Post</th>
-                                    <!-- <th>Total Download</th> -->
-                                    <!-- <th>Lastest Login</th> -->
                                     <th>Action</th>
                                 </thead>
                                 <tbody>
-                                @foreach( $users as $user)
+                                @foreach( $admins as $admin)
                                     <tr>
-                                        <td>{{$user->id}}</td>
-                                        <td>{{$user->name}}</td>
-                                        <td>{{$user->email}}</td>
-                                        <td>5</td>
-                                        <!-- <td>12</td>
-                                        <td>Sun, 14 April 2019</td> -->
+                                        <td>{{$admin->id}}</td>
+                                        <td>{{$admin->name}}</td>
+                                        <td>{{$admin->email}}</td>
                                         <td>
-                                        <form action="{{action('UsersManagementController@destroy', ['id' => $user->id])}}" method="post">
+                                        <form action="{{action('UsersManagementController@destroy', ['id' => $admin->id])}}" method="post">
                                             @csrf
                                             @method('Delete')
-                                            <button onclick="return confirm('Do you want to delete this account?')" class="btn btn-danger btn-sm"><i class="fas fa-trash-alt fa-fw"></i></button></td>
+                                            <button onclick="return confirm('Do you want to delete this account?')" class="btn btn-danger btn-sm"><i class="fas fa-trash-alt fa-fw"></i></button>
                                         </form>
+                                        </td>
                                     </tr>
                                 @endforeach
                                 </tbody>
@@ -53,32 +47,36 @@
             <div class="col-md-12">
                 <div class="card">
                     <div class="header">
-                        <h4 class="title">Admin Table</h4>
-                        <!-- <p class="category">Here is a subtitle for this table</p> -->
+                        <h4 class="title">Users Table</h4>
                         <hr>
                     </div>
                     <div class="card-body">
                         <div class="content">
-                            <table class="table table-hover table-striped table-responsive table-full-width" id="adminTable">
+                            <table class="table table-hover table-striped table-responsive table-full-width" id="userTable">
                                 <thead>
                                     <th>ID</th>
                                     <th>Username</th>
                                     <th>Email Account</th>
-                                    <!-- <th>Total Post</th> -->
-                                    <!-- <th>Total Download</th> -->
-                                    <!-- <th>Lastest Login</th> -->
+                                    <th>Total Post</th>
                                     <th>Action</th>
                                 </thead>
                                 <tbody>
-                                @foreach( $admins as $admin)
+                                
+                                @foreach( $users as $user)
+                                    @php
+                                        $total_post = \App\Post::where('user_id', $user->id)->count();
+                                    @endphp
                                     <tr>
-                                        <td>{{$admin->id}}</td>
-                                        <td>{{$admin->name}}</td>
-                                        <td>{{$admin->email}}</td>
-                                        <!-- <td>5</td> -->
-                                        <!-- <td>12</td>
-                                        <td>Sun, 14 April 2019</td> -->
-                                        <td><button href="#" type="button" onclick="return confirm('Do you want to delete this account?')" class="btn btn-danger btn-sm"><i class="fas fa-trash-alt fa-fw"></i></button></td>
+                                        <td>{{$user->id}}</td>
+                                        <td>{{$user->name}}</td>
+                                        <td>{{$user->email}}</td>
+                                        <td>{{ $total_post }}</td>
+                                        <td>
+                                        <form action="{{action('UsersManagementController@destroy', ['id' => $user->id])}}" method="post">
+                                            @csrf
+                                            @method('Delete')
+                                            <button onclick="return confirm('Do you want to delete this account?')" class="btn btn-danger btn-sm"><i class="fas fa-trash-alt fa-fw"></i></button></td>
+                                        </form>
                                     </tr>
                                 @endforeach
                                 </tbody>

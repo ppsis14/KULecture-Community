@@ -1,3 +1,7 @@
+@php
+    $count_post = \App\Post::all()->where('report_status', 1)->count();
+@endphp
+
 <div class="logo">
     <a href="{{ action('AdminDashBoardController@showDashBoard') }}" class="simple-text">
         <div class="row justify-content-center">
@@ -41,6 +45,14 @@
         <a href="{{ action('ChangePasswordController@index') }}">
             <i class="pe-7s-key"></i>
             <p>Change Password</p>
+        </a>
+    </li>
+    
+    <li id="notify">
+        <a href="{{ action('AdminNotificationsController@index') }}">
+            <i class="pe-7s-bell"></i>
+            <p>Notification&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{{$count_post}}</p>
+            <span class="badge"></span>
         </a>
     </li>
 </ul>

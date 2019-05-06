@@ -14,6 +14,13 @@
 
  */
 /*      light colors         */
+
+@import url(https://fonts.googleapis.com/css?family=Archivo+Black|Baloo|Bree+Serif|Chewy|Heebo|Hind+Siliguri|Julius+Sans+One|Luckiest+Guy|Major+Mono+Display|Oxygen|Questrial|Roboto|Rubik|Itim|Kanit|Mitr|Prompt);
+/* font-family: 'Kanit', sans-serif;
+font-family: 'Prompt', sans-serif;
+font-family: 'Mitr', sans-serif;
+font-family: 'Itim', cursive; */
+
 @keyframes spin {
     from {
         transform: rotate(0deg);
@@ -3222,7 +3229,7 @@ fieldset[disabled] .btn-neutral.active {
     overflow-y:scroll;
 }
 
-.social-container {
+.social-container, .post-action-container {
     padding: 10px;
     margin: 10px;
     list-style: none;
@@ -3244,14 +3251,14 @@ fieldset[disabled] .btn-neutral.active {
     height: 25px;
 }
 
-.is-invalid {
+.is-invalid, .invalid-feedback {
     border-color: red;
 }
 
 .logo-img {
     margin-top: 25px;
-    width: 100px;
-    height: 100px;
+    width: 80px;
+    height: 80px;
 }
 
 @media (max-width: 600px) {

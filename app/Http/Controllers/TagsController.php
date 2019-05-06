@@ -8,10 +8,24 @@ use App\User;
 
 class TagsController extends Controller
 {
+    public function __construct()
+    {
+      $this->middleware('auth');
+    }
+
+    public function index() 
+    {
+        $tags = Post::existingTags();
+        $categorys = ['Books', 'Lectures', 'Domitory', 'Electronics', 'News', 'Sports', 'Others'];
+
+        return view('layouts.user.all-tags', ['categorys' => $categorys,'tags' => $tags]);
+    }
+
     public function show($tag) 
     {
-        $posts = Post::withAnyTag($tag)->where('hidden_status', false)->orderBy('updated_at', 'desc')->paginate(10);
-        $categorys = ['Lecture', 'Book', 'Apartment', 'Appliance', 'News', 'Sport', 'Other..'];
+        $posts = Post::join('users', 'posts.user_id', '=', 'users.id')
+        ->select('posts.*', 'users.username')->withAnyTag($tag)->where('hidden_status', false)->orderBy('updated_at', 'desc')->paginate(10);
+        $categorys = ['Books', 'Lectures', 'Domitory', 'Electronics', 'News', 'Sports', 'Others'];
 
         return view('layouts.user.tag', ['categorys' => $categorys, 'tag' => $tag])->withDetails($posts);
     }
@@ -32,7 +46,8 @@ class TagsController extends Controller
         }
 
         if($request->input('tags') == null) {
-            $posts = Post::where('hidden_status', false)
+            $posts = Post::join('users', 'posts.user_id', '=', 'users.id')
+            ->select('posts.*', 'users.username')->where('hidden_status', false)
             ->where('category', $category)
             ->where('post_title', 'LIKE', '%'. $title . '%')
             ->orderBy('updated_at', 'desc')->paginate(10)->appends(['post_title' => $request->input('post_title'), 'category' => $request->input('category'),
@@ -40,7 +55,8 @@ class TagsController extends Controller
         }
         else {
             $tags = explode(",", $t);
-            $posts = Post::where('hidden_status', false)
+            $posts = Post::join('users', 'posts.user_id', '=', 'users.id')
+            ->select('posts.*', 'users.username')->where('hidden_status', false)
             ->where('category', $category)
             ->where('post_title', 'LIKE', '%'. $title . '%')
             ->withAnyTag($tags)
@@ -50,7 +66,7 @@ class TagsController extends Controller
             $key_tags = ', Tags: ' . $request->input('tags');
         }
 
-        $categorys = ['Lecture', 'Book', 'Apartment', 'Appliance', 'News', 'Sport', 'Other..'];
+        $categorys = ['Books', 'Lectures', 'Domitory', 'Electronics', 'News', 'Sports', 'Others'];
         $dropdown = $category;
 
         $q = $key_title . $key_category . $key_tags;
@@ -59,10 +75,5 @@ class TagsController extends Controller
             return view('layouts.user.explore', ['categorys' => $categorys, 'dropdown' => $dropdown])->withQuery($q)->withDetails($posts);
         
         return view('layouts.user.explore', ['categorys' => $categorys, 'dropdown' => $dropdown])->withMessage('No posts found')->withQuery($q);
-    }
-
-    public function __construct()
-    {
-        $this->middleware('auth');
     }
 }

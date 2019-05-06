@@ -8,13 +8,18 @@ use App\User;
 
 class ExplorePostsController extends Controller
 {
+    public function __construct()
+    {
+      $this->middleware('auth');
+    }
+
     public function index() {
         $posts = Post::join('users', 'posts.user_id', '=', 'users.id')
         ->select('posts.*', 'users.username')
         ->where('hidden_status', false)
         ->orderBy('updated_at', 'desc')->paginate(10);
 
-        $categorys = ['Lecture', 'Book', 'Apartment', 'Appliance', 'News', 'Sport', 'Other..'];
+        $categorys = ['Books', 'Lectures', 'Domitory', 'Electronics', 'News', 'Sports', 'Others'];
         $dropdown = 'All';
         
         return view('layouts.user.explore', ['categorys' => $categorys, 'dropdown' => $dropdown])->withDetails($posts);
@@ -23,7 +28,7 @@ class ExplorePostsController extends Controller
     public function search(Request $request, $dropdown) 
     {
         $key = $request->input('key');
-        $categorys = ['Lecture', 'Book', 'Apartment', 'Appliance', 'News', 'Sport', 'Other..'];
+        $categorys = ['Books', 'Lectures', 'Domitory', 'Electronics', 'News', 'Sports', 'Others'];
 
         if($dropdown == 'All') {
             $posts = Post::where('hidden_status', false)
@@ -81,7 +86,7 @@ class ExplorePostsController extends Controller
             $key_tags = ', Tags: ' . $request->input('tags');
         }
 
-        $categorys = ['Lecture', 'Book', 'Apartment', 'Appliance', 'News', 'Sport', 'Other..'];
+        $categorys = ['Books', 'Lectures', 'Domitory', 'Electronics', 'News', 'Sports', 'Others'];
         $dropdown = $category;
 
         $q = $key_title . $key_category . $key_tags;
@@ -96,14 +101,9 @@ class ExplorePostsController extends Controller
     {
         $posts = Post::where('category', $category)
         ->where('hidden_status', false)->orderBy('updated_at', 'desc')->paginate(10);
-        $categorys = ['Lecture', 'Book', 'Apartment', 'Appliance', 'News', 'Sport', 'Other..'];
+        $categorys = ['Books', 'Lectures', 'Domitory', 'Electronics', 'News', 'Sports', 'Others'];
         $dropdown = $category;
 
         return view('layouts.user.explore', ['categorys' => $categorys, 'dropdown' => $dropdown])->withDetails($posts);
-    }
-
-    public function __construct()
-    {
-        $this->middleware('auth');
     }
 }

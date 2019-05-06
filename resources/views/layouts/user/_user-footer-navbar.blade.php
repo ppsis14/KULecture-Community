@@ -6,7 +6,7 @@
     </li>
     <li>
         <a href="{{ action('UserProfileController@edit' , ['id' => Auth::user()->id]) }}">
-            <p>User Profile</p>
+            User Profile
         </a>
     </li>
     <li>
