@@ -38,7 +38,6 @@
                                             <button href="#" type="button" onclick="return confirm('Do you want to delete this account?')" class="btn btn-danger btn-sm"><i class="fas fa-trash-alt fa-fw"></i></button>
                                         </td>
                                         <td>
-                                            @if
                                             <button href="#" type="button" onclick="return confirm('Do you want to delete this account?')" class="btn btn-danger btn-sm"><i class="fas fa-trash-alt fa-fw"></i></button>
                                         </td>
                                     </tr>

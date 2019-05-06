@@ -22,7 +22,7 @@ class PostsManagementController extends Controller
             ->select('posts.*', 'users.username')
             ->where('hidden_status', false)
             ->orderBy('updated_at', 'desc')->paginate(10);
-            return view('layouts.admin.post-management');
+            return view('layouts.admin.post-management', ['post' => $post]);
         }
         else {
             return abort(404);
@@ -106,11 +106,11 @@ class PostsManagementController extends Controller
     public function destroy($id)
     {
         if(Gate::allows('isAdmin')){
-        $post = Post::findOrFail($id);
-        $post->delete();
+            $post = Post::findOrFail($id);
+            $post->delete();
 
-        return redirect()->action('PostsManagementController@index')->with('success','The post had delete');
-    }
+            return redirect()->action('PostsManagementController@index')->with('success','The post had delete');
+        }
         else {
             return abort(404);
         }
@@ -119,12 +119,12 @@ class PostsManagementController extends Controller
     public function hidden($id)
     {
         if(Gate::allows('isAdmin')){
-        $post = Post::findOrFail($id);
-        $post->hidden_status = true;
-        $post->save();
+            $post = Post::findOrFail($id);
+            $post->hidden_status = true;
+            $post->save();
 
-        return redirect()->action('PostsManagementController@show', ['id' => $post->id])->with('success','This post is hidden now.');
-    }
+            return redirect()->action('PostsManagementController@show', ['id' => $post->id])->with('success','This post is hidden now.');
+        }
         else {
             return abort(404);
         }
@@ -133,12 +133,12 @@ class PostsManagementController extends Controller
     public function unHidden($id)
     {
         if(Gate::allows('isAdmin')){
-        $post = Post::findOrFail($id);
-        $post->hidden_status = false;
-        $post->save();
+            $post = Post::findOrFail($id);
+            $post->hidden_status = false;
+            $post->save();
 
-        return redirect()->action('PostsManagementController@show', ['id' => $post->id])->with('success','This post is show now!');
-    }
+            return redirect()->action('PostsManagementController@show', ['id' => $post->id])->with('success','This post is show now!');
+        }
         else {
             return abort(404);
         }
@@ -147,12 +147,12 @@ class PostsManagementController extends Controller
     public function unReport($id)
     {
         if(Gate::allows('isAdmin')){
-        $post = Post::findOrFail($id);
-        $post->report_status = false;
+            $post = Post::findOrFail($id);
+            $post->report_status = false;
 
-        $post->save();
-        return redirect()->action('PostsManagementController@show', ['id' => $post->id])->with('success','Unreport complete');
-    }
+            $post->save();
+            return redirect()->action('PostsManagementController@show', ['id' => $post->id])->with('success','Unreport complete');
+        }
         else {
             return abort(404);
         }

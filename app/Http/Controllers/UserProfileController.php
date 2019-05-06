@@ -64,6 +64,7 @@ class UserProfileController extends Controller
     {
         $user = User::findOrFail($id);
         $profile = UserProfile::where('user_id', $id)->first();
+        $this->authorize('update', $profile);
         return view('layouts.user.edit-profile', ['user' => $user, 'profile' => $profile]);
     }
 
@@ -90,6 +91,7 @@ class UserProfileController extends Controller
         ]);
 
         $user = User::findOrFail($id);
+        $this->authorize('update', $user->profile());
         
         $user->profile()->update(
             [
