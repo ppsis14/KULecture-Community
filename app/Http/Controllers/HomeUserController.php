@@ -55,6 +55,7 @@ class HomeUserController extends Controller
     public function show($id)
     {
         $profile = UserProfile::where('user_id', $id)->first();
+        $this->authorize('view', $profile);
         // dd($profile);
         $all_post = Post::where('user_id', $id)->get();
         $hidden_post = Post::where('user_id', $id)
