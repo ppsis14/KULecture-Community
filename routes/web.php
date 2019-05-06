@@ -11,7 +11,7 @@
 */
 Route::resource('/user/home', 'HomeUserController');
 Route::resource('/user/profile', 'UserProfileController');
-Route::get('/', function () {return view('welcome');});
+
 Route::get('/admin/login', 'AdminsLoginController@index');
 // Route::post('/admin/login', 'AdminsLoginController@login');
 Route::post('/admin/insert','AddNewAdminController@store');
