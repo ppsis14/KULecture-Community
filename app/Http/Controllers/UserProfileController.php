@@ -85,11 +85,11 @@ class UserProfileController extends Controller
         $this->validate($request, [
             'username' => 'required|distinct',
             'bio' => 'nullable|string',
-            'facebook' => 'nullable|string|required_with:facebook_username',
+            'facebook' => 'nullable|active_url|required_with:facebook_username',
             'facebook_username' => 'nullable|string|required_with:facebook',
-            'twitter' => 'nullable|string|required_with:twitter_username',
+            'twitter' => 'nullable|active_url|required_with:twitter_username',
             'twitter_username' => 'nullable|string|required_with:twitter',
-            'ig' => 'nullable|string|required_with:ig_username',
+            'ig' => 'nullable|active_url|required_with:ig_username',
             'ig_username' => 'nullable|string|required_with:ig',
             'line' => 'nullable|string'
         ]);
