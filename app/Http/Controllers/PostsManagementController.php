@@ -21,11 +21,7 @@ class PostsManagementController extends Controller
             $posts = Post::join('users', 'posts.user_id', '=', 'users.id')
             ->select('posts.*', 'users.username')
             ->orderBy('updated_at', 'desc')->paginate(10);
-<<<<<<< HEAD
-            return view('layouts.admin.post-management', ['post' => $post]);
-=======
             return view('layouts.admin.post-management', ['posts' => $posts]);
->>>>>>> ploy_test
         }
         else {
             return abort(404);
