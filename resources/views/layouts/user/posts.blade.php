@@ -165,51 +165,54 @@
                     <img src="{{ URL::to('/') }}/images/{{ $post->post_cover }}" class="card-img-top" alt="Card image cap" width="100%"/>
                 @endif
                     <div class="card-body">
-                    <h4 class="card-title"><a href="{{ action('PostsController@show', ['id' => $post->id]) }}">{{$post->post_title}}</a></h4>
-                    <p class="card-text">{{$post->description}}</p>
-                    <br>
-                    <p class="card-text"><small class="text-muted">Category: <a href="/user/explorer/category/{{$post->category}}">{{$post->category}}</a>&nbsp;&nbsp; Tag : 
-                        @foreach($post->tags as $tag)
-                            <a href="/user/explorer/tag/{{$tag->slug}}">{{$tag->slug}}</a>
-                        @endforeach
-                    </small></p>
-                    <p class="card-text"><small class="text-muted">Created: {{$post->created_at->format('j F Y')}} at {{$post->created_at->format('H:m')}}
-                    &nbsp;Last updated: {{$post->updated_at->format('j F Y')}} at {{$post->updated_at->format('H:m')}}</small>&nbsp;&nbsp;&nbsp;&nbsp;</p>
-                    <hr>
-                    <p> 
-                        <div class="col-md-2">
-                            <button style="border: transparent;" class="btn">
-                                <a href="{{ action('PostsController@edit', ['id' => $post->id]) }}" title="Click to edit this post">
-                                    <i class="fas fa-edit fa-fw"></i>
-                                </a>
-                            </button>
-                        </div>
-                        &nbsp;&nbsp;&nbsp;&nbsp;
-                        <div class="col-md-2">
-                            <form action="{{ action('PostsController@destroy', ['id' => $post->id]) }}" method="post">
-                                @csrf
-                                @method('DELETE')
-                                <button title="Click to delete this post" type="submit" class="btn delete-post" style="border: transparent; color: tomato;"><i class="fas fa-trash-alt fa-fw"></i></button>
-                            </form>
-                        </div>
-
-                            <div class="col-md-2">
-                            @if($post->hidden_status == false)
-                                <button  style="border: transparent;" class="btn" >
-                                    <a href="{{ action('PostsController@hidden', ['id' => $post->id]) }}" title="Click to hide this post">
-                                        <i class="fas fa-eye-slash "></i>
-                                    </a>
-                                </button>
-                            @endif
-                            @if($post->hidden_status == true)
-                                <button  style="border: transparent;" class="btn" >
-                                    <a href="{{ action('PostsController@unHidden', ['id' => $post->id]) }}" title="Click to unhide this post" >
-                                        <i class="fas fa-eye"></i>
-                                    </a>
-                                </button>
-                            @endif
-                        </div>
-                    </p>
+                        <h4 class="card-title"><a href="{{ action('PostsController@show', ['id' => $post->id]) }}">{{$post->post_title}}</a></h4>
+                        <p class="card-text">{{$post->description}}</p>
+                        <br>
+                        <p class="card-text"><small class="text-muted">Category: <a href="/user/explorer/category/{{$post->category}}">{{$post->category}}</a>&nbsp;&nbsp; Tag : 
+                            @foreach($post->tags as $tag)
+                                <a href="/user/explorer/tag/{{$tag->slug}}">{{$tag->slug}}</a>
+                            @endforeach
+                        </small></p>
+                        <p class="card-text"><small class="text-muted">Created: {{$post->created_at->format('j F Y')}} at {{$post->created_at->format('H:m')}}
+                        &nbsp;Last updated: {{$post->updated_at->format('j F Y')}} at {{$post->updated_at->format('H:m')}}</small>&nbsp;&nbsp;&nbsp;&nbsp;</p>
+                        <hr>
+                        <p> 
+                            <ul class="post-action-container">
+                                <li>
+                                    <button style="border: transparent;" class="btn">
+                                        <a href="{{ action('PostsController@edit', ['id' => $post->id]) }}" title="Click to edit this post">
+                                            <i class="fas fa-edit fa-fw"></i>
+                                        </a>
+                                    </button>
+                                </li>
+                                <li>
+                                    <form action="{{ action('PostsController@destroy', ['id' => $post->id]) }}" method="post">
+                                        @csrf
+                                        @method('DELETE')
+                                        <button title="Click to delete this post" type="submit" class="btn delete-post" style="border: transparent; color: tomato;"><i class="fas fa-trash-alt fa-fw"></i></button>
+                                    </form>
+                                </li>
+                                <li>
+                                        <!-- unhide post -->
+                                        @if($post->hidden_status == false) 
+                                        <button  style="border: transparent;" class="btn" >
+                                            <a href="{{ action('PostsController@hidden', ['id' => $post->id]) }}" title="Click to hide this post">
+                                                <i class="fas fa-eye-slash "></i>
+                                            </a>
+                                        </button>
+                                        @endif
+                                        <!-- hide post -->
+                                        @if($post->hidden_status == true)
+                                        <button  style="border: transparent;" class="btn" >
+                                            <a href="{{ action('PostsController@unHidden', ['id' => $post->id]) }}" title="Click to unhide this post" >
+                                                <i class="fas fa-eye"></i>
+                                            </a>
+                                        </button>
+                                        @endif
+                                </li>
+                            </ul>
+                            
+                        </p>
                     </div>
                 </div>
                 </div>   

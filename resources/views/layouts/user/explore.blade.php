@@ -86,11 +86,11 @@
 
         <div class="row" id="normal-search">
                 <div class="form-group" style="text-align: center;">
-                    <button style="border: transparent;" type="button" class="btn" id="btn-normal"><i class="fas fa-search" aria-hidden="true"></i>&nbsp;&nbsp; Back To Normal Search</button>
+                    <button style="border: transparent;" type="button" class="btn" id="btn-normal"><i class="fas fa-arrow-left fa-fw" aria-hidden="true"></i>&nbsp;&nbsp; Back To Normal Search</button>
                 </div>
         </div>
-
-        <div class="row" id="advance-search">
+        
+        <div class="row collapse" id="advance-search">
             <div class="col-sm-12">
                 <div class="card" style="padding: 20px;">
                     <h4 class="card-title">Advance Search</h4>
