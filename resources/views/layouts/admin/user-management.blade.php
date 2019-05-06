@@ -55,12 +55,16 @@
                                     <th>Action</th>
                                 </thead>
                                 <tbody>
+                                
                                 @foreach( $users as $user)
+                                    @php
+                                        $total_post = \App\Post::where('user_id', $user->id)->count();
+                                    @endphp
                                     <tr>
                                         <td>{{$user->id}}</td>
                                         <td>{{$user->name}}</td>
                                         <td>{{$user->email}}</td>
-                                        <td>5</td>
+                                        <td>{{ $total_post }}</td>
                                         <td>
                                         <form action="{{action('UsersManagementController@destroy', ['id' => $user->id])}}" method="post">
                                             @csrf
@@ -76,7 +80,6 @@
                 </div>
             </div>
         </div>
-        
     </div>
 @endsection
 @section('script')
