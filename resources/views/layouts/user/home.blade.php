@@ -98,11 +98,6 @@
 @section('script')
     <script type="text/javascript">
         $(document).ready(function(){
-            
-            // if({{ \Session::has('oldUser') }}){
-            //     var session_user = '{{ Session::get('oldUser') }}';
-            //     showNotification('top', 'right', 'pe-7s-check', session_user, 'info');
-            // }
 
             if({{ \Session::has('newUser') }}){
                 var session_user = '{{ Session::get('newUser') }}';

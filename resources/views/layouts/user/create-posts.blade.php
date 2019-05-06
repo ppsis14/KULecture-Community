@@ -43,7 +43,6 @@
             <div class="col-md-12">
                 <div class="card">
                     <div class="header">
-                        <!-- <h4 class="title">Create New Post</h4> -->
                     </div>
                     <div class="content">
                         <form action="{{ action('PostsController@store') }}" method="post" enctype="multipart/form-data">
@@ -120,9 +119,44 @@
                             <div class="row">
                                 <div class="col-md-6">
                                       <div class="form-group">
-                                        <label for="exampleFormControlFile1">Example file input</label>
+                                        <label for="exampleFormControlFile1">Plese select some file to input</label>
                                         <input type="file" name="file[]" id="file" class="form-control-file" multiple>
                                       </div>
+                                </div>
+                            </div>
+                            <hr>
+                            <h5><b>กรุณายอมรับเงื่อนไขก่อนทำการโพสกระทู้</b></h5>
+                            <div class="row justify-content-center">
+                                <div class="container-bio">
+                                    <p class="description">
+                                        1. ข้าพเจ้ายอมรับว่าเนื้อหากระทู้ดังกล่าวไม่มีการทำผิดหรือละเมิดความเป็นส่วนตัว หากเนื้อหากระทู้ของข้าพเจ้าถูกพิจารณาแล้วว่าแสดงถึงการลละเมิดความเป็นส่วนตัวของผู้อื่น 
+                                                ยินยอมให้ผู้ดูแลระบบลบหรือทำการซ่อนกระทู้ของข้าพเจ้าได้ทันทีโดยมิต้องแจ้งให้ทราบล่วงหน้า
+                                    </p>
+                                    <p class="description">
+                                        2. ข้าพเจ้ายอมรับว่าไฟล์ที่ได้ทำการอัพโหลดขึ้นมาไม่มีการทำผิดหรือละเมิดลิขสิทธิ์ของผู้อื่น หากตรวจสอบพบว่าไฟล์ที่ข้าพเจ้ามีการทำผิดหรือละเมิดลิขสิทธิ์ของผู้อื่น ข้าพเจ้า
+                                                ยินยอมให้ผู้ดูแลระบบลบกระทู้ของข้าพเจ้าได้ทันทีโดยมิต้องแจ้งให้ทราบล่วงหน้า
+                                    </p>  
+                                    <p class="description">
+                                        3. ข้าพเจ้ายอมรับหากการโพสกระทู้ของข้าพเจ้าส่งผลให้เกิดการดำเนินคดีทางกฎหมาย ข้าพเจ้าจะรับผิดชอบแต่เพียงผู้เดียว โดยผู้ดูแลระบบและเจ้าของระบบไม่มีส่วนเกี่ยวข้องใดๆ
+                                    </p>   
+                                </div>
+                            </div><br>
+                            <div class="row">
+                                <div class="col-md-4">
+                                </div>
+                                <div class="col-md-4">
+                                    <div class="form-group form-check">
+                                        <input type="checkbox" class="form-check-input" value="accept" id="condition" name="condition">&nbsp;&nbsp;
+                                        <label class="form-check-label" for="condition"><b>ข้าพเจ้ายอมรับเงื่อนไข</b></label>
+                                        @if ($errors->has('condition'))
+                                            &nbsp;&nbsp;&nbsp;&nbsp;
+                                            <span class="invalid-feedback" style="color: red">
+                                                ({{ $errors->first('condition')}})
+                                            </span>
+                                        @endif
+                                    </div>
+                                </div>
+                                <div class="col-md-4">
                                 </div>
                             </div>
                             <hr>
@@ -134,7 +168,6 @@
             </div>
         </div>
     </div>
-
 
 @endsection
 @section('script')

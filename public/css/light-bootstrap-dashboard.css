@@ -14,6 +14,13 @@
 
  */
 /*      light colors         */
+
+@import url(https://fonts.googleapis.com/css?family=Archivo+Black|Baloo|Bree+Serif|Chewy|Heebo|Hind+Siliguri|Julius+Sans+One|Luckiest+Guy|Major+Mono+Display|Oxygen|Questrial|Roboto|Rubik|Itim|Kanit|Mitr|Prompt);
+/* font-family: 'Kanit', sans-serif;
+font-family: 'Prompt', sans-serif;
+font-family: 'Mitr', sans-serif;
+font-family: 'Itim', cursive; */
+
 @keyframes spin {
     from {
         transform: rotate(0deg);

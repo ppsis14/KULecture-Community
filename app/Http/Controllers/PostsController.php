@@ -52,6 +52,7 @@ class PostsController extends Controller
 
         $attributes = request()->validate([
             'title' => ['required', 'min:3'],
+            'condition' => 'required|in:accept',
         ]);
         
         $user = Auth::user();
