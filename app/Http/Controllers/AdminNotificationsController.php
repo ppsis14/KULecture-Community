@@ -14,11 +14,15 @@ class AdminNotificationsController extends Controller
     }
     
     public function index() {
+      if(Gate::allows('isAdmin')){
         $posts = Post::join('users', 'posts.user_id', '=', 'users.id')
         ->select('posts.*', 'users.username')
         ->where('report_status', 1)
         ->orderBy('updated_at', 'desc')->paginate(10);
         
         return view('layouts.admin.admin-notification')->withDetails($posts);
+      }else{
+        return abort(404);
+      }
     }
 }
