@@ -40,7 +40,7 @@
                                     <div class="form-group">
                                         <label>First Name</label>
                                         <!-- <input type="text" name="firstName" class="form-control" placeholder="Enter First Name"> -->
-                                        <input type="text" class="form-control{{ $errors->has('firstName') ? ' is-invalid' : '' }}" id="firstName" name ="firstName" placeholder="Enter First Name">
+                                        <input type="text" class="form-control{{ $errors->has('firstName') ? ' is-invalid' : '' }}" id="firstName" value="{{old('firstName')}}" name ="firstName" placeholder="Enter First Name">
                                         @if ($errors->has('firstName'))
                                             <span class="invalid-feedback" role="alert">
                                                 <strong>{{ $errors->first('firstName') }}</strong>
@@ -54,7 +54,7 @@
                                     <div class="form-group">
                                         <label>Last Name</label>
                                         <!-- <input type="text" name="lastName" class="form-control" placeholder="Enter Last Name"> -->
-                                        <input type="text" class="form-control{{ $errors->has('lastName') ? ' is-invalid' : '' }}" id="lastName" name ="lastName" placeholder="Enter Last Name">
+                                        <input type="text" class="form-control{{ $errors->has('lastName') ? ' is-invalid' : '' }}" id="lastName" value="{{old('lastName')}}" name ="lastName" placeholder="Enter Last Name">
                                         @if ($errors->has('lastName'))
                                             <span class="invalid-feedback" role="alert">
                                                 <strong>{{ $errors->first('lastName') }}</strong>
@@ -67,7 +67,7 @@
                                 <div class="col-md-12">
                                     <div class="form-group">
                                         <label>Email</label>
-                                        <input type="text" class="form-control{{ $errors->has('email') ? ' is-invalid' : '' }}" id="email" name ="email" placeholder="Enter Email">
+                                        <input type="text" class="form-control{{ $errors->has('email') ? ' is-invalid' : '' }}" id="email" value="{{old('email')}}" name ="email" placeholder="Enter Email">
                                         @if ($errors->has('email'))
                                             <span class="invalid-feedback" role="alert">
                                                 <strong>{{ $errors->first('email') }}</strong>
