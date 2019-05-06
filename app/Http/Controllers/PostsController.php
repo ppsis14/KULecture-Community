@@ -26,6 +26,7 @@ class PostsController extends Controller
      */
     public function index()
     {
+        $this->authorize('view_all', Post::class);
         $posts = Post::where('user_id', Auth::user()->id)->orderBy('updated_at', 'desc')->paginate(10);
         $categorys = ['Books', 'Lectures', 'Domitory', 'Electronics', 'News', 'Sports', 'Others'];
         $dropdown = 'All';
