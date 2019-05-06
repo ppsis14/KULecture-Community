@@ -8,6 +8,11 @@ use App\User;
 
 class ExplorePostsController extends Controller
 {
+    public function __construct()
+    {
+      $this->middleware('auth');
+    }
+
     public function index() {
         $posts = Post::join('users', 'posts.user_id', '=', 'users.id')
         ->select('posts.*', 'users.username')
@@ -100,10 +105,5 @@ class ExplorePostsController extends Controller
         $dropdown = $category;
 
         return view('layouts.user.explore', ['categorys' => $categorys, 'dropdown' => $dropdown])->withDetails($posts);
-    }
-
-    public function __construct()
-    {
-        $this->middleware('auth');
     }
 }
