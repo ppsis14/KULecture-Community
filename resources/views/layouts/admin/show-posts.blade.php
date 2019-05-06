@@ -44,19 +44,9 @@
                             </small>&nbsp;&nbsp;&nbsp;&nbsp;</p>
                             <br>
                             <div class="row">
-                                @if(Auth::user() and Auth::user()->can('update', $post))
-                                    <div class="col-md-2">
-                                        <button style="border: transparent;" class="btn btn-default btn-block">
-                                            <a href="{{ action('PostsController@edit', ['id' => $post->id]) }}" title="Click to edit this post">
-                                                <i class="fas fa-edit fa-fw"></i> Edit
-                                            </a>
-                                        </button>
-                                    </div>
-                                @endif
-
                                 @if(Auth::user() and Auth::user()->can('delete', $post))
                                 <div class="col-md-2">
-                                    <form action="{{ action('PostsController@destroy', ['id' => $post->id]) }}" method="post">
+                                    <form action="{{ action('PostsManagementController@destroy', ['id' => $post->id]) }}" method="post">
                                         @csrf
                                         @method('DELETE')
                                         <button style="border: transparent; color: tomato;" type="submit" class="btn btn-default btn-block delete-post" ><i class="fas fa-trash-alt fa-fw"></i> Delete</button>
@@ -69,7 +59,7 @@
                                     <div class="col-md-2">
                                         @if($post->hidden_status == false)
                                             <button style="border: transparent;" class="btn btn-default btn-block" >
-                                                <a href="{{ action('PostsController@hidden', ['id' => $post->id]) }}" title="Click to hide this post">
+                                                <a href="{{ action('PostsManagementController@hidden', ['id' => $post->id]) }}" title="Click to hide this post">
                                                     <i class="fas fa-eye-slash "></i> Hidden
                                                 </a>
                                             </button>
@@ -77,30 +67,17 @@
 
                                         @if($post->hidden_status == true)
                                             <button  style="border: transparent;" class="btn btn-default btn-block" >
-                                                <a href="{{ action('PostsController@unHidden', ['id' => $post->id]) }}" title="Click to unhide this post" >
+                                                <a href="{{ action('PostsManagementController@unHidden', ['id' => $post->id]) }}" title="Click to unhide this post" >
                                                     <i class="fas fa-eye"></i> Unhide
                                                 </a>
                                             </button>
                                         @endif
                                     </div>
                                 @endif   
-                                
-                                
-                                @if(Auth::user() and Auth::user()->can('report', $post))
-                                    <div class="col-md-2">
-                                        <form action="{{ action('PostsController@report', ['id' => $post->id]) }}" method="post">
-                                        @csrf
-                                        <button  style="border: transparent; color: tomato;" class="btn btn-default btn-block report-post">
-                                            <i class="fas fa-flag"></i> &nbsp;Report
-                                        </button>
-                                        </form>
-                                    </div>
-                                @endif
-
                                 @if(Auth::user() and Auth::user()->can('unReport', $post))
                                     @if($post->report_status == true)
                                     <div class="col-md-2">
-                                        <form action="{{ action('PostsController@unReport', ['id' => $post->id]) }}" method="post">
+                                        <form action="{{ action('PostsManagementController@unReport', ['id' => $post->id]) }}" method="post">
                                         @csrf
                                         <button  style="border: transparent; color: tomato;" class="btn btn-default btn-block unreport-post" >
                                             <i class="fas fa-flag"></i> &nbsp;Unreport
