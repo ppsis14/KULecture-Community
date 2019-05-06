@@ -40,7 +40,8 @@ Route::get('/user/explorer/advance', 'ExplorePostsController@advance');
 Route::get('/user/explorer/category/{category}', 'ExplorePostsController@category');
 
 Route::get('/user/explorer/tag/{tag}', 'TagsController@show');
-Route::get('/user/explorer/tag', 'TagsController@advance');
+Route::get('/user/explorer/tag/advance', 'TagsController@advance');
+Route::get('/user/explorer/tag', 'TagsController@index');
 
 Route::resource('/user/posts', 'PostsController');
 Route::get('/user/posts/hidden/{id}', 'PostsController@hidden');

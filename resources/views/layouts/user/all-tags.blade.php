@@ -41,7 +41,7 @@
     <div class="container-fluid">
 
         <div class="row">
-            <h2 style="text-align: center;"><b>Tag: </b> {{ $tag }} </h2> <br>
+            <h2 style="text-align: center;"><b>Tag</b></h2> <br>
         </div>
 
         <div class="row" id="normal-search">
@@ -60,12 +60,6 @@
             </div>
         </div>
 
-        <div >
-            @if(isset($query))
-            <hr>
-            <h4>The search result for <b>{{ $query }}</b> are :</h4>
-            @endif
-        </div>
         <div class="row" id="advance-search" style="display: none;">
             <div class="col-sm-12">
                 <div class="card" style="padding: 20px;">
@@ -93,7 +87,7 @@
                                 <div class="col-md-5">
                                     <div class="form-group">
                                             <label>Tag</label><br/>
-                                            <input style="height: 40px;" data-role="tagsinput" type="text" name="tags" id="input-tags" class="typeahead form-control" value="{{ old('tags', $tag)}}">
+                                            <input style="height: 40px;" data-role="tagsinput" type="text" name="tags" id="input-tags" class="typeahead form-control">
                                     </div>
                                 </div>
                             </div>
@@ -106,62 +100,19 @@
             </div>
         </div>
         <br>
-        @if(isset($details))
-            @if(count($details) == 0)
-                <div class="row">
-                    <h4 style="text-align: center;">No posts</h4>
-                </div>
-            @endif
-        @endif
-        
+
         <div class="row">
-        @if(isset($details))
-          @foreach($details as $post)
-            <div class="col-sm-6">
-              <div class="card" style="padding: 20px;">
-                @if($post->post_cover == null)
-                    <img src="http://lorempixel.com/400/200" class="card-img-top" alt="Card image cap" width="100%"/>
-                @endif
-                @if($post->post_cover != null)
-                    <img src="{{ URL::to('/') }}/images/{{ $post->post_cover }}" class="card-img-top" alt="Card image cap" width="100%"/>
-                @endif
-                <div class="card-body">
-                  <h4 class="card-title"><a href="{{ action('PostsController@show', ['id' => $post->id]) }}">{{$post->post_title}}</a></h4>
-                  <p class="card-text">{{$post->description}}</p>
-                  <p class="card-text"><small class="text-muted">Category: <a href="/user/explorer/category/{{$post->category}}">{{$post->category}}</a>&nbsp;&nbsp; 
-                    @if($post->post_tag != null)
-                        Tag : 
-                        @foreach($post->tags as $tag)
-                            <a href="/user/explorer/tag/{{$tag->slug}}">{{$tag->slug}}</a>
-                        @endforeach
-                    @endif
-                  </small></p>
-                  <hr>
-                  <p class="card-text"><small class="text-muted">Post by : <a>{{$post->username}}</a></small></p>
-                    <p class="card-text"><small class="text-muted">Created: {{$post->created_at->format('j F Y')}} at {{$post->created_at->format('H:m')}}
-                    &nbsp;Last updated: {{$post->updated_at->format('j F Y')}} at {{$post->updated_at->format('H:m')}}</small>&nbsp;&nbsp;&nbsp;&nbsp;
-                    @if($post->files != null)
-                        <span style="color: #9A9A9A;"><i class="fas fa-download fa-fw"></i></span>
-                    @endif
-                    </p>
+            @foreach($tags as $tag)
+            <div class="col-sm-3">
+                <div class="card" style="padding: 20px; height: 70px;">
+                    <div class="card-body">
+                        <h4 style="text-align: center; margin: auto;" class="card-text"><a href="/user/explorer/tag/{{$tag->slug}}">{{$tag->slug}}</a></h4>
+                    </div>
                 </div>
-              </div>
             </div>
             @endforeach
-        @endif
-          
-            <div class="row">
-                @if(isset($message))
-                    <h4 style="text-align: center;">{{ $message }}</h4>
-			    @endif
-            </div>
-
-            @if(isset($details))
-            <div class="row" style="text-align: center;">
-                {{$details->links()}}
-            </div>
-            @endif
         </div>
+
     </div>
 @endsection
 @section('script')
