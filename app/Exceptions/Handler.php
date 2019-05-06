@@ -46,6 +46,11 @@ class Handler extends ExceptionHandler
      */
     public function render($request, Exception $exception)
     {
-        return parent::render($request, $exception);
+        if (strpos($request->getUri(), '/api/') !== false) {
+            return ['error' => $exception->getMessage()];
+        } else {
+            return parent::render($request, $exception);
+        }
+    
     }
 }
