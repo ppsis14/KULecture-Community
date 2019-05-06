@@ -97,19 +97,6 @@
                                     </div>
                                 @endif
 
-                                @if(Auth::user() and Auth::user()->can('unReport', $post))
-                                    @if($post->report_status == true)
-                                    <div class="col-md-2">
-                                        <form action="{{ action('PostsController@unReport', ['id' => $post->id]) }}" method="post">
-                                        @csrf
-                                        <button  style="border: transparent; color: tomato;" class="btn btn-default btn-block unreport-post" >
-                                            <i class="fas fa-flag"></i> &nbsp;Unreport
-                                        </button>
-                                        </form>
-                                    </div>
-                                    @endif
-                                @endif
-
                             </div>
                         </div>
                     </div>

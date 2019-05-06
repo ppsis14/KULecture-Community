@@ -11,7 +11,6 @@ class AdminNotificationsController extends Controller
     public function index() {
         $posts = Post::join('users', 'posts.user_id', '=', 'users.id')
         ->select('posts.*', 'users.username')
-        ->where('hidden_status', false)
         ->where('report_status', 1)
         ->orderBy('updated_at', 'desc')->paginate(10);
         
