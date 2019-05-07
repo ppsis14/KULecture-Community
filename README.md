@@ -31,8 +31,12 @@
             * หน้า dashboard ในการแสดงจำนวน user, จำนวน post และกราฟแสดงจำนวนโพสต์ในแต่ละ category
             * หน้า usermanagement แสดงตารางข้อมูลของ user และ admin
             * กำหนด policy ในการลบข้อมูลในหน้า usermanagement ให้ admin เท่านั้นที่ลบข้อมูลได้ แต่จะลบข้อมูลของตนเองไม่ได้
-         * **restful API**
+         * **RESTFUL API**
             * สร้าง api สำหรับการดูข้อมูล user และ post
+            * ข้อมูลของ user ทั้งหมด 127.0.0.1:8000/api/users
+            * ข้อมูลของ user 127.0.0.1:8000/api/users/{user_id}
+            * ข้อมูลของ post ทั้งหมด 127.0.0.1:8000/api/posts
+            * ข้อมูลของ post 127.0.0.1:8000/api/posts/{post_id}
             
 * **นายปิยวัฒน์ นามทะจันทร์ 5910406256** - github link -> [Faeng](https://github.com/Faeng)
     * **งานที่รับผิดชอบ :** 
