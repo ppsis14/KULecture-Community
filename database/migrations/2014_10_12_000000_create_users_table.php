@@ -24,7 +24,7 @@ class CreateUsersTable extends Migration
             $table->string('password');
             $table->enum('role',['ADMINISTRATOR','USER'])->default('USER');
             $table->rememberToken();
-            $table->dateTime('login_time')->nullable();
+            // $table->dateTime('login_time')->nullable();
             $table->timestamps();
             $table->softDeletes();
         });

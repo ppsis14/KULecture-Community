@@ -39,14 +39,16 @@ class ExplorePostsController extends Controller
             $categorys = ['Books', 'Lectures', 'Domitory', 'Electronics', 'News', 'Sports', 'Others'];
 
             if($dropdown == 'All') {
-                $posts = Post::where('hidden_status', false)
+                $posts = Post::join('users', 'posts.user_id', '=', 'users.id')
+                ->select('posts.*', 'users.username')->where('hidden_status', false)
                 ->where(function ($query) use ($key) {
                     $query->withAnyTag($key)
                     ->orWhere('post_title', 'LIKE', '%'. $key . '%');
                 })->orderBy('created_at', 'desc')->paginate(10)->appends(['key' => $request->input('key'), 'dropdown' => $dropdown]);
             }
             else {
-                $posts = Post::where('hidden_status', false)
+                $posts = Post::join('users', 'posts.user_id', '=', 'users.id')
+                ->select('posts.*', 'users.username')->where('hidden_status', false)
                 ->where('category', $dropdown)
                 ->where(function ($query) use ($key) {
                     $query->withAnyTag($key)
@@ -81,7 +83,8 @@ class ExplorePostsController extends Controller
             }
 
             if($request->input('tags') == null) {
-                $posts = Post::where('hidden_status', false)
+                $posts = Post::join('users', 'posts.user_id', '=', 'users.id')
+                ->select('posts.*', 'users.username')->where('hidden_status', false)
                 ->where('category', $category)
                 ->where('post_title', 'LIKE', '%'. $title . '%')
                 ->orderBy('created_at', 'desc')->paginate(10)->appends(['post_title' => $request->input('post_title'), 'category' => $request->input('category'),
@@ -89,7 +92,8 @@ class ExplorePostsController extends Controller
             }
             else {
                 $tags = explode(",", $request->tags);
-                $posts = Post::where('hidden_status', false)
+                $posts = Post::join('users', 'posts.user_id', '=', 'users.id')
+                ->select('posts.*', 'users.username')->where('hidden_status', false)
                 ->where('category', $category)
                 ->where('post_title', 'LIKE', '%'. $title . '%')
                 ->withAnyTag($tags)
@@ -117,7 +121,8 @@ class ExplorePostsController extends Controller
     public function category($category) 
     {
         if(Gate::allows('isUser')){
-            $posts = Post::where('category', $category)
+            $posts = Post::join('users', 'posts.user_id', '=', 'users.id')
+            ->select('posts.*', 'users.username')->where('category', $category)
             ->where('hidden_status', false)->orderBy('created_at', 'desc')->paginate(10);
             $categorys = ['Books', 'Lectures', 'Domitory', 'Electronics', 'News', 'Sports', 'Others'];
             $dropdown = $category;

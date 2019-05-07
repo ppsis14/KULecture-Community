@@ -159,10 +159,11 @@
             <div class="col-sm-6">
               <div class="card" style="padding: 20px;">
                 @if($post->post_cover == null)
-                    <img src="http://lorempixel.com/400/200" class="card-img-top" alt="Card image cap" width="100%"/>
+                    
+                    <img src="http://lorempixel.com/400/200" class="card-img-top contain" alt="Card image cap" width="100%" style="width: 100%; height: 25em; object-fit: cover"/>
                 @endif
                 @if($post->post_cover != null)
-                    <img src="{{ URL::to('/') }}/images/{{ $post->post_cover }}" class="card-img-top" alt="Card image cap" width="100%"/>
+                    <img src="{{ URL::to('/') }}/images/{{ $post->post_cover }}" class="card-img-top contain" alt="Card image cap" style="width: 100%; height: 25em; object-fit: cover" />
                 @endif
                 <div class="card-body">
                   <h4 class="card-title"><a href="{{ action('PostsController@show', ['id' => $post->id]) }}">{{$post->post_title}}</a></h4>

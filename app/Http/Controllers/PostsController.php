@@ -142,6 +142,7 @@ class PostsController extends Controller
     {
         $attributes = request()->validate([
             'title' => ['required', 'min:3'],
+            'file.*' => 'mimes:doc,pdf,docx,png,jpeg,pptx,xlsx,csv,gif|max:20000'
         ]);
 
         $post = Post::findOrFail($id);
