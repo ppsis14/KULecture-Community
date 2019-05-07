@@ -120,8 +120,14 @@
                                 <div class="col-md-6">
                                       <div class="form-group">
                                         <label for="exampleFormControlFile1">Plese select some file to input</label>
-                                        <input type="file" name="file[]" id="file" class="form-control-file" multiple>
+                                        <input type="file" name="file[]" id="file" class="form-control-file form-group {{ $errors->has('file') ? ' is-invalid' : '' }}" multiple>
                                       </div>
+                                      
+                                      @if ($errors->has('file.*'))
+                                            <div class="invalid-feedback" style="color: red">
+                                                {{ $errors->first('file.*')}}
+                                            </div>
+                                        @endif
                                 </div>
                             </div>
                             <hr>

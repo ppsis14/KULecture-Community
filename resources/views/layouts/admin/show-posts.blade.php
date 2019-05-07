@@ -37,7 +37,7 @@
                             <p class="card-text">{{$post->description}}</p>
                             <p class="card-text"><small class="text-muted">Category: <a href="/admin/posts/category/{{$post->category}}">{{$post->category}}</a>&nbsp;&nbsp; Tag :
                             @foreach($post->tags as $tag)
-                                <a href="/admin/posts/tag/{{$tag->slug}}">{{$tag->slug}}</a>
+                                <a href="/admin/posts/tag/{{$tag->name}}">{{$tag->name}}</a>
                             @endforeach
                             </small></p>
                             <p class="card-text"><small class="text-muted">Post by : <a>

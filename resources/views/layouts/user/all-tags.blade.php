@@ -114,9 +114,11 @@
         <div class="row">
             @foreach($tags as $tag)
             <div class="col-sm-3">
-                <div class="card" style="padding: 20px; height: 70px;">
+                <div class="card" style="padding: 20px; height: 110px;">
                     <div class="card-body">
-                        <h4 style="text-align: center; margin: auto;" class="card-text"><a href="/user/explorer/tag/{{$tag->slug}}">{{$tag->slug}}</a></h4>
+                        <h4 style="text-align: center; margin: auto;" class="card-text"><a href="/user/explorer/tag/{{$tag->name}}">{{$tag->name}}</a></h4>
+                        <br>
+                        <p style="text-align: center; margin: auto;" class="card-text text-muted">{{$tag->count}} posts</p>
                     </div>
                 </div>
             </div>
