@@ -31,7 +31,7 @@ class TagsController extends Controller
     {
         if(Gate::allows('isUser')){
             $posts = Post::join('users', 'posts.user_id', '=', 'users.id')
-            ->select('posts.*', 'users.username')->withAnyTag($tag)->where('hidden_status', false)->orderBy('updated_at', 'desc')->paginate(10);
+            ->select('posts.*', 'users.username')->withAnyTag($tag)->where('hidden_status', false)->orderBy('created_at', 'desc')->paginate(10);
             $categorys = ['Books', 'Lectures', 'Domitory', 'Electronics', 'News', 'Sports', 'Others'];
 
             return view('layouts.user.tag', ['categorys' => $categorys, 'tag' => $tag])->withDetails($posts);
@@ -62,7 +62,7 @@ class TagsController extends Controller
                 ->select('posts.*', 'users.username')->where('hidden_status', false)
                 ->where('category', $category)
                 ->where('post_title', 'LIKE', '%'. $title . '%')
-                ->orderBy('updated_at', 'desc')->paginate(10)->appends(['post_title' => $request->input('post_title'), 'category' => $request->input('category'),
+                ->orderBy('created_at', 'desc')->paginate(10)->appends(['post_title' => $request->input('post_title'), 'category' => $request->input('category'),
                 'tags' => $request->input('tags')]);
             }
             else {
@@ -72,7 +72,7 @@ class TagsController extends Controller
                 ->where('category', $category)
                 ->where('post_title', 'LIKE', '%'. $title . '%')
                 ->withAnyTag($tags)
-                ->orderBy('updated_at', 'desc')->paginate(10)->appends(['post_title' => $request->input('post_title'), 'category' => $request->input('category'),
+                ->orderBy('created_at', 'desc')->paginate(10)->appends(['post_title' => $request->input('post_title'), 'category' => $request->input('category'),
                 'tags' => $request->input('tags')]);
                 
                 $key_tags = ', Tags: ' . $request->input('tags');

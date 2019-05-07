@@ -171,7 +171,7 @@
                     @if($post->post_tag != null)
                         Tag : 
                         @foreach($post->tags as $tag)
-                            <a href="/user/explorer/tag/{{$tag->slug}}">{{$tag->slug}}</a>
+                            <a href="/user/explorer/tag/{{$tag->name}}">{{$tag->name}}</a>
                         @endforeach
                     @endif
                   </small></p>
