@@ -30,8 +30,9 @@
             * login ของ admin
             * หน้า dashboard ในการแสดงจำนวน user, จำนวน post และกราฟแสดงจำนวนโพสต์ในแต่ละ category
             * หน้า usermanagement แสดงตารางข้อมูลของ user และ admin
-            * สร้าง api สำหรับการดูข้อมูล user และ post
             * กำหนด policy ในการลบข้อมูลในหน้า usermanagement ให้ admin เท่านั้นที่ลบข้อมูลได้ แต่จะลบข้อมูลของตนเองไม่ได้
+         * **restful API**
+            * สร้าง api สำหรับการดูข้อมูล user และ post
             
 * **นายปิยวัฒน์ นามทะจันทร์ 5910406256** - github link -> [Faeng](https://github.com/Faeng)
     * **งานที่รับผิดชอบ :** 
@@ -57,3 +58,86 @@
         * **admin**
             * admin สามารถค้นหา post ที่ต้องการได้ด้วยการ search แบบธรรมดาหรือ advance search และสามารถเลือกดู post ได้ตามประเภท หรือตาม hashtag
     
+
+## ขั้นตอนก่อนเริ่มการใช้งาน **(Getting Started)**
+
+## Installing ติดตั้งโปรแกรม
+
+ก่อนเริ่มต้นใช้งาน จะต้องทำการเตรียมโปรแกรมสำหรับรัน Localhost Web Service เช่น  **Laragon** หรือ **MAMP** เป็นต้น และติดตั้ง **Git** เพื่อที่จะสามารถดาวน์โหลดโปรเจคได้
+
+- [Laragon](https://laragon.org/) or [MAMP](https://www.mamp.info/en/)
+- [Git](https://git-scm.com/downloads) 
+- [Visual Studio Code](https://code.visualstudio.com)
+
+และทำการดาวน์โหลด หรือ Clone ไฟล์โปรเจคจาก github เข้าสู่คอมพิวเตอร์ก่อน โดยหากเลือกใช้ **Laragon**  ให้เลือกดาวน์โหลดหรือ clone ไปที่ folder laragon/www/ หรือหากใช้งาน **MAMP**  ให้เลือกดาวน์โหลดหรือ clone ไปที่ folder MAMP/htdocs/
+>### Clone with HTTPS
+
+พิมพ์ `git clone https://github.com/ppsis14/KU-NSC.git` ลงใน Terminal/CMD
+
+```
+git clone https://github.com/ppsis14/KU-NSC.git
+```
+
+> ### หรือ Clone with SSH
+พิมพ์ `git clone git@github.com:ppsis14/KU-NSC.git` ลงใน Terminal/CMD
+```
+git clone git@github.com:ppsis14/KU-NSC.git
+```
+## ขั้นตอนการ set up laravel project
+1. พิมพ์คำสั่ง cd KU-NSC
+```
+    cd KU-NSC
+```
+2. พิมพ์คำสั่ง composer install
+```
+    composer install
+```
+3. npm install (หากต้องการใช้งาน)
+```
+    npm install
+```
+4. พิมพ์คำสั่ง cp .env.example .env
+```
+    cp .env.example .env
+```
+5. พิมพ์คำสั่ง php artisan key:generate
+```
+    php artisan key:generate
+```
+6. พิมพ์คำสั่ง php artisan migrate (กรณีถ้าก่อนหน้านี้เพื่อนสร้าง ดาต้าเบสไว้กันบ้างแล้ว แต่ถ้าไม่มั่นใจ ก้อพิมคำสั่งเผื่อไส้ก้อได้ ไม่น่าจะเสียหายเท่าไหร่)
+```
+    php artisan migrate
+```
+
+## ขั้นตอนการใข้งาน 
+โดยระบบการทำงานจะแบ่งเป็น 2 ส่วน คือ
+* เข้าหน้า login เข้าไปที่ URL : 127.0.0.1:8000 เพื่อทำการเลือกว่าจะ login ในฐานะอะไร
+* ส่วนของ Admin login เข้าไปที่ URL : 127.0.0.1:8000/login
+* ส่วนของ User login เข้าไปที่ URL : 127.0.0.1:8000/user/login โดยต้องใช้ KU Google mail account การเข้าครั้งแรกข้อมูลจะถูกจัดเก็บข้า database หากทำการ logout แล้ว loging เข้าในครั้งถัดไปสามารถเข้า login ด้วย KU Google mail account
+** เมื่อเข้าระบบได้แล้ว user สามารถสร้างโพสแชร์ความรู้ต่างๆได้ โดยการไปที่ Post แล้วเลือก + เพื่อทำการสร้างโพส
+
+
+### **Login with Google Config**
+* นักเรียนและอาจารย์ล็อคอินเข้าด้วย Google account (@ku.th)
+> การสร้าง OAuth client สำหรับรองรับการล็อคอินด้วย google account ใน APP
+* เข้าไปที่หน้า google-api console
+* ไปที่ credentials - OAuth consent screen จากนั้นใส่ กำหนด appname แล้วเลือก Application Type -> Internal
+* สร้าง Credentials เป็นแบบ O Auth client ID แล้วเลือก Web application
+* Authorized redirect URIs และ Authorized JavaScript origins ไปที่ local host จากนั้น save
+* นำ client ID ที่ได้มาใส่ในโปรเจค 
+
+### **Database Config**
+* เข้าไปที่ database ของ laragon จากนั้นกดปุ่ม Open
+* กดปุ่มที่่ชื่อว่า Manage users authentication and privileges
+* ทำการสร้าง database ชื่อ kunsc สำหรับใช้งาน
+* กดปุ่ม add แล้วกรอก username คือ kunscUserและ password คือ kunscPassword ที่ต้องการ จากนั้นจึงกด Add object เพื่อเลือก kunsc และเพิ่มสิทธิ์ในการใช้งานต่างๆตามต้องการ (แนะนำให้เลือกทั้งหมด) และกด save เมื่อทำการเลือกเสร็จสิ้น
+
+## Built With
+> ภาษา และ โปรแกรมที่ใช้สร้าง
+* laravel php framework (https://laravel.com/)
+* HTML - The Programming Language used
+* [PHP](http://php.net/) - The Programming Language used 
+* [JAVASCRIPT](https://www.javascript.com/) The Programming Language used
+* [Bootstrap](https://getbootstrap.com/) - The web framework used
+* [Laragon](https://laragon.org/) - Used to be a Web Server/ Database system
+* [MAMP](https://www.mamp.info/en/) - Used to be a Web Server/ Database system
