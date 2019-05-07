@@ -9,6 +9,7 @@ use App\User;
 use App\UserProfile;
 use Hash;
 use DB;
+use DateTime;
 
 class LoginGoogleController extends Controller
 {
@@ -67,6 +68,7 @@ class LoginGoogleController extends Controller
         $existingUser = User::where('email',$user->email)->first();
         if($existingUser){
             // log them in
+            $existingUser->update(['login_time' => now()]);
             $existingUser->profile()->update(['avatar' =>  $user->getAvatar()]);
             auth()->login($existingUser,true);
             $profile =  User::where('provider_id', $user->getId())->first();
@@ -80,6 +82,7 @@ class LoginGoogleController extends Controller
             $newUser->email_verified_at = now();
             $newUser->username          = $user->getName();
             $newUser->password          = Hash::make($user->getId());
+            $newUser->login_time        = now();
             $newUser->save();
 
             $newUser->profile()->create(['avatar' =>  $user->getAvatar()]);

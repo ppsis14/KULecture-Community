@@ -35,7 +35,7 @@
                             <p class="card-text">{{$post->description}}</p>
                             <p class="card-text"><small class="text-muted">Category: <a href="/user/explorer/category/{{$post->category}}">{{$post->category}}</a>&nbsp;&nbsp; Tag :
                             @foreach($post->tags as $tag)
-                                <a href="/user/explorer/tag/{{$tag->slug}}">{{$tag->slug}}</a>
+                                <a href="/user/explorer/tag/{{$tag->name}}">{{$tag->name}}</a>
                             @endforeach
                             </small></p>
                             <p class="card-text"><small class="text-muted">Post by : <a>
@@ -125,16 +125,8 @@
                             $count = 0
                         @endphp
                         @foreach($files as $file)
-                            @php
-                                $count += 1
-                            @endphp
-                            
                             <button  style="background-color: #1DC7EA; border: transparent;" class="btn">
-                                <a style="color: white" href="/user/posts/download/{{$file}}"><i class="fas fa-download"></i>&nbsp;&nbsp;Click to download file 
-                                    @php
-                                        echo $count
-                                    @endphp 
-                                </a> 
+                                <a style="color: white" href="/user/posts/download/{{$file}}"><i class="fas fa-download"></i>&nbsp;&nbsp;{{$file}}</a> 
                             </button><br><br>
                         @endforeach
                         

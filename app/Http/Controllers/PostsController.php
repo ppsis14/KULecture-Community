@@ -27,7 +27,7 @@ class PostsController extends Controller
     public function index()
     {
         $this->authorize('view_all', Post::class);
-        $posts = Post::where('user_id', Auth::user()->id)->orderBy('updated_at', 'desc')->paginate(10);
+        $posts = Post::where('user_id', Auth::user()->id)->orderBy('created_at', 'desc')->paginate(10);
         $categorys = ['Books', 'Lectures', 'Domitory', 'Electronics', 'News', 'Sports', 'Others'];
         $dropdown = 'All';
 
@@ -56,9 +56,10 @@ class PostsController extends Controller
     {
         $this->authorize('create', Post::class);
 
-        $attributes = request()->validate([
+        $this->validate($request,[
             'title' => ['required', 'min:3'],
             'condition' => 'required|in:accept',
+            'file.*' => 'mimes:doc,pdf,docx,png,jpeg,pptx,xlsx,csv,gif|max:20000'
         ]);
         
         $user = Auth::user();
@@ -244,7 +245,7 @@ class PostsController extends Controller
     public function category($category) 
     {
         $posts = Post::join('users', 'posts.user_id', '=', 'users.id')
-        ->select('posts.*', 'users.username')->where('category', $category)->orderBy('updated_at', 'desc')->paginate(10);
+        ->select('posts.*', 'users.username')->where('category', $category)->orderBy('created_at', 'desc')->paginate(10);
         $categorys = ['Books', 'Lectures', 'Domitory', 'Electronics', 'News', 'Sports', 'Others'];
         $dropdown = $category;
 
@@ -263,7 +264,7 @@ class PostsController extends Controller
                 $query->withAnyTag($key)
                       ->orWhere('post_title', 'LIKE', '%'. $key . '%');
             })
-            ->orderBy('updated_at', 'desc')->paginate(10)->appends(['key' => $request->input('key'), 'dropdown' => $dropdown]);
+            ->orderBy('created_at', 'desc')->paginate(10)->appends(['key' => $request->input('key'), 'dropdown' => $dropdown]);
         }
         else {
             $posts = Post::join('users', 'posts.user_id', '=', 'users.id')
@@ -273,7 +274,7 @@ class PostsController extends Controller
                 $query->withAnyTag($key)
                       ->orWhere('post_title', 'LIKE', '%'. $key . '%');
             })
-            ->orderBy('updated_at', 'desc')->paginate(10)->appends(['key' => $request->input('key'), 'dropdown' => $dropdown]);
+            ->orderBy('created_at', 'desc')->paginate(10)->appends(['key' => $request->input('key'), 'dropdown' => $dropdown]);
         }
 
         
@@ -304,7 +305,7 @@ class PostsController extends Controller
             ->select('posts.*', 'users.username')->where('user_id', Auth::user()->id)
             ->where('category', $category)
             ->where('post_title', 'LIKE', '%'. $title . '%')
-            ->orderBy('updated_at', 'desc')->paginate(10)->appends(['post_title' => $request->input('post_title'), 'category' => $request->input('category'),
+            ->orderBy('created', 'desc')->paginate(10)->appends(['post_title' => $request->input('post_title'), 'category' => $request->input('category'),
             'tags' => $request->input('tags'), 'id' => $id]);
         }
         else {
@@ -314,7 +315,7 @@ class PostsController extends Controller
             ->where('category', $category)
             ->where('post_title', 'LIKE', '%'. $title . '%')
             ->withAnyTag($tags)
-            ->orderBy('updated_at', 'desc')->paginate(10)->appends(['post_title' => $request->input('post_title'), 'category' => $request->input('category'),
+            ->orderBy('created_at', 'desc')->paginate(10)->appends(['post_title' => $request->input('post_title'), 'category' => $request->input('category'),
             'tags' => $request->input('tags'), 'id' => $id]);
             
             $key_tags = ', Tags: ' . $request->input('tags');
