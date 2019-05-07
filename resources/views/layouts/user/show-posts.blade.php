@@ -95,9 +95,12 @@
                                     <div class="col-md-2">
                                         <form action="{{ action('PostsController@report', ['id' => $post->id]) }}" method="post">
                                         @csrf
-                                        <button  style="border: transparent; color: tomato;" class="btn btn-default btn-block report-post">
-                                            <i class="fas fa-flag"></i> &nbsp;Report
-                                        </button>
+                                        <a href="#popupLogin" data_real="popup" data-position-to="window"
+                                            data-transaction="pop" >
+                                            <button  style="border: transparent; color: tomato;" class="btn btn-default btn-block report-post">
+                                                <i class="fas fa-flag"></i> &nbsp;Report
+                                            </button>
+                                        </a>
                                         </form>
                                     </div>
                                 @endif

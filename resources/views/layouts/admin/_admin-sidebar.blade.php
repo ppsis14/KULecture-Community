@@ -3,7 +3,7 @@
 @endphp
 
 <div class="logo">
-    <a href="{{ action('AdminDashBoardController@showDashBoard') }}" class="simple-text">
+    <a href="{{ action('AdminDashBoardController@showDashBoard') }}" class="simple-text" style="pointer-events: none;">
         <div class="row justify-content-center">
             <img src="/img/kunsc-logo.png" alt="" class="logo-img">
         </div>
