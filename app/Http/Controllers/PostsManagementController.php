@@ -7,6 +7,7 @@ use Illuminate\Support\Facades\Gate;
 use App\Post;
 use App\User;
 use App\UserProfile;
+use App\Category;
 use DB;
 
 class PostsManagementController extends Controller
@@ -160,6 +161,23 @@ class PostsManagementController extends Controller
 
             $post->save();
             return redirect()->action('PostsManagementController@show', ['id' => $post->id])->with('success','Unreport this post complete');
+        }
+        else {
+            return abort(404);
+        }
+    }
+
+    public function addCategory(Request $request) {
+        if(Gate::allows('isAdmin')){
+            $this->validate($request, [
+                'category_name' => 'required|distinct|min:3',
+            ]);
+
+            $category = new Category;
+            $category->name = $request->input('category_name');
+            $category->save();
+
+            return redirect()->action('PostsManagementController@index')->with('success','The new category is added');
         }
         else {
             return abort(404);

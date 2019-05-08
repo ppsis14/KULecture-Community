@@ -32,6 +32,7 @@ Route::resource('/admin/posts', 'PostsManagementController'); // display all pos
 Route::get('/admin/posts/hidden/{id}', 'PostsManagementController@hidden'); // admin hide the post
 Route::get('/admin/posts/unhidden/{id}', 'PostsManagementController@unHidden'); // admin unhide the post
 Route::post('/admin/posts/unreport/{id}', 'PostsManagementController@unReport'); // admin unreport the post
+Route::post('/admin/posts/category/add', 'PostsManagementController@addCategory'); // admin add category
 
 // admin explore posts
 Route::get('/admin/explorer', 'AdminExplorePostsController@index'); // display all posts in database
