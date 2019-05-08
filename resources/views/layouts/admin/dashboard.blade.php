@@ -38,25 +38,39 @@
                         <p class="category">Number of posts</p>
                     </div>
                     <div class="content">
-                        <!-- <div id="chartHours" class="ct-chart"></div> -->
                         <h3>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; {{$posts}} &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Posts </h3> 
                         <div class="footer">
-                            <!-- <div class="legend">
-                                <i class="fa fa-circle text-info"></i> Open
-                                <i class="fa fa-circle text-danger"></i> Click
-                                <i class="fa fa-circle text-warning"></i> Click Second Time
-                            </div> -->
                             <hr>
-                            <!-- <div class="stats">
-                                <i class="fa fa-history"></i> Updated 3 minutes ago
-                            </div> -->
                         </div>
                     </div>
                 </div>
             </div>
         </div>
         <div class="row">
-            <div class="col-md-12">
+            <div class="col-md-6">
+                <div class="card ">
+                    <div class="header">
+                        <h4 class="title">Login stats ({{ date('d-m-Y')}})</h4>
+                        <p class="category">Peroid time that user login</p>
+                    </div>
+                    <div class="content">
+                        <div id="panel-body" class="ct-chart">
+                            {!! $loginChart->container() !!}
+                        </div>
+                        <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.7.1/Chart.min.js" charset="utf-8"></script>
+                        {!! $loginChart->script() !!}
+                        
+                        <div class="footer">
+                            <hr>
+                            <div class="stats">
+                                <i class="fa fa-check"></i> Data information certified
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-md-6">
                 <div class="card ">
                     <div class="header">
                         <h4 class="title">Post stats</h4>
@@ -64,11 +78,11 @@
                     </div>
                     <div class="content">
                         <div id="panel-body" class="ct-chart">
-                            {!! $chart->container() !!}
+                            {!! $postChart->container() !!}
                         </div>
                         <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.7.1/Chart.min.js" charset="utf-8"></script>
 
-                        {!! $chart->script() !!}
+                        {!! $postChart->script() !!}
 
                         <div class="footer">
                             <hr>
