@@ -1,7 +1,13 @@
 <div class="collapse navbar-collapse">
 
-    @php
-        $posts = \App\Post::where('report_status', true)->where('user_id', Auth::user()->id)->get();
+    @php        
+        $posts = \App\Post::join('users', 'posts.user_id', '=', 'users.id')
+        ->select('posts.*', 'users.username')
+        ->join('report_posts', 'posts.id', '=', 'report_posts.post_id')
+        ->select('posts.*', 'report_posts.report_user', 'report_posts.report_admin')
+        ->where('user_id', Auth::user()->id)
+        ->where('report_user', true)
+        ->where('report_status', true)->get();
         $count = count($posts);
     @endphp
 

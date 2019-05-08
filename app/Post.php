@@ -18,4 +18,8 @@ class Post extends Model
     {
         return $this->belongsTo('App\User')->nullable();
     }
+
+    public function report_comments() {
+        return $this->hasMany('\App\ReportComment');
+    }
 }

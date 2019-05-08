@@ -32,6 +32,7 @@ Route::resource('/admin/posts', 'PostsManagementController'); // display all pos
 Route::get('/admin/posts/hidden/{id}', 'PostsManagementController@hidden'); // admin hide the post
 Route::get('/admin/posts/unhidden/{id}', 'PostsManagementController@unHidden'); // admin unhide the post
 Route::post('/admin/posts/unreport/{id}', 'PostsManagementController@unReport'); // admin unreport the post
+Route::get('/admin/posts/reportuser/{id}', 'PostsManagementController@report_to_user'); // admin tell user that their post got reported.
 
 // admin explore posts
 Route::get('/admin/explorer', 'AdminExplorePostsController@index'); // display all posts in database
@@ -63,6 +64,7 @@ Route::get('/user/posts/download/{file_name}', 'PostsController@download');
 Route::get('/user/posts/category/{category}', 'PostsController@choose_category');
 Route::get('/user/posts/search/{category}', 'PostsController@search');
 Route::get('/user/posts/advance/{id}', 'PostsController@advance');
+Route::get('/admin/posts/reportadmin/{id}', 'PostsController@report_to_admin'); // user tell user that they had edited their post. Please unreport.
 
 Auth::routes();
 // Route::get('/home', 'HomeController@index')->name('home');

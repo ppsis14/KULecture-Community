@@ -55,4 +55,8 @@ class User extends Authenticatable
         return $this->hasMany('\App\Post');
     }
 
+    public function repost_comments() {
+        return $this->hasMany('\App\ReportComment');
+    }
+
 }

@@ -20,10 +20,28 @@
                         @if(Auth::user() and Auth::user()->can('view', $post))
                             
                             @if($post->report_status == true)
-                                <button type="button" class="btn btn-danger">
-                                    <b> This post get report! </b>
-                                </button>
-                                
+                                @if($report_post->report_admin == true && $report_post->report_user == true)
+                                    <button type="button" class="btn btn-danger">
+                                        <b> User had edited this post please check the detail.</b>
+                                    </button>
+                                @endif
+                                @if($report_post->report_admin == false && $report_post->report_user == true)
+                                    <button type="button" class="btn btn-danger">
+                                        <b> You had sent message to user.</b>
+                                    </button>
+                                @endif
+                                @if($report_post->report_admin == false && $report_post->report_user == false)
+                                    @if($comment_count == 1)
+                                    <button type="button" class="btn btn-danger">
+                                        <b> This post get report from {{ $comment_count }} user!</b>
+                                    </button>
+                                    @endif
+                                    @if($comment_count > 1)
+                                    <button type="button" class="btn btn-danger">
+                                        <b> This post get report from {{ $comment_count }} users!</b>
+                                    </button>
+                                    @endif
+                                @endif  
                             @endif
                             @if($post->hidden_status == true)
                                 <button type="button" class="btn btn-info">
@@ -82,7 +100,7 @@
                                     </div>
                                 @endif   
                                 @if(Auth::user() and Auth::user()->can('unReport', $post))
-                                    @if($post->report_status == true)
+                                    @if($post->report_status == true && $report_post->report_admin == true && $report_post->report_user == true)
                                     <div class="col-md-2">
                                         <form action="{{ action('PostsManagementController@unReport', ['id' => $post->id]) }}" method="post">
                                         @csrf
@@ -92,6 +110,15 @@
                                         </form>
                                     </div>
                                     @endif
+                                        @if($post->report_status == true and ($report_post->report_admin == true or $report_post->report_user == false))
+                                        <div class="col-md-2">
+                                            <button style="border: transparent;" class="btn btn-default btn-block" >
+                                                <a href="{{ action('PostsManagementController@report_to_user', ['id' => $post->id]) }}">
+                                                    <i class="fas fa-flag"></i> Send message to user.
+                                                </a>
+                                            </button>
+                                        </div>
+                                        @endif
                                 @endif
 
                             </div>
@@ -136,13 +163,12 @@
             <div class="card" style="padding: 20px;">
                 <h5>Contact</h5>
                 <div class="content">
-                <ul class="social-container">
+                    <ul class="social-container">
                         <li>
                             @foreach($email as $e)
                                 <i class="fas fa-envelope fa-fw"></i>&nbsp;&nbsp; {{$e->email}}
                             @endforeach
                         </li>
-
                         @if(!is_null($contact->facebook))
                         <li>
                             <img src="/img/icon-img/icons8-facebook.svg" class="img-icon">&nbsp;&nbsp;&nbsp;&nbsp;<span><a href="{{ $contact->facebook }}" target="_blank">{{ $contact->facebook_username }}</a></span>
@@ -164,9 +190,20 @@
                         </li>
                         @endif
                     </ul>
-                    
                 </div>
             </div>
+
+            @if($comment_count != 0)
+                <div class="card" style="padding: 20px;">
+                    <h5>Report Comments</h5> <br>
+                    @foreach($comments as $comment)
+                        <div class="card" style="padding: 20px;">
+                            <p class="card-title"><b>From:</b> {{ $comment->username }} <small class="text-muted">{{$comment->created_at->format('j F Y')}} at {{$comment->created_at->format('H:m')}}</small> </p>
+                            <p class="card-text">{{$comment->detail}}</p>
+                        </div>
+                    @endforeach
+                </div>
+            @endif
         </div>
     </div>
 @endsection
