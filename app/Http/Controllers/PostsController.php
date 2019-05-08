@@ -243,7 +243,7 @@ class PostsController extends Controller
         return response()->download($file_path);
     }
 
-    public function category($category) 
+    public function choose_category($category) 
     {
         $posts = Post::join('users', 'posts.user_id', '=', 'users.id')
         ->select('posts.*', 'users.username')->where('category', $category)->orderBy('created_at', 'desc')->paginate(10);

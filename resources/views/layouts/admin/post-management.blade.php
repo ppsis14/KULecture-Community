@@ -65,9 +65,9 @@
             <div class="col-md-12">
                 <div class="card">
                         <div class="form-group" style="text-align: center;">
-                            <button style="border: transparent;" type="button" class="btn" name="button" id="btn-cate-advance"><a href="/admin/posts/category/All" >Posts Explorer</a> </button>
+                            <button style="border: transparent;" type="button" class="btn" name="button" id="btn-cate-advance"><a href="{{ action('AdminExplorePostsController@index')}}" >Posts Explorer</a> </button>
                             <button style="border: transparent;" class="btn" id="line-advance"> | </button>
-                            <button style="border: transparent;" type="button" class="btn" name="button" id="btn-tag-advance"><a href="{{ action('PostsManagementController@all_tag', ['id' => Auth::user()->id]) }}">See All tags</a> </button>         
+                            <button style="border: transparent;" type="button" class="btn" name="button" id="btn-tag-advance"><a href="{{ action('AdminExplorePostsController@all_tag') }}">See All tags</a> </button>         
                         </div>
                 </div>
             </div>

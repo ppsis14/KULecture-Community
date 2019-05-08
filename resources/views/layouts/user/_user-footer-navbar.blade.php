@@ -15,7 +15,7 @@
         </a>
     </li>
     <li>
-        <a href="{{ action('ExplorePostsController@index') }}">
+        <a href="{{ action('UserExplorePostsController@index') }}">
             Explorer
         </a>
     </li>
