@@ -26,7 +26,7 @@
     </li>
     <li id="notify">
         <a href="{{ action('AdminNotificationsController@index') }}">
-            <p>Notification</p>
+            Notification
         </a>
     </li>
 </ul>

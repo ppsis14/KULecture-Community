@@ -24,7 +24,7 @@
     <!--  CSS for Demo Purpose, don't include it in your project     -->
     <link href="{{ ('/css/layout-master.css') }}" rel="stylesheet" />
 
-    <!--     Fonts and icons     -->
+    <!-- Fonts and icons     -->
     <link href="http://maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css" rel="stylesheet">
     <link href='http://fonts.googleapis.com/css?family=Roboto:400,700,300' rel='stylesheet' type='text/css'>
     <link href="{{ ('/css/pe-icon-7-stroke.css') }}" rel="stylesheet" />
@@ -34,25 +34,17 @@
     <script defer src="https://use.fontawesome.com/releases/v5.0.13/js/fontawesome.js" integrity="sha384-6OIrr52G08NpOFSZdxxz1xdNSndlD4vdcf/q2myIUVO0VsqaGHJsB0RaBE01VTOY" crossorigin="anonymous"></script>
     
     <!-- dataTable -->
-
-    <script src="//code.jquery.com/jquery-1.12.3.js"></script>
+    <!-- <script src="//code.jquery.com/jquery-1.12.3.js"></script>
     <script src="//cdn.datatables.net/1.10.12/js/jquery.dataTables.min.js"></script>
     <script src="https://cdn.datatables.net/1.10.12/js/dataTables.bootstrap.min.js"></script>
     <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
-    <link rel="stylesheet" href="https://cdn.datatables.net/1.10.12/css/dataTables.bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdn.datatables.net/1.10.12/css/dataTables.bootstrap.min.css"> -->
 
 </head>
 <body>
 
 <div class="wrapper">
     <div class="sidebar" data-color="ku-nsc" data-image="/img/sidebar-5.jpg">
-
-    <!--
-
-        Tip 1: you can change the color of the sidebar using: data-color="blue | azure | green | orange | red | purple"
-        Tip 2: you can also add an image using data-image tag
-
-    -->
 
     	<div class="sidebar-wrapper">
             @include('layouts.admin._admin-sidebar')
@@ -109,13 +101,10 @@
     <script src="{{ ('/js/bootstrap-notify.js') }}"></script>
 
     <!--  Google Maps Plugin    -->
-    <script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?key=YOUR_KEY_HERE"></script>
+    <!-- <script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?key=YOUR_KEY_HERE"></script> -->
 
     <!-- Light Bootstrap Table Core javascript and methods for Demo purpose -->
 	<script src="{{ ('/js/light-bootstrap-dashboard.js') }}"></script>
-
-	<!-- Light Bootstrap Table DEMO methods, don't include it in your project! -->
-	<script src="{{ ('/js/demo.js') }}"></script>
 
     @yield('script', '')
 

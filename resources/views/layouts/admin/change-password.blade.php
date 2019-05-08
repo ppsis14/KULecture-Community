@@ -4,7 +4,7 @@
     <i class="pe-7s-key"></i>&nbsp;&nbsp;Change Password
 @endsection
 @section('content')
-    @if ($errors->any())
+    <!-- @if ($errors->any())
     <div class="alert alert-danger">
         <ul>
             @foreach ($errors->all() as $error)
@@ -12,8 +12,8 @@
             @endforeach
         </ul>
     </div>
-    @endif
-    @if ($message = Session::get('success'))
+    @endif -->
+    <!-- @if ($message = Session::get('success'))
     <div class="alert alert-success alert-block">
         <button type="button" class="close" data-dismiss="alert">×</button>	
             <strong>{{ $message }}</strong>
@@ -24,7 +24,7 @@
         <button type="button" class="close" data-dismiss="alert">×</button>	
             <strong>{{ $message }}</strong>
     </div>
-    @endif
+    @endif -->
     <div class="container-fluid">
         <div class="row">
             <div class="col-md-8">
@@ -39,7 +39,12 @@
                                 <div class="col-md-12">
                                     <div class="form-group">
                                         <label>Current Password</label>
-                                        <input type="password" name="currentPassword" class="form-control" placeholder="Your current password">
+                                        <input type="password" name="currentPassword" class="form-control {{ $errors->has('currentPassword') ? ' is-invalid' : ''}}" placeholder="Enter your current password">
+                                        @if ($errors->has('currentPassword'))
+                                            <span class="invalid-feedback" style="color: red">
+                                                <strong>{{ $errors->first('currentPassword') }}</strong>
+                                            </span>
+                                        @endif
                                     </div>
                                 </div>
                             </div>
@@ -49,11 +54,11 @@
                                         <label>New Password</label>
                                         <div>
                                         <li><small>Length is equal or more than 6 digits</small></li> 
-                                            <li><small>Non-alphanumeric (For example: !, $, #, or %)</small> </li>
+                                        <li><small>Non-alphanumeric (For example: !, $, #, or %)</small> </li>
                                         </div>
-                                        <input type="password" class="form-control{{ $errors->has('newPassword') ? ' is-invalid' : '' }}" name ="newPassword" placeholder="Enter new password">
+                                        <input type="password" class="form-control{{ $errors->has('newPassword') ? ' is-invalid' : '' }}" name="newPassword" placeholder="Enter new password">
                                         @if ($errors->has('newPassword'))
-                                            <span class="invalid-feedback" role="alert">
+                                            <span class="invalid-feedback" style="color: red">
                                                 <strong>{{ $errors->first('newPassword') }}</strong>
                                             </span>
                                         @endif
@@ -64,9 +69,11 @@
                                 <div class="col-md-12">
                                     <div class="form-group">
                                         <label>Confirm your new password</label>
+                                        <li><small>Length is equal or more than 6 digits</small></li> 
+                                        <li><small>Non-alphanumeric (For example: !, $, #, or %)</small> </li>
                                         <input type="password" class="form-control{{ $errors->has('confirmPassword') ? ' is-invalid' : '' }}" name ="confirmPassword" placeholder="Enter new password to confirm">
                                         @if ($errors->has('confirmPassword'))
-                                            <span class="invalid-feedback" role="alert">
+                                            <span class="invalid-feedback" style="color: red">
                                                 <strong>{{ $errors->first('confirmPassword') }}</strong>
                                             </span>
                                         @endif
@@ -86,6 +93,26 @@
     <script type="text/javascript">
         $(document).ready(function (){
             $('#change-password').addClass('active');
+
+            if({{ \Session::has('success') }}){
+                var session_success = '{{ \Session::get('success') }}';
+                showNotification('top', 'center', 'pe-7s-check', '<b> Success </b>- '+session_success, 'success');
+            }
         });
+
+        function showNotification(from, align, icon, message, color){
+                $.notify({
+                    icon: icon,
+                    message: message
+
+                },{
+                    type: color,
+                    timer: 4000,
+                    placement: {
+                        from: from,
+                        align: align
+                    }
+                });
+            }
     </script>
 @endsection
