@@ -1,5 +1,17 @@
 @php
     $count_post = \App\Post::all()->where('report_status', 1)->count();
+
+    $posts_report = \App\Post::join('report_posts', 'posts.id', '=', 'report_posts.post_id')
+        ->select('posts.*', 'report_posts.report_user', 'report_posts.report_admin')
+        ->where('report_status', true)
+        ->Where('report_user', false)
+        ->count();
+
+    $posts_want_unreport = \App\Post::join('report_posts', 'posts.id', '=', 'report_posts.post_id')
+        ->select('posts.*', 'report_posts.report_user', 'report_posts.report_admin')
+        ->where('report_status', true)
+        ->Where('report_admin', true)
+        ->count();
 @endphp
 
 <div class="logo">
@@ -51,7 +63,7 @@
     <li id="notify">
         <a href="{{ action('AdminNotificationsController@index') }}">
             <i class="pe-7s-bell"></i>
-            <p>Notification&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{{$count_post}}</p>
+            <p>Notification&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{{$posts_report + $posts_want_unreport}}</p>
             <span class="badge"></span>
         </a>
     </li>

@@ -7,9 +7,12 @@ use App\Post;
 use App\User;
 use Auth;
 use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Facades\Gate;
 use Conner\Tagging\Taggable;
 use DB;
 use App\UserProfile;
+use App\ReportComment;
+use App\ReportPost;
 
 
 class PostsController extends Controller
@@ -113,8 +116,11 @@ class PostsController extends Controller
         $username = User::select('username')->where('id', $post->user_id)->get();
         $email = User::select('email')->where('id', $post->user_id)->get();
         $contact = UserProfile::where('user_id', $post->user_id)->first();
+        $comments = ReportComment::where('post_id', $post->id)->get();
+        $report_post = ReportPost::where('post_id', $post->id)->first();
         
-        return view('layouts.user.show-posts', ['post' => $post, 'tags' => $tags, 'files' => $files, 'username' => $username, 'contact' => $contact, 'email' => $email]);
+        return view('layouts.user.show-posts', ['post' => $post, 'tags' => $tags, 'files' => $files, 'username' => $username, 'contact' => $contact, 'email' => $email, 
+        'comments' => $comments, 'report_post' => $report_post]);
     }
 
     /**
@@ -140,7 +146,7 @@ class PostsController extends Controller
      */
     public function update(Request $request, $id)
     {
-        $attributes = request()->validate([
+        $this->validate($request,[
             'title' => ['required', 'min:3'],
             'file.*' => 'mimes:doc,pdf,docx,png,jpeg,pptx,xlsx,csv,gif|max:20000'
         ]);
@@ -225,16 +231,50 @@ class PostsController extends Controller
         return redirect()->action('PostsController@show', ['id' => $post->id])->with('success','This post is show now!');
     }
 
-    public function report($id)
+    public function report(Request $request, $id)
     {
+        $this->validate($request,[
+            'report-message' => 'required|min:3', 'min:3'
+        ]);
+
         $post = Post::findOrFail($id);
+        $user = Auth::user();
 
         $this->authorize('report', $post);
 
         $post->report_status = true;
-
         $post->save();
+
+        $report_post = ReportPost::where('post_id', $post->id)->first();
+        if($report_post == null) {
+            $report_post = new ReportPost;
+            $report_post->post_id = $post->id;
+        }
+        $report_post->report_admin = false;
+        $report_post->report_user = false;
+        $report_post->save();
+
+        $comment = new ReportComment;
+        $comment->user_id = $user->id;
+        $comment->post_id = $post->id;
+        $comment->detail = $request->input('report-message');
+        $comment->save();
         return redirect()->action('PostsController@show', ['id' => $post->id])->with('success','Report complete');
+    }
+
+    public function report_to_admin($id)
+    {
+        if(Gate::allows('isUser')){
+            $post = Post::findOrFail($id);
+            $report_post = ReportPost::where('post_id', $post->id)->first();
+            $report_post->report_admin = true;
+            $report_post->save();
+
+            return redirect()->action('PostsController@show', ['id' => $post->id])->with('success', 'The message had send to admin. Please wait for admin to check your post detail and unreport.');
+        }
+        else {
+            return abort(404);
+        }
     }
 
     public function download($file_name) {

@@ -49,8 +49,17 @@
         <div class="row">
         @if(isset($details))
           @foreach($details as $post)
+            @if(($post->report_user == false and $post->report_admin == false) or ($post->report_admin == true and $post->report_user == true))
             <div class="col-sm-6">
-              <div class="card" style="padding: 20px;">
+            @if( $post->report_user == false and $post->report_admin == false )
+              <div class="card" style="padding: 20px;background-color: #ffe5e1;" >
+              <h4 class="card-title" style="color: tomato"> <b>This post get report</b> </h4>
+              @endif
+              
+              @if( $post->report_admin == true and $post->report_user == true )
+              <div class="card" style="padding: 20px; background-color: #e8f6fe;">
+              <h4 class="card-title" style="color: #1DC7EA"> <b>User had edited this post. Check the content!</b> </h4>
+              @endif
                 @if($post->post_cover == null)
                     <img src="http://lorempixel.com/400/200" class="card-img-top" alt="Card image cap" width="100%"/>
                 @endif
@@ -108,6 +117,7 @@
                 </div>
               </div>
             </div>
+            @endif
             @endforeach
         @endif
           

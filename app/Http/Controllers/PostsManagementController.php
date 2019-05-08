@@ -9,6 +9,8 @@ use App\User;
 use App\UserProfile;
 use App\Category;
 use DB;
+use App\ReportComment;
+use App\ReportPost;
 
 class PostsManagementController extends Controller
 {
@@ -75,8 +77,16 @@ class PostsManagementController extends Controller
             $username = User::select('username')->where('id', $post->user_id)->get();
             $email = User::select('email')->where('id', $post->user_id)->get();
             $contact = UserProfile::where('user_id', $post->user_id)->first();
-
-            return view('layouts.admin.show-posts', ['post' => $post, 'tags' => $tags, 'files' => $files, 'username' => $username, 'contact' => $contact, 'email' => $email]);
+            $report_post = ReportPost::where('post_id', $post->id)->first();
+            // dd($report_post);
+            $comments = ReportComment::join('users', 'report_comments.user_id', '=', 'users.id')
+                        ->select('report_comments.*', 'users.username')
+                        ->where('post_id', $post->id)
+                        ->where('unreport_status', false)
+                        ->get();
+            $comment_count = count($comments);
+            return view('layouts.admin.show-posts', ['post' => $post, 'tags' => $tags, 'files' => $files, 'username' => $username, 'contact' => $contact, 'email' => $email,
+                        'comments' => $comments, 'comment_count' => $comment_count, 'report_post' => $report_post]);
         }
         else {
             return abort(404);
@@ -158,8 +168,17 @@ class PostsManagementController extends Controller
         if(Gate::allows('isAdmin')){
             $post = Post::findOrFail($id);
             $post->report_status = false;
-
             $post->save();
+
+            $comments = ReportComment::where('post_id', $post->id)->get();
+            foreach ($comments as $comment) {
+                $comment->unreport_status = true;
+                $comment->save();
+            }
+
+            $report_post = ReportPost::where('post_id', $post->id)->first();
+            $report_post->report_admin = true;
+            $report_post->report_user = true;
             return redirect()->action('PostsManagementController@show', ['id' => $post->id])->with('success','Unreport this post complete');
         }
         else {
@@ -178,6 +197,18 @@ class PostsManagementController extends Controller
             $category->save();
 
             return redirect()->action('PostsManagementController@index')->with('success','The new category is added');
+        }
+    }
+    public function report_to_user($id)
+    {
+        if(Gate::allows('isAdmin')){
+            $post = Post::findOrFail($id);
+            $report_post = ReportPost::where('post_id', $post->id)->first();
+            $report_post->report_user = true;
+            $report_post->report_admin = false;
+            $report_post->save();
+
+            return redirect()->action('PostsManagementController@show', ['id' => $post->id])->with('success', 'The message had send to user.');
         }
         else {
             return abort(404);

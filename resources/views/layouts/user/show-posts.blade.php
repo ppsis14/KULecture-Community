@@ -19,15 +19,33 @@
 
                         @if(Auth::user() and Auth::user()->can('view', $post))
                             @if($post->report_status == true)
-                                <button type="button" class="btn btn-danger">
-                                    <b> This post get report! </b>
-                                </button>
+                                @if($post->user_id == Auth::user()->id && ($report_post->report_user == true && $report_post->report_admin == false))
+                                    <button type="button" class="btn btn-danger">
+                                        <b> This post get report! </b>
+                                    </button>
+                                @endif
+                                @if($post->user_id == Auth::user()->id && ($report_post->report_user == true && $report_post->report_admin == true))
+                                    <button type="button" class="btn btn-danger">
+                                        <b> Waiting for admin to unreport. </b>
+                                    </button>
+                                @endif
+                                @if($post->user_id != Auth::user()->id)
+                                    @foreach($comments as $comment)
+                                        @if($comment->user_id == Auth::user()->id && $comment->unreport_status == false)
+                                        <button type="button" class="btn btn-danger">
+                                            <b> You had report this post </b>
+                                        </button>
+                                        @endif
+                                    @endforeach
+                                @endif
                                 
                             @endif
                             @if($post->hidden_status == true)
-                                <button type="button" class="btn btn-info">
-                                    <b> This post is hidden. </b>
-                                </button>
+                                @if($post->user_id == Auth::user()->id)
+                                    <button type="button" class="btn btn-info">
+                                        <b> This post is hidden. </b>
+                                    </button>
+                                @endif
                             @endif
                         @endif
 
@@ -92,20 +110,57 @@
                                 
                                 
                                 @if(Auth::user() and Auth::user()->can('report', $post))
+                                    @php
+                                        $count = 0
+                                    @endphp
+                                    @foreach($comments as $comment)
+                                        @if($comment->user_id == Auth::user()->id && $comment->unreport_status == false)
+                                            @php
+                                                $count += 1
+                                            @endphp
+                                        @endif
+                                    @endforeach
+                                    @if($count == 0) 
                                     <div class="col-md-2">
-                                        <form action="{{ action('PostsController@report', ['id' => $post->id]) }}" method="post">
-                                        @csrf
                                         <a href="#popupLogin" data_real="popup" data-position-to="window"
                                             data-transaction="pop" >
-                                            <button  style="border: transparent; color: tomato;" class="btn btn-default btn-block report-post">
+                                            <button  style="border: transparent; color: tomato;" class="btn btn-default btn-block report-post-btn">
                                                 <i class="fas fa-flag"></i> &nbsp;Report
                                             </button>
                                         </a>
-                                        </form>
                                     </div>
+                                    @endif
+                                @endif
+
+                                @if($post->report_status == true)
+                                    @if($post->user_id == Auth::user()->id && ($report_post->report_user == true && $report_post->report_admin == false))
+                                    <div class="col-md-2">
+                                        <a href="{{ action('PostsController@report_to_admin', ['id' => $post->id]) }}" data_real="popup" data-position-to="window"
+                                            data-transaction="pop" >
+                                            <button  style="border: transparent; color: tomato;" class="btn btn-default btn-block report-post-btn">
+                                                <i class="fas fa-flag"></i> &nbsp;Send message to admin
+                                            </button>
+                                        </a>
+                                    </div>
+                                    @endif
                                 @endif
 
                             </div>
+                            @if(Auth::user() and Auth::user()->can('report', $post))
+                                <br>
+                                <div class="row report" style="display: none">
+                                    <form action="{{ action('PostsController@report', ['id' => $post->id]) }}" method="post">
+                                    @csrf
+                                        <textarea name="report-message" id="report-message" class="form-control" placeholder="type the message.." style="height: 80px; width: 500px; margin: auto;"></textarea>
+                                        <br><button type="submit" class="btn btn-fill pull-right report-post-submit" style="border: transparent;background-color: tomato;">Send</button>
+                                    </form>
+                                </div>
+                                @if ($errors->has('report-message'))
+                                    <div class="invalid-feedback" style="color: red">
+                                        {{ $errors->first('report-message')}}
+                                    </div>
+                                @endif 
+                            @endif
                         </div>
                     </div>
                 </div>
@@ -186,13 +241,17 @@
                 }
             });
 
-            $('.report-post').click(function(e) {
+            $('.report-post-submit').click(function(e) {
                 e.preventDefault();
                 var is_confirm = confirm('Are you sure to report this post ?');
 
                 if(is_confirm) {
                     $(e.target).closest('form').submit();
                 }
+            });
+
+            $('.report-post-btn').click(function(e) {
+                $('.report').show();
             });
 
         });
@@ -239,5 +298,11 @@
                     }
                 });
             }
+    </script>
+
+    <script type="text/javascript">
+        if( {{$errors->has('report-message')}} ){
+            $('.report').show();
+        }
     </script>
 @endsection
