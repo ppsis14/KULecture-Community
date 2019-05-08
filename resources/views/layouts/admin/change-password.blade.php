@@ -42,7 +42,7 @@
                                         <input type="password" name="currentPassword" class="form-control {{ $errors->has('currentPassword') ? ' is-invalid' : ''}}" placeholder="Enter your current password">
                                         @if ($errors->has('currentPassword'))
                                             <span class="invalid-feedback" style="color: red">
-                                                <strong>{{ $errors->first('currentPassword') }}</strong>
+                                               {{ $errors->first('currentPassword') }}
                                             </span>
                                         @endif
                                     </div>
@@ -59,7 +59,7 @@
                                         <input type="password" class="form-control{{ $errors->has('newPassword') ? ' is-invalid' : '' }}" name="newPassword" placeholder="Enter new password">
                                         @if ($errors->has('newPassword'))
                                             <span class="invalid-feedback" style="color: red">
-                                                <strong>{{ $errors->first('newPassword') }}</strong>
+                                                {{ $errors->first('newPassword') }}
                                             </span>
                                         @endif
                                     </div>
@@ -74,7 +74,7 @@
                                         <input type="password" class="form-control{{ $errors->has('confirmPassword') ? ' is-invalid' : '' }}" name ="confirmPassword" placeholder="Enter new password to confirm">
                                         @if ($errors->has('confirmPassword'))
                                             <span class="invalid-feedback" style="color: red">
-                                                <strong>{{ $errors->first('confirmPassword') }}</strong>
+                                                {{ $errors->first('confirmPassword') }}
                                             </span>
                                         @endif
                                     </div>

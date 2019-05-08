@@ -297,14 +297,45 @@ class PostsManagementController extends Controller
         }
     }
 
-    public function editCategory(Request $request, $id){
+    public function addCategory(Request $request){
+        if(Gate::allows('isAdmin')){
+            $this->validate($request,[
+                'category_name' => 'required|min:3|string|alpha|distinct',
+            ]);
 
+            $category = DB::table('categories')->insert([
+                ['name' => $request->input('category_name')]
+            ]);
+
+            return redirect()->action('PostsManagementController@index')->with('success','The new category is added');
+        }
+        else {
+            return abort(404);
+        }
+
+    }
+
+    public function updateCategory(Request $request, $id){
+        if(Gate::allows('isAdmin')){
+            $this->validate($request,[
+                'category_name' => 'required|min:3|string|alpha|distinct',
+            ]);
+
+            $category = DB::table('categories')->update([
+                ['name' => $request->input('category_name')]
+            ]);
+
+            return redirect()->action('PostsManagementController@index')->with('success','The new category is added');
+        }
+        else {
+            return abort(404);
+        }
     }
 
     public function destroyCategory($id){
         if(Gate::allows('isAdmin')){
-            $post = DB::table('categories')->where('id', $id)->get();
-            $post->delete();
+            $category = DB::table('categories')->where('id', $id)->get();
+            $categories->delete();
 
             return redirect()->action('PostsManagementController@index')->with('success','The category is deleted');
         }

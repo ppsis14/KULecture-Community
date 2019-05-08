@@ -79,6 +79,48 @@
                     <div class="header">
                         <h4 class="title">Category Management</h4>
                         <hr>
+                        <form action="{{ action('PostsManagementController@addCategory')}}" method="post" id="add-category">
+                            @csrf
+                            <div class="col-md-8">
+                                <div class="form-group">
+                                    <input type="text" class="form-control {{ $errors->has('category_name') ? 'is-invalid' : '' }}" name="category_name" placeholder="Category Name">
+                                    @if( $errors->has('category_name'))
+                                        <span class="invalid-feedback" style="color: red">
+                                            {{ $errors->first('category_name') }}
+                                        </span>
+                                    @endif
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="form-group">
+                                    <button type="submit" class="btn btn-info btn-fill pull-right btn-block">Add Category</button>
+                                </div>
+                            </div>
+                        </form> 
+                        <form action="{{ action('PostsManagementController@updateCategory')}}" method="post" id="update-category">
+                            @csrf
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <input type="text" class="form-control {{ $errors->has('category_name') ? 'is-invalid' : '' }}" name="category_name" placeholder="Category Name">
+                                    @if( $errors->has('category_name'))
+                                        <span class="invalid-feedback" style="color: red">
+                                            {{ $errors->first('category_name') }}
+                                        </span>
+                                    @endif
+                                </div>
+                            </div>
+                            <div class="col-md-3">
+                                <div class="form-group">
+                                    <button type="submit" class="btn btn-info btn-fill pull-right btn-block">Update</button>
+                                </div>
+                            </div>
+                            <div class="col-md-3">
+                                <div class="form-group">
+                                    <button type="button" id="cancel-btn" class="btn btn-info btn-fill pull-right btn-block">Cancel</button>
+                                </div>
+                            </div>
+                        </form>    
+                        <br><br><br>
                     </div>
                     <div class="card-body">
                         <div class="content">
@@ -94,11 +136,7 @@
                                     <tr>
                                         <td>{{ $category->name }}</td>
                                         <td>
-                                            <form action="{{ action('PostsManagementController@editCategory', ['id' => $category->id]) }}" method="post">
-                                            @csrf
-                                            @method('PUT')
-                                                <a href=""><button type="submit" class="btn btn-primary btn-sm"><i class="fas fa-edit fa-fw"></i></button></a>
-                                            </form>
+                                            <button type="button" class="btn btn-primary btn-sm" id="delete-btn"><i class="fas fa-edit fa-fw"></i></button>
                                         </td>
                                         <td>
                                             <form action="{{ action('PostsManagementController@destroyCategory', ['id' => $category->id]) }}" method="post">
@@ -147,15 +185,20 @@
                 scrollCollapse : true
             });
 
-            $('#addCategory').click( function() {
-                var html = '<tr>';
-                html += '<td contenteditable id="name"></td>';
-                html += '<td><button type="button" name="insert" id="insert" class="btn btn-xs btn-success">Insert</button></td>';
-                html += '<tr>';
-                $('#categoryTable tbody').prepend(html);
+            $('#post-management').addClass('active');
+
+            $('#update-category').hide();
+
+            $('#delete-btn').click( function (){
+                $('#update-category').show();
+                $('#add-category').hide();
             });
 
-            $('#post-management').addClass('active');
+            $('#cancel-btn').click( function () {
+                $('#add-category').show();
+                $('#update-category').hide();
+
+            });
         });
     </script>
 @endsection
