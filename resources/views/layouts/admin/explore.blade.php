@@ -5,7 +5,6 @@
 @endsection
 @section('content')
     
-    <!-- <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/css/bootstrap.min.css" /> -->
 	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-tagsinput/0.8.0/bootstrap-tagsinput.css" />
 	<script src="http://demo.itsolutionstuff.com/plugin/jquery.js"></script>
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-tagsinput/0.8.0/bootstrap-tagsinput.js"></script>
@@ -57,14 +56,14 @@
                     </a>
                     <ul class="dropdown-menu">
                         @foreach($categorys as $category)
-                            <li><a href="/admin/posts/category/{{ $category}}">{{ $category}}</a></li>
+                            <li><a href="/admin/explorer/category/{{ $category}}">{{ $category}}</a></li>
                         @endforeach
                         <li class="divider"></li>
-                        <li><a href="/admin/posts/category/All">All</a></li>
+                        <li><a href="{{ action('AdminExplorePostsController@index')}}">All</a></li>
                     </ul>
                 </li>
             </ul>
-            <form action="{{ action('PostsManagementController@search', ['dropdown' => $dropdown]) }}" role="search" method="get">
+            <form action="{{ action('AdminExplorePostsController@search', ['dropdown' => $dropdown]) }}" role="search" method="get">
                 <div class="col-md-8">
                     <div class="form-group"> 
                         <input class="form-control" type="text" name="key" placeholder="Search..." aria-label="Search" value="{{ old('title')}}">
@@ -82,9 +81,9 @@
             <div class="form-group" style="text-align: center;">
                 <button style="border: transparent;" type="button" class="btn" name="button" id="btn-advance"><i class="fas fa-search" aria-hidden="true"></i>&nbsp;&nbsp; Advance Search</button>
                 <button style="border: transparent;" class="btn" id="line-advance"> | </button>
-                <button style="border: transparent;" type="button" class="btn" name="button" id="btn-tag-advance"><a href="{{ action('PostsManagementController@all_tag', ['id' => Auth::user()->id]) }}" style="color: #888888">All tags</a> </button>
+                <button style="border: transparent;" type="button" class="btn" name="button" id="btn-tag-advance"><a href="{{ action('AdminExplorePostsController@all_tag') }}" style="color: #888888">All tags</a> </button>
                 <button style="border: transparent;" class="btn" id="line2-advance"> | </button>
-                <button style="border: transparent;" type="button" class="btn" name="button" id="btn-cate-advance"><a href="/admin/posts/category/All" style="color: #888888">Category</a> </button>
+                <button style="border: transparent;" type="button" class="btn" name="button" id="btn-cate-advance"><a href="{{ action('AdminExplorePostsController@index')}}" style="color: #888888">Category</a> </button>
             </div>
         </div>
 
@@ -92,9 +91,9 @@
             <div class="form-group" style="text-align: center;">
                 <button style="border: transparent; display: none;" type="button" class="btn" name="button" id="btn-normal"><i class="fas fa-search" aria-hidden="true"></i>&nbsp;&nbsp; Back To Normal Search</button>
                 <button style="border: transparent; display: none;" class="btn" id="line-normal"> | </button>
-                <button style="border: transparent; display: none;" type="button" class="btn" name="button" id="btn-tag-normal"> <a href="{{ action('PostsManagementController@all_tag', ['id' => Auth::user()->id]) }}" style="color: #888888">All tags</a></button>
+                <button style="border: transparent; display: none;" type="button" class="btn" name="button" id="btn-tag-normal"> <a href="{{ action('AdminExplorePostsController@all_tag') }}" style="color: #888888">All tags</a></button>
                 <button style="border: transparent; display: none;" class="btn" id="line2-normal"> | </button>
-                <button style="border: transparent; display: none;" type="button" class="btn" name="button" id="btn-cate-normal"><a href="/admin/posts/category/All" style="color: #888888">Category</a> </button>
+                <button style="border: transparent; display: none;" type="button" class="btn" name="button" id="btn-cate-normal"><a href="{{ action('AdminExplorePostsController@index')}}" style="color: #888888">Category</a> </button>
             </div>
         </div>
 
@@ -103,7 +102,7 @@
                 <div class="card" style="padding: 20px;">
                     <h4 class="card-title">Advance Search</h4>
                     <div class="card-body">
-                        <form action="{{ action('PostsManagementController@advance') }}" role="search" method="get">
+                        <form action="{{ action('AdminExplorePostsController@advance') }}" role="search" method="get">
                             <div class="row">
                                 <div class="col-md-5">
                                     <div class="form-group">
@@ -167,11 +166,11 @@
                 <div class="card-body">
                   <h4 class="card-title"><a href="{{ action('PostsManagementController@show', ['id' => $post->id]) }}">{{$post->post_title}}</a></h4>
                   <p class="card-text">{{$post->description}}</p>
-                  <p class="card-text"><small class="text-muted">Category: <a href="/admin/posts/category/{{$post->category}}">{{$post->category}}</a>&nbsp;&nbsp; 
+                  <p class="card-text"><small class="text-muted">Category: <a href="/admin/explorer/category/{{$post->category}}">{{$post->category}}</a>&nbsp;&nbsp; 
                     @if($post->post_tag != null)
                         Tag : 
                         @foreach($post->tags as $tag)
-                            <a href="/admin/posts/tag/{{$tag->name}}">{{$tag->name}}</a>
+                            <a href="/admin/explorer/tag/{{$tag->name}}">{{$tag->name}}</a>
                         @endforeach
                     @endif
                   </small></p>

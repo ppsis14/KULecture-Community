@@ -7,13 +7,8 @@ use App\Post;
 use App\User;
 use Illuminate\Support\Facades\Gate;
 
-class ExplorePostsController extends Controller
+class UserExplorePostsController extends Controller
 {
-    public function __construct()
-    {
-      $this->middleware('auth');
-    }
-
     public function index() {
 
         if(Gate::allows('isUser')){
@@ -118,7 +113,7 @@ class ExplorePostsController extends Controller
         }
     }
 
-    public function category($category) 
+    public function choose_category($category) 
     {
         if(Gate::allows('isUser')){
             $posts = Post::join('users', 'posts.user_id', '=', 'users.id')
@@ -132,5 +127,37 @@ class ExplorePostsController extends Controller
         else {
             return abort(404);
         }
+    }
+
+    public function tag($tag) 
+    {
+        if(Gate::allows('isUser')){
+            $posts = Post::join('users', 'posts.user_id', '=', 'users.id')
+            ->select('posts.*', 'users.username')->withAnyTag($tag)->where('hidden_status', false)->orderBy('created_at', 'desc')->paginate(10);
+            $categorys = ['Books', 'Lectures', 'Domitory', 'Electronics', 'News', 'Sports', 'Others'];
+
+            return view('layouts.user.tag', ['categorys' => $categorys, 'tag' => $tag])->withDetails($posts);
+        }
+        else {
+            return abort(404);
+        }
+    }
+
+    public function all_tag() 
+    {
+        if(Gate::allows('isUser')){
+            $tags = Post::existingTags();
+            $categorys = ['Books', 'Lectures', 'Domitory', 'Electronics', 'News', 'Sports', 'Others'];
+
+            return view('layouts.user.all-tags', ['categorys' => $categorys,'tags' => $tags]);
+        }
+        else {
+            return abort(404);
+        }
+    }
+
+    public function __construct()
+    {
+      $this->middleware('auth');
     }
 }

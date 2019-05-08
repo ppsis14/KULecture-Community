@@ -48,9 +48,9 @@
             <div class="form-group" style="text-align: center;">
                 <button style="border: transparent;" type="button" class="btn" name="button" id="btn-advance"><i class="fas fa-search" aria-hidden="true"></i>&nbsp;&nbsp; Advance Search</button>
                 <button style="border: transparent;" class="btn" id="line-advance"> | </button>
-                <button style="border: transparent;" type="button" class="btn" name="button" id="btn-tag-advance"><a href="{{ action('PostsManagementController@all_tag', ['id' => Auth::user()->id]) }}" style="color: #888888">All tags</a> </button>
+                <button style="border: transparent;" type="button" class="btn" name="button" id="btn-tag-advance"><a href="{{ action('AdminExplorePostsController@all_tag') }}" style="color: #888888">All tags</a> </button>
                 <button style="border: transparent;" class="btn" id="line2-advance"> | </button>
-                <button style="border: transparent;" type="button" class="btn" name="button" id="btn-cate-advance"><a href="/admin/posts/category/All" style="color: #888888">Category</a> </button>
+                <button style="border: transparent;" type="button" class="btn" name="button" id="btn-cate-advance"><a href="{{ action('AdminExplorePostsController@index')}}" style="color: #888888">Category</a> </button>
             </div>
         </div>
 
@@ -58,9 +58,9 @@
             <div class="form-group" style="text-align: center;">
                 <button style="border: transparent; display: none;" type="button" class="btn" name="button" id="btn-normal"><i class="fas fa-search" aria-hidden="true"></i>&nbsp;&nbsp; Back To Normal Search</button>
                 <button style="border: transparent; display: none;" class="btn" id="line-normal"> | </button>
-                <button style="border: transparent; display: none;" type="button" class="btn" name="button" id="btn-tag-normal"> <a href="{{ action('PostsManagementController@all_tag', ['id' => Auth::user()->id]) }}" style="color: #888888">All tags</a></button>
+                <button style="border: transparent; display: none;" type="button" class="btn" name="button" id="btn-tag-normal"> <a href="{{ action('AdminExplorePostsController@all_tag') }}" style="color: #888888">All tags</a></button>
                 <button style="border: transparent; display: none;" class="btn" id="line2-normal"> | </button>
-                <button style="border: transparent; display: none;" type="button" class="btn" name="button" id="btn-cate-normal"><a href="/admin/posts/category/All" style="color: #888888">Category</a> </button>
+                <button style="border: transparent; display: none;" type="button" class="btn" name="button" id="btn-cate-normal"><a href="{{ action('AdminExplorePostsController@index')}}" style="color: #888888">Category</a> </button>
             </div>
         </div>
 
@@ -69,7 +69,7 @@
                 <div class="card" style="padding: 20px;">
                     <h4 class="card-title">Advance Search</h4>
                     <div class="card-body">
-                        <form action="{{ action('PostsManagementController@advance') }}" role="search" method="get">
+                        <form action="{{ action('AdminExplorePostsController@advance') }}" role="search" method="get">
                             <div class="row">
                                 <div class="col-md-5">
                                     <div class="form-group">
@@ -116,7 +116,7 @@
             <div class="col-sm-3">
                 <div class="card" style="padding: 20px; height: 100px;">
                     <div class="card-body">
-                        <h4 style="text-align: center; margin: auto;" class="card-text"><a href="/admin/posts/tag/{{$tag->name}}">{{$tag->name}}</a></h4>
+                        <h4 style="text-align: center; margin: auto;" class="card-text"><a href="/admin/explorer/tag/{{$tag->name}}">{{$tag->name}}</a></h4>
                         <br>
                         <p style="text-align: center; margin: auto;" class="card-text text-muted">{{$tag->count}} posts</p>
                     </div>

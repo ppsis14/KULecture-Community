@@ -32,7 +32,7 @@
         </a>
     </li>
     <li id="explorer">
-        <a href="{{ action('ExplorePostsController@index') }}">
+        <a href="{{ action('UserExplorePostsController@index') }}">
             <i class="pe-7s-global"></i>
             <p>Explorer</p>
         </a>
