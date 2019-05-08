@@ -7,6 +7,7 @@ use Illuminate\Support\Facades\Gate;
 use App\Post;
 use App\User;
 use App\UserProfile;
+use DB;
 
 class PostsManagementController extends Controller
 {
@@ -26,7 +27,10 @@ class PostsManagementController extends Controller
             $posts = Post::join('users', 'posts.user_id', '=', 'users.id')
             ->select('posts.*', 'users.username')
             ->orderBy('updated_at', 'desc')->get();
-            return view('layouts.admin.post-management', ['posts' => $posts]);
+
+            $categories = DB::table('categories')->get();
+            // dd($categories);
+            return view('layouts.admin.post-management', ['posts' => $posts, 'categories' => $categories]);
         }
         else {
             return abort(404);

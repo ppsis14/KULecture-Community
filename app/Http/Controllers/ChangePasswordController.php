@@ -28,30 +28,33 @@ class ChangePasswordController extends Controller
     public function update(Request $request){
         if(Gate::allows('isAdmin')){
             $validatedData = $request->validate([
-                'confirmPassword' => 'required',
-                'newPassword' => 'required|min:6',
-                'confirmPassword' => 'required',
+                'currentPassword' => 'required',
+                'newPassword' => 'required|alpha_num|min:6|required_with:currentPassword',
+                'confirmPassword' => 'required|alpha_num|required_with:currentPassword|same:newPassword',
             ]);
 
             $email = Auth::user()->email;
             $result = DB::table('users')->select('*')->where('email',$email)->first();
                         
+            DB::table('users')->where('email',$email)->update(['password'=>Hash::make($request->input('newPassword'))]);
+            
+            return redirect()->back()->with('success','Your new password is changed!');
             
             
-            if(Hash::check($request->input('currentPassword'),$result->password)){
-                //check if newPassword and confirmNewPassword is matched
-                if($request->input('newPassword') === $request->input('confirmPassword')){
-                    DB::table('users')->where('email',$email)->update(['password'=>Hash::make($request->input('newPassword'))]);
-                    return redirect()->back()->with('success','Your new password is changed!');
-                }else{
-                    //error that newPassword is not matched with confirmNewPassword
-                    return redirect()->back()->with('error','Confirmed new password is not matched with new password!');
+            // if(Hash::check($request->input('currentPassword'),$result->password)){
+            //     //check if newPassword and confirmNewPassword is matched
+            //     if($request->input('newPassword') === $request->input('confirmPassword')){
+            //         DB::table('users')->where('email',$email)->update(['password'=>Hash::make($request->input('newPassword'))]);
+            //         return redirect()->back()->with('success','Your new password is changed!');
+            //     }else{
+            //         //error that newPassword is not matched with confirmNewPassword
+            //         return redirect()->back()->with('error','Confirmed new password is not matched with new password!');
                     
-                }
-            }else{
-                //error that current password is incorrect
-                return redirect()->back()->with('error','Current password is incorrect');
-            }
+            //     }
+            // }else{
+            //     //error that current password is incorrect
+            //     return redirect()->back()->with('error','Current password is incorrect');
+            // }
         }
         else{
             return abort(404);

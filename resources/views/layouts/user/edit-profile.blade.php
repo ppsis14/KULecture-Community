@@ -119,7 +119,6 @@
                                 <div class="col-md-6">
                                     <div class="form-group">
                                         <label for="exampleInputEmail1">Line ID</label>
-                                        
                                         <input type="text" class="form-control {{$errors->has('line')? 'is-invalid' : '' }}" name="line" placeholder="Line ID" value="{{ old('line', $profile->line) }}">
                                             @if( $errors->has('line'))
                                                 <div class="invalid-feedback">

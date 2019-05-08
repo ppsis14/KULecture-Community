@@ -4,7 +4,7 @@
     <i class="pe-7s-add-user"></i>&nbsp;&nbsp;Add New Amin
 @endsection
 @section('content')
-    @if ($errors->any())
+    <!-- @if ($errors->any())
     <div class="alert alert-danger">
         <ul>
             @foreach ($errors->all() as $error)
@@ -24,7 +24,7 @@
         <button type="button" class="close" data-dismiss="alert">×</button>	
             <strong>{{ $message }}</strong>
     </div>
-    @endif
+    @endif -->
     <div class="container-fluid">
         <div class="row">
             <div class="col-md-8">
@@ -42,7 +42,7 @@
                                         <!-- <input type="text" name="firstName" class="form-control" placeholder="Enter First Name"> -->
                                         <input type="text" class="form-control{{ $errors->has('firstName') ? ' is-invalid' : '' }}" id="firstName" value="{{old('firstName')}}" name ="firstName" placeholder="Enter First Name">
                                         @if ($errors->has('firstName'))
-                                            <span class="invalid-feedback" role="alert">
+                                            <span class="invalid-feedback" style="color: red">
                                                 <strong>{{ $errors->first('firstName') }}</strong>
                                             </span>
                                         @endif
@@ -56,7 +56,7 @@
                                         <!-- <input type="text" name="lastName" class="form-control" placeholder="Enter Last Name"> -->
                                         <input type="text" class="form-control{{ $errors->has('lastName') ? ' is-invalid' : '' }}" id="lastName" value="{{old('lastName')}}" name ="lastName" placeholder="Enter Last Name">
                                         @if ($errors->has('lastName'))
-                                            <span class="invalid-feedback" role="alert">
+                                            <span class="invalid-feedback" style="color: red">
                                                 <strong>{{ $errors->first('lastName') }}</strong>
                                             </span>
                                         @endif
@@ -69,7 +69,7 @@
                                         <label>Email</label>
                                         <input type="text" class="form-control{{ $errors->has('email') ? ' is-invalid' : '' }}" id="email" value="{{old('email')}}" name ="email" placeholder="Enter Email">
                                         @if ($errors->has('email'))
-                                            <span class="invalid-feedback" role="alert">
+                                            <span class="invalid-feedback" style="color: red">
                                                 <strong>{{ $errors->first('email') }}</strong>
                                             </span>
                                         @endif
@@ -86,7 +86,7 @@
                                         </div>
                                         <input type="password" class="form-control{{ $errors->has('password') ? ' is-invalid' : '' }}" id="password" name ="password" placeholder="Enter new password">
                                         @if ($errors->has('password'))
-                                            <span class="invalid-feedback" role="alert">
+                                            <span class="invalid-feedback" style="color: red">
                                                 <strong>{{ $errors->first('password') }}</strong>
                                             </span>
                                         @endif
@@ -103,7 +103,7 @@
                                         </div>
                                         <input type="password" class="form-control{{ $errors->has('confirmPassword') ? ' is-invalid' : '' }}" id="confirmPassword" name ="confirmPassword" placeholder="Enter password to confirm">
                                         @if ($errors->has('confirmPassword'))
-                                            <span class="invalid-feedback" role="alert">
+                                            <span class="invalid-feedback" style="color: red">
                                                 <strong>{{ $errors->first('confirmPassword') }}</strong>
                                             </span>
                                         @endif
@@ -123,6 +123,25 @@
     <script type="text/javascript">
         $(document).ready(function (){
             $('#add-admin').addClass('active');
+            if({{ \Session::has('success') }}){
+                var session_success = '{{ \Session::get('success') }}';
+                showNotification('top', 'center', 'pe-7s-check', '<b> Success </b>- '+session_success, 'success');
+            }
         });
+
+        function showNotification(from, align, icon, message, color){
+                $.notify({
+                    icon: icon,
+                    message: message
+
+                },{
+                    type: color,
+                    timer: 4000,
+                    placement: {
+                        from: from,
+                        align: align
+                    }
+                });
+            }
     </script>
 @endsection

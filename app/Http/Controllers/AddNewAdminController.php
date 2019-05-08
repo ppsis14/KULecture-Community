@@ -41,7 +41,7 @@ class AddNewAdminController extends Controller
                 'firstName' => 'required|min:3|string',
                 'lastName' => 'required|min:3|string',
                 'email' => 'required|email|unique:users',
-                'password' => 'required|min:6',
+                'password' => 'required|min:6|alpha_num',
             ]);
 
             if(Hash::check($confirmPassword,$password)){

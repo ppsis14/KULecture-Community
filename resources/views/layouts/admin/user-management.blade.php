@@ -14,7 +14,7 @@
                     </div>
                     <div class="card-body">
                         <div class="content">
-                            <table class="table table-hover table-striped table-responsive table-full-width" id="adminTable">
+                            <table class="table table-hover table-striped table-responsive table-full-width" width="100%" id="adminTable">
                                 <thead>
                                     <th>ID</th>
                                     <th>Username</th>
@@ -54,7 +54,7 @@
                     </div>
                     <div class="card-body">
                         <div class="content">
-                            <table class="table table-hover table-striped table-responsive table-full-width" id="userTable">
+                            <table class="table table-hover table-striped table-responsive table-full-width" width="100%" id="userTable">
                                 <thead>
                                     <th>ID</th>
                                     <th>Username</th>
@@ -98,8 +98,16 @@
 
     <script type="text/javascript">
         $(document).ready( function () {
-            $('#userTable').DataTable();
-            $('#adminTable').DataTable();
+            $('#userTable').DataTable({
+                responsive: true,
+                scrollX : true,
+                scrollCollapse : true
+            });
+            $('#adminTable').DataTable({
+                responsive: true,
+                scrollX : true,
+                scrollCollapse : true
+            });
 
             $('#user-management').addClass('active');
         } );

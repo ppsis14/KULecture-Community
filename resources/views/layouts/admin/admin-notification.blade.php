@@ -40,6 +40,12 @@
     </style>
 
     <div class="container-fluid">
+        @if(count($details) == 0)
+            <div class="row">
+                <h4 style="text-align: center;">No reported post</h4>
+            </div>
+        @endif
+
         <div class="row">
         @if(isset($details))
           @foreach($details as $post)
