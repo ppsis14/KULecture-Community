@@ -28,9 +28,9 @@
 * **นายเกียรติศักดิ์ ธีรพงษ์พิพัฒน์ 5910406060** - github link -> [robinker](https://github.com/robinker)
     * **งานที่รับผิดชอบ :**
         * **admin**
-            * login ของ admin
-            * หน้า dashboard ในการแสดงจำนวน user, จำนวน post และกราฟแสดงจำนวนโพสต์ในแต่ละ category
-            * หน้า usermanagement แสดงตารางข้อมูลของ user และ admin
+            * การ login ของ admin
+            * หน้า dashboard ในการแสดงจำนวน user, จำนวน post , กราฟแสดงจำนวนโพสต์ในแต่ละ category และกราฟแสดงจำนวนคนที่ login ในแต่ละช่วงเวลา
+            * หน้า usermanagement แสดงตารางข้อมูลของ user และ admin สามารถลบและ search ได้
             * กำหนด policy ในการลบข้อมูลในหน้า usermanagement ให้ admin เท่านั้นที่ลบข้อมูลได้ แต่จะลบข้อมูลของตนเองไม่ได้
          * **RESTFUL API**
             * สร้าง api สำหรับการดูข้อมูล user และ post
