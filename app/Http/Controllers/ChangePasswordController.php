@@ -35,11 +35,14 @@ class ChangePasswordController extends Controller
 
             $email = Auth::user()->email;
             $result = DB::table('users')->select('*')->where('email',$email)->first();
-                        
-            DB::table('users')->where('email',$email)->update(['password'=>Hash::make($request->input('newPassword'))]);
             
-            return redirect()->back()->with('success','Your new password is changed!');
-            
+            if(Hash::check($request->input('currentPassword'),$result->password)){
+                DB::table('users')->where('email',$email)->update(['password'=>Hash::make($request->input('newPassword'))]);
+                return redirect()->back()->with('success','Your new password is changed!');
+            }else{
+                //error that current password is incorrect
+                return redirect()->back()->with('error','Current password is incorrect');
+            }
             
             // if(Hash::check($request->input('currentPassword'),$result->password)){
             //     //check if newPassword and confirmNewPassword is matched

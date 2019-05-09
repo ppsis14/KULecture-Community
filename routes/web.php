@@ -15,6 +15,7 @@ Route::get('login/google', 'Auth\LoginGoogleController@redirectToProvider');
 Route::get('login/google/callback', 'Auth\LoginGoogleController@handleProviderCallback');
 
 Route::get('/admin/login', 'AdminsLoginController@index');
+
 // Route::post('/admin/login', 'AdminsLoginController@login');
 Route::post('/admin/insert','AddNewAdminController@store');
 Route::get('/admin/login', 'AdminsLoginController@index');
@@ -23,7 +24,6 @@ Route::get('/admin/users', 'UsersManagementController@index');
 Route::delete('/admin/users/{id}', 'UsersManagementController@destroy');
 Route::get('/admin/addadmin', 'AddNewAdminController@index');
 Route::get('/admin/changepassword', 'ChangePasswordController@index');
-Route::post('/admin/changepassword','ChangePasswordController@update');
 Route::get('/admin/notifications', 'AdminNotificationsController@index');
 Route::post('/admin/changepw','ChangePasswordController@update');
 
