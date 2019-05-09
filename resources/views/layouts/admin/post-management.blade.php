@@ -5,6 +5,12 @@
 @endsection
 @section('content')
     <div class="container-fluid">
+        <!-- @if( Session::has('success'))
+            <script>
+                var session_msg = Session::get('success');
+                showNotification('top', 'center', 'pe-7s-check', '<b> Success </b>- '+session_msg, 'success');
+            </script>
+        @endif -->
         <div class="row">
             <div class="col-md-12">
                 <div class="card">
@@ -156,8 +162,33 @@
             });
 
             $('#post-management').addClass('active');
-
             
         });
+    </script>
+    <script>
+        $(document).ready(function () {
+            if({{ Session::has('success') }}){
+                var session_msg = '{{ Session::get('success') }}';
+                showNotification('top', 'center', 'pe-7s-check', '<b> Success </b>- '+session_msg, 'success');
+            }
+            // else if({{ Session::has('failure') }}){
+            //     var session_msg = '{{ Session::get('failure') }}';
+            //     showNotification('top', 'center', 'pe-7s-close-circle', '<b> Failure </b>- '+session_msg, 'danger');
+            // }
+        });
+        function showNotification(from, align, icon, message, color){
+                $.notify({
+                    icon: icon,
+                    message: message
+
+                },{
+                    type: color,
+                    timer: 4000,
+                    placement: {
+                        from: from,
+                        align: align
+                    }
+                });
+            }
     </script>
 @endsection

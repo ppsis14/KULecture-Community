@@ -17,7 +17,7 @@ class AdminsLoginController extends Controller
         return view('layouts.admin.admin-login');
         }
         else{
-            return abort(404);
+            return abort(403, 'Unauthorized action.');
         }
     }
 

@@ -121,7 +121,7 @@ class PostsManagementController extends Controller
             return redirect()->action('PostsManagementController@index')->with('success','The post had delete');
         }
         else {
-            return abort(404);
+            return abort(403, 'Unauthorized action.');
         }
     }
 
@@ -149,7 +149,7 @@ class PostsManagementController extends Controller
             return redirect()->action('PostsManagementController@show', ['id' => $post->id])->with('success','This post is show now!');
         }
         else {
-            return abort(404);
+            return abort(403, 'Unauthorized action.');
         }
     }
 
@@ -163,7 +163,7 @@ class PostsManagementController extends Controller
             return redirect()->action('PostsManagementController@show', ['id' => $post->id])->with('success','Unreport this post complete');
         }
         else {
-            return abort(404);
+            return abort(403, 'Unauthorized action.');
         }
     }
 
@@ -173,14 +173,20 @@ class PostsManagementController extends Controller
                 'category_name' => 'required|distinct|min:3',
             ]);
 
-            $category = new Category;
-            $category->name = $request->input('category_name');
-            $category->save();
-
-            return redirect()->action('PostsManagementController@index')->with('success','The new category is added');
+            $existCategory = Category::where('name', $request->input('category_name'))->first();
+            
+            if(!$existCategory){
+                $category = new Category;
+                $category->name = $request->input('category_name');
+                $category->save();
+                return redirect()->action('PostsManagementController@index')->with('success','The new category is added');
+            }
+            else{
+                return redirect()->action('PostsManagementController@index')->with('failure','The category name is duplicated!');
+            } 
         }
         else {
-            return abort(404);
+            return abort(403, 'Unauthorized action.');
         }
     }
 }

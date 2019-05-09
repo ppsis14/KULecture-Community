@@ -7,8 +7,10 @@ use App\User;
 use App\Post;
 use App\Charts\PostType;
 use App\Charts\LoginChart;
+use App\Category;
 use Carbon;
 use Illuminate\Support\Facades\Gate;
+use Illuminate\Support\Collection;
 
 class AdminDashBoardController extends Controller
 {
@@ -21,18 +23,37 @@ class AdminDashBoardController extends Controller
         if(Gate::allows('isAdmin')){
         $users = User::where('role', 'USER')->count();
         $posts = Post::all();
-        $category = ['Books', 'Lectures', 'Domitory', 'Electronics', 'News', 'Sports', 'Others'];
+        $categories = Category::all('name');
+        $allCategories = array();
+        $colorCollection = new Collection();
+
+        foreach ($categories as $category => $name) {
+            array_push($allCategories, $name['name']);
+        }
+        // dd($allCategories);
 
         $postChart = new PostType;
-        $postChart->labels($category);
+        $postChart->labels($allCategories);
         $posts_count = array();
-        foreach ($category as $key) {
+        foreach ($allCategories as $key) {
             $data = Post::where('category', $key)->count();
             array_push($posts_count, $data);
+            
+        }
+
+        for ($i=0; $i < count($allCategories); $i++) { 
+            $color = sprintf( "#%06X\n", mt_rand( 0, 0xFFFFFF ));
+            if(!$colorCollection->contains($color)){
+                $colorCollection->push($color);
+            }
+            else{
+                $i--;
+            }
         }
 
         $postData =  $postChart->dataset('Post Stats', 'pie', $posts_count);
-        $postData->backgroundColor(collect(["#003f5c", "#374c80", "#7a5195", "#bc5090", "#ef5675", "#ff764a", "#ffa600"]));
+        // $postData->backgroundColor(collect(["#003f5c", "#374c80", "#7a5195", "#bc5090", "#ef5675", "#ff764a", "#ffa600"]));
+        $postData->backgroundColor($colorCollection);
         $postChart->displayAxes(false);
 
         $loginChart = new LoginChart;
@@ -56,8 +77,13 @@ class AdminDashBoardController extends Controller
         return view('layouts.admin.dashboard', ['users' => $users, 'posts' => $posts->count(), 'postChart' => $postChart, 'loginChart' => $loginChart]);
         }
         else{
-            return abort(404);
+            return abort(403, 'Unauthorized action.');
         }
+    }
+
+    public function colorRandom() {
+        $color = sprintf( "#%06X\n", mt_rand( 0, 0xFFFFFF ));
+        return $color;
     }
 
 }

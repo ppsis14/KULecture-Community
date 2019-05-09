@@ -19,7 +19,7 @@ class UsersManagementController extends Controller
             $admins = User::where('role', 'ADMINISTRATOR')->get();
             return view('layouts.admin.user-management', ['users' => $users, 'admins' => $admins]);
         }else{
-            return abort(404);
+            return abort(403, 'Unauthorized action.');
         }
     }
 
@@ -29,7 +29,7 @@ class UsersManagementController extends Controller
             $user->delete();
             return redirect()->action('UsersManagementController@index');
         }else{
-            return abort(404);
+            return abort(403, 'Unauthorized action.');
         }   
     }
 }
