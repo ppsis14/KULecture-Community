@@ -91,7 +91,7 @@
                                     <div class="form-group">
                                         <label for="category">category</label><br>
                                         <select class="form-control" id="category" name="category" value="{{ old('category')}}">
-                                            @foreach($categorys as $category)
+                                            @foreach($categories_name as $category)
                                                 <option value="{{ $category}}" >{{ $category}}</option>
                                             @endforeach
                                         </select>

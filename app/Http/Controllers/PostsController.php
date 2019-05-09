@@ -13,6 +13,7 @@ use DB;
 use App\UserProfile;
 use App\ReportComment;
 use App\ReportPost;
+use App\Category;
 
 
 class PostsController extends Controller
@@ -31,10 +32,14 @@ class PostsController extends Controller
     {
         $this->authorize('view_all', Post::class);
         $posts = Post::where('user_id', Auth::user()->id)->orderBy('created_at', 'desc')->paginate(10);
-        $categorys = ['Books', 'Lectures', 'Domitory', 'Electronics', 'News', 'Sports', 'Others'];
+        $categories = Category::select('name')->get();
+            $categories_name = array();
+            foreach ($categories as $c) {
+                array_push($categories_name, $c->name);
+            }
         $dropdown = 'All';
 
-        return view('layouts.user.posts',compact('posts'), ['categorys' => $categorys, 'dropdown' => $dropdown])->withDetails($posts);;
+        return view('layouts.user.posts',compact('posts'), ['categories_name' => $categories_name, 'dropdown' => $dropdown])->withDetails($posts);;
     }
 
     /**
@@ -45,8 +50,12 @@ class PostsController extends Controller
     public function create()
     {
         $this->authorize('create', Post::class);
-        $categorys = ['Books', 'Lectures', 'Domitory', 'Electronics', 'News', 'Sports', 'Others'];
-        return view('layouts.user.create-posts', ['categorys' => $categorys]);
+        $categories = Category::select('name')->get();
+            $categories_name = array();
+            foreach ($categories as $c) {
+                array_push($categories_name, $c->name);
+            }
+        return view('layouts.user.create-posts', ['categories_name' => $categories_name]);
     }
 
     /**
@@ -133,8 +142,12 @@ class PostsController extends Controller
     {
         $post = Post::findOrFail($id);
         $this->authorize('update', $post);
-        $categorys = ['Books', 'Lectures', 'Domitory', 'Electronics', 'News', 'Sports', 'Others'];
-        return view('layouts.user.edit-posts' , ['post' => $post, 'categorys' => $categorys]);
+        $categories = Category::select('name')->get();
+            $categories_name = array();
+            foreach ($categories as $c) {
+                array_push($categories_name, $c->name);
+            }
+        return view('layouts.user.edit-posts' , ['post' => $post, 'categories_name' => $categories_name]);
     }
 
     /**
@@ -200,10 +213,18 @@ class PostsController extends Controller
         $post = Post::findOrFail($id);
         $this->authorize('delete', $post);
 
-        $post->delete();
+        $comments = ReportComment::where('post_id', $post->id)->get();
+        if(count($comments) != 0) {
+            foreach ($comments as $comment) {
+                $comment->delete();
+            }
+        }
+        
+        $report_post = ReportPost::where('post_id', $post->id)->first();
+        if($report_post != null)
+            $report_post->delete();
 
-        if(Auth::user()->isAdmin())
-            return view('layouts.admin.post-management');
+        $post->delete();
 
         return redirect()->action('PostsController@index')->with('success','The post had delete');
     }
@@ -287,16 +308,24 @@ class PostsController extends Controller
     {
         $posts = Post::join('users', 'posts.user_id', '=', 'users.id')
         ->select('posts.*', 'users.username')->where('category', $category)->orderBy('created_at', 'desc')->paginate(10);
-        $categorys = ['Books', 'Lectures', 'Domitory', 'Electronics', 'News', 'Sports', 'Others'];
+        $categories = Category::select('name')->get();
+            $categories_name = array();
+            foreach ($categories as $c) {
+                array_push($categories_name, $c->name);
+            }
         $dropdown = $category;
 
-        return view('layouts.user.posts', ['categorys' => $categorys, 'dropdown' => $dropdown])->withDetails($posts);
+        return view('layouts.user.posts', ['categories_name' => $categories_name, 'dropdown' => $dropdown])->withDetails($posts);
     }
 
     public function search(Request $request, $dropdown) 
     {
         $key = $request->input('key');
-        $categorys = ['Books', 'Lectures', 'Domitory', 'Electronics', 'News', 'Sports', 'Others'];
+        $categories = Category::select('name')->get();
+            $categories_name = array();
+            foreach ($categories as $c) {
+                array_push($categories_name, $c->name);
+            }
 
         if($dropdown == 'All') {
             $posts = Post::join('users', 'posts.user_id', '=', 'users.id')
@@ -321,9 +350,9 @@ class PostsController extends Controller
         
 
         if(count($posts) > 0)
-            return view('layouts.user.posts',['categorys' => $categorys, 'dropdown' => $dropdown])->withQuery($key)->withDetails($posts);
+            return view('layouts.user.posts',['categories_name' => $categories_name, 'dropdown' => $dropdown])->withQuery($key)->withDetails($posts);
         
-        return view('layouts.user.posts', ['categorys' => $categorys, 'dropdown' => $dropdown])->withMessage('No posts found')->withQuery($key);
+        return view('layouts.user.posts', ['categories_name' => $categories_name, 'dropdown' => $dropdown])->withMessage('No posts found')->withQuery($key);
     }
 
     public function advance(Request $request, $id) 
@@ -362,15 +391,19 @@ class PostsController extends Controller
             $key_tags = ', Tags: ' . $request->input('tags');
         }
 
-        $categorys = ['Books', 'Lectures', 'Domitory', 'Electronics', 'News', 'Sports', 'Others'];
+        $categories = Category::select('name')->get();
+            $categories_name = array();
+            foreach ($categories as $c) {
+                array_push($categories_name, $c->name);
+            }
         $dropdown = $category;
 
         $q = $key_title . $key_category . $key_tags;
 
         if(count($posts) > 0)
-            return view('layouts.user.posts', ['categorys' => $categorys, 'dropdown' => $dropdown])->withQuery($q)->withDetails($posts);
+            return view('layouts.user.posts', ['categories_name' => $categories_name, 'dropdown' => $dropdown])->withQuery($q)->withDetails($posts);
         
-        return view('layouts.user.posts', ['categorys' => $categorys, 'dropdown' => $dropdown])->withMessage('No posts found')->withQuery($q);
+        return view('layouts.user.posts', ['categories_name' => $categories_name, 'dropdown' => $dropdown])->withMessage('No posts found')->withQuery($q);
     }
 
     

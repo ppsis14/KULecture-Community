@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Gate;
 use App\Post;
 use App\User;
+use App\Category;
 
 class AdminExplorePostsController extends Controller
 {
@@ -16,10 +17,14 @@ class AdminExplorePostsController extends Controller
             ->select('posts.*', 'users.username')
             ->orderBy('created_at', 'desc')->paginate(10);
 
-            $categorys = ['Books', 'Lectures', 'Domitory', 'Electronics', 'News', 'Sports', 'Others'];
+            $categories = Category::select('name')->get();
+            $categories_name = array();
+            foreach ($categories as $c) {
+                array_push($categories_name, $c->name);
+            }
             $dropdown = 'All';
             
-            return view('layouts.admin.explore', ['categorys' => $categorys, 'dropdown' => $dropdown])->withDetails($posts);
+            return view('layouts.admin.explore', ['categories_name' => $categories_name, 'dropdown' => $dropdown])->withDetails($posts);
         }
         else {
             return abort(404);
@@ -30,7 +35,11 @@ class AdminExplorePostsController extends Controller
     {
         if(Gate::allows('isAdmin')){
             $key = $request->input('key');
-            $categorys = ['Books', 'Lectures', 'Domitory', 'Electronics', 'News', 'Sports', 'Others'];
+            $categories = Category::select('name')->get();
+            $categories_name = array();
+            foreach ($categories as $c) {
+                array_push($categories_name, $c->name);
+            }
 
             if($dropdown == 'All') {
                 $posts = Post::join('users', 'posts.user_id', '=', 'users.id')
@@ -50,9 +59,9 @@ class AdminExplorePostsController extends Controller
 
 
             if(count($posts) > 0)
-                return view('layouts.admin.explore', ['categorys' => $categorys, 'dropdown' => $dropdown])->withQuery($key)->withDetails($posts);
+                return view('layouts.admin.explore', ['categories_name' => $categories_name, 'dropdown' => $dropdown])->withQuery($key)->withDetails($posts);
             
-            return view('layouts.admin.explore', ['categorys' => $categorys, 'dropdown' => $dropdown])->withMessage('No posts found')->withQuery($key);
+            return view('layouts.admin.explore', ['categories_name' => $categories_name, 'dropdown' => $dropdown])->withMessage('No posts found')->withQuery($key);
         }
         else {
             return abort(404);
@@ -93,15 +102,19 @@ class AdminExplorePostsController extends Controller
                 $key_tags = ', Tags: ' . $request->input('tags');
             }
 
-            $categorys = ['Books', 'Lectures', 'Domitory', 'Electronics', 'News', 'Sports', 'Others'];
+            $categories = Category::select('name')->get();
+            $categories_name = array();
+            foreach ($categories as $c) {
+                array_push($categories_name, $c->name);
+            }
             $dropdown = $category;
 
             $q = $key_title . $key_category . $key_tags;
 
             if(count($posts) > 0)
-                return view('layouts.admin.explore', ['categorys' => $categorys, 'dropdown' => $dropdown])->withQuery($q)->withDetails($posts);
+                return view('layouts.admin.explore', ['categories_name' => $categories_name, 'dropdown' => $dropdown])->withQuery($q)->withDetails($posts);
             
-            return view('layouts.admin.explore', ['categorys' => $categorys, 'dropdown' => $dropdown])->withMessage('No posts found')->withQuery($q);
+            return view('layouts.admin.explore', ['categories_name' => $categories_name, 'dropdown' => $dropdown])->withMessage('No posts found')->withQuery($q);
         }
         else {
             return abort(404);
@@ -114,10 +127,14 @@ class AdminExplorePostsController extends Controller
             $posts = Post::join('users', 'posts.user_id', '=', 'users.id')
             ->select('posts.*', 'users.username')
             ->orderBy('created_at', 'desc')->paginate(10);
-            $categorys = ['Books', 'Lectures', 'Domitory', 'Electronics', 'News', 'Sports', 'Others'];
+            $categories = Category::select('name')->get();
+            $categories_name = array();
+            foreach ($categories as $c) {
+                array_push($categories_name, $c->name);
+            }
             $dropdown = $category;
 
-            return view('layouts.admin.explore', ['categorys' => $categorys, 'dropdown' => $dropdown])->withDetails($posts);
+            return view('layouts.admin.explore', ['categories_name' => $categories_name, 'dropdown' => $dropdown])->withDetails($posts);
         }
         else {
             return abort(404);
@@ -129,9 +146,13 @@ class AdminExplorePostsController extends Controller
         if(Gate::allows('isAdmin')){
             $posts = Post::join('users', 'posts.user_id', '=', 'users.id')
             ->select('posts.*', 'users.username')->withAnyTag($tag)->orderBy('created_at', 'desc')->paginate(10);
-            $categorys = ['Books', 'Lectures', 'Domitory', 'Electronics', 'News', 'Sports', 'Others'];
+            $categories = Category::select('name')->get();
+            $categories_name = array();
+            foreach ($categories as $c) {
+                array_push($categories_name, $c->name);
+            }
 
-            return view('layouts.admin.tag', ['categorys' => $categorys, 'tag' => $tag])->withDetails($posts);
+            return view('layouts.admin.tag', ['categories_name' => $categories_name, 'tag' => $tag])->withDetails($posts);
         }
         else {
             return abort(404);
@@ -142,9 +163,13 @@ class AdminExplorePostsController extends Controller
     {
         if(Gate::allows('isAdmin')){
             $tags = Post::existingTags();
-            $categorys = ['Books', 'Lectures', 'Domitory', 'Electronics', 'News', 'Sports', 'Others'];
+            $categories = Category::select('name')->get();
+            $categories_name = array();
+            foreach ($categories as $c) {
+                array_push($categories_name, $c->name);
+            }
 
-            return view('layouts.admin.all-tags', ['categorys' => $categorys,'tags' => $tags]);
+            return view('layouts.admin.all-tags', ['categories_name' => $categories_name,'tags' => $tags]);
         }
         else {
             return abort(404);

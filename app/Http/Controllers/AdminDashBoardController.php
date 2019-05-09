@@ -9,6 +9,7 @@ use App\Charts\PostType;
 use App\Charts\LoginChart;
 use Carbon;
 use Illuminate\Support\Facades\Gate;
+use App\Category;
 
 class AdminDashBoardController extends Controller
 {
@@ -21,19 +22,29 @@ class AdminDashBoardController extends Controller
         if(Gate::allows('isAdmin')){
         $users = User::where('role', 'USER')->count();
         $posts = Post::all();
-        $category = ['Books', 'Lectures', 'Domitory', 'Electronics', 'News', 'Sports', 'Others'];
+        // $category = ['Books', 'Lectures', 'Domitory', 'Electronics', 'News', 'Sports', 'Others'];
+        $category = Category::select('name')->get();
+        $category_name = array();
+        foreach ($category as $key) {
+            array_push($category_name, $key->name);
+        }
 
         $postChart = new PostType;
-        $postChart->labels($category);
+        $postChart->labels($category_name);
         $posts_count = array();
+        $colors = array();
         foreach ($category as $key) {
-            $data = Post::where('category', $key)->count();
+            $data = Post::where('category', $key->name)->count();
             array_push($posts_count, $data);
+            $color = '#' . str_pad(dechex(mt_rand(0, 0xFFFFFF)), 6, '0', STR_PAD_LEFT);
+            array_push($colors, $color);
         }
 
         $postData =  $postChart->dataset('Post Stats', 'pie', $posts_count);
-        $postData->backgroundColor(collect(["#003f5c", "#374c80", "#7a5195", "#bc5090", "#ef5675", "#ff764a", "#ffa600"]));
+        // $postData->backgroundColor(collect(["#003f5c", "#374c80", "#7a5195", "#bc5090", "#ef5675", "#ff764a", "#ffa600"]));
+        $postData->backgroundColor(collect($colors));
         $postChart->displayAxes(false);
+
 
         $loginChart = new LoginChart;
         $loginChart->labels(['00-03 น.', '03-06 น.', '06-09 น.', '09-12 น.', '12-15 น.', '15-18 น.', '18-21 น.', '21-23:59 น.']);

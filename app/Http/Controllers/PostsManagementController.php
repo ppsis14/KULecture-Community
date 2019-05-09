@@ -126,6 +126,18 @@ class PostsManagementController extends Controller
     {
         if(Gate::allows('isAdmin')){
             $post = Post::findOrFail($id);
+
+            $comments = ReportComment::where('post_id', $post->id)->get();
+            if(count($comments) != 0) {
+                foreach ($comments as $comment) {
+                    $comment->delete();
+                }
+            }
+            
+            $report_post = ReportPost::where('post_id', $post->id)->first();
+            if($report_post != null)
+                $report_post->delete();
+
             $post->delete();
 
             return redirect()->action('PostsManagementController@index')->with('success','The post had delete');
@@ -208,7 +220,7 @@ class PostsManagementController extends Controller
             $report_post->report_admin = false;
             $report_post->save();
 
-            return redirect()->action('PostsManagementController@show', ['id' => $post->id])->with('success', 'The message had send to user.');
+            return redirect()->action('PostsManagementController@show', ['id' => $post->id])->with('success', 'You have informed the user that his/her post got reported.');
         }
         else {
             return abort(404);

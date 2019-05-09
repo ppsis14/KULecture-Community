@@ -14,8 +14,8 @@ class UsersTableSeeder extends Seeder
      */
     public function run()
     {
-        factory(User::class, 1)->state('ADMINISTRATOR')->create();
-        factory(User::class,2)->state('USER')->create()->each(function ($user) {
+        // factory(User::class, 1)->state('ADMINISTRATOR')->create();
+        factory(User::class,1)->state('USER')->create()->each(function ($user) {
             $user->posts()->saveMany(
                 factory(Post::class, 5)->make()
             );
