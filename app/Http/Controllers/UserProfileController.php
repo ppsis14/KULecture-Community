@@ -83,7 +83,7 @@ class UserProfileController extends Controller
     {
         // validatation
         $this->validate($request, [
-            'username' => 'required|distinct',
+            'username' => 'required|distinct|string|min:3',
             'bio' => 'nullable|string',
             'facebook' => 'nullable|active_url|required_with:facebook_username',
             'facebook_username' => 'nullable|string|required_with:facebook',

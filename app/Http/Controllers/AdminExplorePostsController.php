@@ -22,7 +22,7 @@ class AdminExplorePostsController extends Controller
             return view('layouts.admin.explore', ['categorys' => $categorys, 'dropdown' => $dropdown])->withDetails($posts);
         }
         else {
-            return abort(404);
+            return abort(403, 'Unauthorized action.');
         }
     }
 
@@ -55,7 +55,7 @@ class AdminExplorePostsController extends Controller
             return view('layouts.admin.explore', ['categorys' => $categorys, 'dropdown' => $dropdown])->withMessage('No posts found')->withQuery($key);
         }
         else {
-            return abort(404);
+            return abort(403, 'Unauthorized action.');
         }
     }
 
@@ -104,7 +104,7 @@ class AdminExplorePostsController extends Controller
             return view('layouts.admin.explore', ['categorys' => $categorys, 'dropdown' => $dropdown])->withMessage('No posts found')->withQuery($q);
         }
         else {
-            return abort(404);
+            return abort(403, 'Unauthorized action.');
         }
     }
 
@@ -120,7 +120,7 @@ class AdminExplorePostsController extends Controller
             return view('layouts.admin.explore', ['categorys' => $categorys, 'dropdown' => $dropdown])->withDetails($posts);
         }
         else {
-            return abort(404);
+            return abort(403, 'Unauthorized action.');
         }
     }
 
@@ -134,7 +134,7 @@ class AdminExplorePostsController extends Controller
             return view('layouts.admin.tag', ['categorys' => $categorys, 'tag' => $tag])->withDetails($posts);
         }
         else {
-            return abort(404);
+            return abort(403, 'Unauthorized action.');
         }
     }
 
@@ -147,7 +147,7 @@ class AdminExplorePostsController extends Controller
             return view('layouts.admin.all-tags', ['categorys' => $categorys,'tags' => $tags]);
         }
         else {
-            return abort(404);
+            return abort(403, 'Unauthorized action.');
         }
     }
     

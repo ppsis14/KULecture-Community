@@ -20,7 +20,7 @@ class ChangePasswordController extends Controller
         if(Gate::allows('isAdmin')){
             return view('layouts.admin.change-password');
         }else{
-            return abort(404);
+            return abort(403, 'Unauthorized action.');
         }
     }
 
@@ -57,7 +57,7 @@ class ChangePasswordController extends Controller
             // }
         }
         else{
-            return abort(404);
+            return abort(403, 'Unauthorized action.');
         }              
     }
 }

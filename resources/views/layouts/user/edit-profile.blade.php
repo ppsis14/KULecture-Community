@@ -28,9 +28,14 @@
                                     <div class="form-group">
                                         <label>Username</label>
                                         <input type="text" class="form-control {{$errors->has('username')? 'is-invalid' : '' }}" name="username" placeholder="Username" value="{{ old('username', Auth::user()->username) }}">
-                                        @if( $errors->has('username'))
+                                        <!-- @if( $errors->has('username'))
                                             <div class="invalid-feedback">
                                                 {{ $errors->first('username') }}
+                                            </div>
+                                        @endif -->
+                                        @if ($errors->has('username'))
+                                            <div class="invalid-feedback" style="color: red">
+                                                {{ $errors->first('username')}}
                                             </div>
                                         @endif
                                     </div>

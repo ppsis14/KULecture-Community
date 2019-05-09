@@ -22,7 +22,7 @@ class AddNewAdminController extends Controller
             return view('layouts.admin.add-admin');
         }
         else{
-            return abort(404);;
+            return abort(403, 'Unauthorized action.');;
         }
     }
 
@@ -58,7 +58,7 @@ class AddNewAdminController extends Controller
             }
         }
         else{
-            return abort(404);;
+            return abort(403, 'Unauthorized action.');;
         }
         
     }

@@ -27,7 +27,7 @@ class AdminNotificationsController extends Controller
         
         return view('layouts.admin.admin-notification')->withDetails($posts);
       }else{
-        return abort(404);
+        return abort(403, 'Unauthorized action.');
       }
     }
 }
