@@ -37,7 +37,7 @@
 <body>
 
 <div class="wrapper">
-    <div class="sidebar" data-color="ku-nsc" data-image="/img/sidebar-5.jpg">
+    <div class="sidebar" data-color="ku-nsc" data-image="/img/maid-milinkic-611951-unsplash.jpeg">
 
     	<div class="sidebar-wrapper">
             @include('layouts.user._user-sidebar')
