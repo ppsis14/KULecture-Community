@@ -21,7 +21,11 @@
                             @if($post->report_status == true)
                                 @if($post->user_id == Auth::user()->id && ($report_post->report_user == true && $report_post->report_admin == false))
                                     <button type="button" class="btn btn-danger">
-                                        <b> This post get report! </b>
+                                        <b> This post get report! </b> <br>
+                                        Please check your post detail, maybe they not follow the KU-NSC Website rule. <br>
+                                        You can read it again at the create post page. <br>
+                                        After you edit your post, you can report this to admin by click to button <br>
+                                        "Report to admin" and wait for admin to check you edited post.
                                     </button>
                                 @endif
                                 @if($post->user_id == Auth::user()->id && ($report_post->report_user == true && $report_post->report_admin == true))
@@ -138,7 +142,7 @@
                                         <a href="{{ action('PostsController@report_to_admin', ['id' => $post->id]) }}" data_real="popup" data-position-to="window"
                                             data-transaction="pop" >
                                             <button  style="border: transparent; color: tomato;" class="btn btn-default btn-block report-post-btn">
-                                                <i class="fas fa-flag"></i> &nbsp;Send message to admin
+                                                <i class="fas fa-flag"></i> &nbsp;Report to admin
                                             </button>
                                         </a>
                                     </div>

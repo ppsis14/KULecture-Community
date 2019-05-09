@@ -27,13 +27,15 @@
                                 @endif
                                 @if($report_post->report_admin == false && $report_post->report_user == true)
                                     <button type="button" class="btn btn-danger">
-                                        <b> You had sent message to user.</b>
+                                        <b> Waiting for user edit their post detail.</b>
                                     </button>
                                 @endif
                                 @if($report_post->report_admin == false && $report_post->report_user == false)
                                     @if($comment_count == 1)
                                     <button type="button" class="btn btn-danger">
-                                        <b> This post get report from {{ $comment_count }} user!</b>
+                                        <b> This post get report from {{ $comment_count }} user!</b> <br>
+                                        Check the detail and report to user and let them edit his/her post. <br>
+                                        Or hide or delete this post.
                                     </button>
                                     @endif
                                     @if($comment_count > 1)
@@ -114,7 +116,7 @@
                                         <div class="col-md-2">
                                             <button style="border: transparent;" class="btn btn-default btn-block" >
                                                 <a href="{{ action('PostsManagementController@report_to_user', ['id' => $post->id]) }}">
-                                                    <i class="fas fa-flag"></i> Send message to user.
+                                                    <i class="fas fa-flag"></i> Report to owner
                                                 </a>
                                             </button>
                                         </div>

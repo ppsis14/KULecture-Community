@@ -56,6 +56,7 @@ class AdminDashBoardController extends Controller
         $postData->backgroundColor($colorCollection);
         $postChart->displayAxes(false);
 
+
         $loginChart = new LoginChart;
         $loginChart->labels(['00-03 น.', '03-06 น.', '06-09 น.', '09-12 น.', '12-15 น.', '15-18 น.', '18-21 น.', '21-23:59 น.']);
         $time_start = ['00:00:00', '03:00:01', '06:00:01', '09:00:01', '12:00:01', '15:00:01', '18:00:01', '21:00:01'];

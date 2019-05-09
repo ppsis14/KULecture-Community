@@ -66,7 +66,7 @@
                                         <select class="form-control" id="category" name="category" value="{{ old('category', $post->category) }}">
                                             <option value="{{$post->category}}">{{$post->category}}</option>   
                                             
-                                            @foreach($categorys as $category)
+                                            @foreach($categories_name as $category)
                                                 @if($post->category != $category)
                                                     <option value="{{ $category}}" >{{ $category}}</option>
                                                 @endif

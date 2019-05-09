@@ -137,6 +137,15 @@
     <script type="text/javascript">
         $(document).ready(function (){
             $('#notify').addClass('active');
+
+            $('.delete-post').click(function(e) {
+                e.preventDefault();
+                var is_confirm = confirm('Are you sure to delete this post ?');
+
+                if(is_confirm) {
+                    $(e.target).closest('form').submit();
+                }
+            });
         });
     </script>
 @endsection

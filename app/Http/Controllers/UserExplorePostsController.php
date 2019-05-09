@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Post;
 use App\User;
+use App\Category;
 use Illuminate\Support\Facades\Gate;
 
 class UserExplorePostsController extends Controller
@@ -17,10 +18,14 @@ class UserExplorePostsController extends Controller
             ->where('hidden_status', false)
             ->orderBy('created_at', 'desc')->paginate(10);
 
-            $categorys = ['Books', 'Lectures', 'Domitory', 'Electronics', 'News', 'Sports', 'Others'];
+            $categories = Category::select('name')->get();
+            $categories_name = array();
+            foreach ($categories as $c) {
+                array_push($categories_name, $c->name);
+            }
             $dropdown = 'All';
             
-            return view('layouts.user.explore', ['categorys' => $categorys, 'dropdown' => $dropdown])->withDetails($posts);
+            return view('layouts.user.explore', ['categories_name' => $categories_name, 'dropdown' => $dropdown])->withDetails($posts);
         }
         else {
             return abort(403, 'Unauthorized action.');
@@ -31,7 +36,11 @@ class UserExplorePostsController extends Controller
     {
         if(Gate::allows('isUser')){
             $key = $request->input('key');
-            $categorys = ['Books', 'Lectures', 'Domitory', 'Electronics', 'News', 'Sports', 'Others'];
+            $categories = Category::select('name')->get();
+            $categories_name = array();
+            foreach ($categories as $c) {
+                array_push($categories_name, $c->name);
+            }
 
             if($dropdown == 'All') {
                 $posts = Post::join('users', 'posts.user_id', '=', 'users.id')
@@ -53,9 +62,9 @@ class UserExplorePostsController extends Controller
 
 
             if(count($posts) > 0)
-                return view('layouts.user.explore', ['categorys' => $categorys, 'dropdown' => $dropdown])->withQuery($key)->withDetails($posts);
+                return view('layouts.user.explore', ['categories_name' => $categories_name, 'dropdown' => $dropdown])->withQuery($key)->withDetails($posts);
             
-            return view('layouts.user.explore', ['categorys' => $categorys, 'dropdown' => $dropdown])->withMessage('No posts found')->withQuery($key);
+            return view('layouts.user.explore', ['categories_name' => $categories_name, 'dropdown' => $dropdown])->withMessage('No posts found')->withQuery($key);
         }
         else {
             return abort(403, 'Unauthorized action.');
@@ -98,15 +107,19 @@ class UserExplorePostsController extends Controller
                 $key_tags = ', Tags: ' . $request->input('tags');
             }
 
-            $categorys = ['Books', 'Lectures', 'Domitory', 'Electronics', 'News', 'Sports', 'Others'];
+            $categories = Category::select('name')->get();
+            $categories_name = array();
+            foreach ($categories as $c) {
+                array_push($categories_name, $c->name);
+            }
             $dropdown = $category;
 
             $q = $key_title . $key_category . $key_tags;
 
             if(count($posts) > 0)
-                return view('layouts.user.explore', ['categorys' => $categorys, 'dropdown' => $dropdown])->withQuery($q)->withDetails($posts);
+                return view('layouts.user.explore', ['categories_name' => $categories_name, 'dropdown' => $dropdown])->withQuery($q)->withDetails($posts);
             
-            return view('layouts.user.explore', ['categorys' => $categorys, 'dropdown' => $dropdown])->withMessage('No posts found')->withQuery($q);
+            return view('layouts.user.explore', ['categories_name' => $categories_name, 'dropdown' => $dropdown])->withMessage('No posts found')->withQuery($q);
         }
         else {
             return abort(403, 'Unauthorized action.');
@@ -119,10 +132,14 @@ class UserExplorePostsController extends Controller
             $posts = Post::join('users', 'posts.user_id', '=', 'users.id')
             ->select('posts.*', 'users.username')->where('category', $category)
             ->where('hidden_status', false)->orderBy('created_at', 'desc')->paginate(10);
-            $categorys = ['Books', 'Lectures', 'Domitory', 'Electronics', 'News', 'Sports', 'Others'];
+            $categories = Category::select('name')->get();
+            $categories_name = array();
+            foreach ($categories as $c) {
+                array_push($categories_name, $c->name);
+            }
             $dropdown = $category;
 
-            return view('layouts.user.explore', ['categorys' => $categorys, 'dropdown' => $dropdown])->withDetails($posts);
+            return view('layouts.user.explore', ['categories_name' => $categories_name, 'dropdown' => $dropdown])->withDetails($posts);
         }
         else {
             return abort(403, 'Unauthorized action.');
@@ -134,9 +151,13 @@ class UserExplorePostsController extends Controller
         if(Gate::allows('isUser')){
             $posts = Post::join('users', 'posts.user_id', '=', 'users.id')
             ->select('posts.*', 'users.username')->withAnyTag($tag)->where('hidden_status', false)->orderBy('created_at', 'desc')->paginate(10);
-            $categorys = ['Books', 'Lectures', 'Domitory', 'Electronics', 'News', 'Sports', 'Others'];
+            $categories = Category::select('name')->get();
+            $categories_name = array();
+            foreach ($categories as $c) {
+                array_push($categories_name, $c->name);
+            }
 
-            return view('layouts.user.tag', ['categorys' => $categorys, 'tag' => $tag])->withDetails($posts);
+            return view('layouts.user.tag', ['categories_name' => $categories_name, 'tag' => $tag])->withDetails($posts);
         }
         else {
             return abort(403, 'Unauthorized action.');
@@ -147,9 +168,13 @@ class UserExplorePostsController extends Controller
     {
         if(Gate::allows('isUser')){
             $tags = Post::existingTags();
-            $categorys = ['Books', 'Lectures', 'Domitory', 'Electronics', 'News', 'Sports', 'Others'];
+            $categories = Category::select('name')->get();
+            $categories_name = array();
+            foreach ($categories as $c) {
+                array_push($categories_name, $c->name);
+            }
 
-            return view('layouts.user.all-tags', ['categorys' => $categorys,'tags' => $tags]);
+            return view('layouts.user.all-tags', ['categories_name' => $categories_name,'tags' => $tags]);
         }
         else {
             return abort(403, 'Unauthorized action.');

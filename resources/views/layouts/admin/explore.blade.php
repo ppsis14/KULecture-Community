@@ -55,7 +55,7 @@
                         </p>
                     </a>
                     <ul class="dropdown-menu">
-                        @foreach($categorys as $category)
+                        @foreach($categories_name as $category)
                             <li><a href="/admin/explorer/category/{{ $category}}">{{ $category}}</a></li>
                         @endforeach
                         <li class="divider"></li>
@@ -115,7 +115,7 @@
                                     <div class="form-group">
                                         <label for="category">Category</label><br>
                                         <select class="form-control" id="category" name="category" value="{{ old('category')}}">
-                                            @foreach($categorys as $category)
+                                            @foreach($categories_name as $category)
                                                 <option value="{{ $category}}" >{{ $category}}</option>
                                             @endforeach
                                         </select>
