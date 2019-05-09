@@ -18,6 +18,7 @@
         * **admin**
             * ทำในหน้า Post Management ที่ให้ admin สามารถจัการดูแล post ทั้งหมดได้
             * ทำในหน้า Notification ที่ให้ admin สามารถจัดการดูแล post ที่มีคนแจ้งว่าไม่ปลอดภัยให้ช่วยดูแลหน่อย
+            * เพิ่ม Category Management ที่ แสดงรายการ category ที่มี และ admin สามารถเพิ่ม category ได้
         * **others**
             * ออกแบบ UI และ CSS ของระบบ เช่น หน้า login และอื่นๆ นอกเหนือจากที่ได้มาของ Template
             * ช่วยออกแบบ Database
