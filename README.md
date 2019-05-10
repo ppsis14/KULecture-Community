@@ -75,7 +75,14 @@
 - [Git](https://git-scm.com/downloads) 
 - [Visual Studio Code](https://code.visualstudio.com)
 
+### **Database Config**
+* เข้าไปที่ database ของ laragon จากนั้นกดปุ่ม Open
+* กดปุ่มที่่ชื่อว่า Manage users authentication and privileges
+* ทำการสร้าง database ชื่อ kunsc สำหรับใช้งาน
+* กดปุ่ม add แล้วกรอก username คือ kunscUserและ password คือ kunscPassword ที่ต้องการ จากนั้นจึงกด Add object เพื่อเลือก kunsc และเพิ่มสิทธิ์ในการใช้งานต่างๆตามต้องการ (แนะนำให้เลือกทั้งหมด) และกด save เมื่อทำการเลือกเสร็จสิ้น
+
 และทำการดาวน์โหลด หรือ Clone ไฟล์โปรเจคจาก github เข้าสู่คอมพิวเตอร์ก่อน โดยหากเลือกใช้ **Laragon**  ให้เลือกดาวน์โหลดหรือ clone ไปที่ folder laragon/www/ หรือหากใช้งาน **MAMP**  ให้เลือกดาวน์โหลดหรือ clone ไปที่ folder MAMP/htdocs/
+
 >### Clone with HTTPS
 
 พิมพ์ `git clone https://github.com/ppsis14/KU-NSC.git` ลงใน Terminal/CMD
@@ -110,9 +117,13 @@ git clone git@github.com:ppsis14/KU-NSC.git
 ```
     php artisan key:generate
 ```
-6. พิมพ์คำสั่ง php artisan migrate (กรณีถ้าก่อนหน้านี้เพื่อนสร้าง ดาต้าเบสไว้)
+6. พิมพ์คำสั่ง php artisan migrate เพื่อสร้าง table ใน database
 ```
     php artisan migrate
+```
+7. พิมพ์คำสั่ง php artisan db:seed เพื่อทำการ seed 1 admin
+```
+    php artisan db:seed
 ```
 
 ## ขั้นตอนการใข้งาน
@@ -147,12 +158,6 @@ git clone git@github.com:ppsis14/KU-NSC.git
 * สร้าง Credentials เป็นแบบ O Auth client ID แล้วเลือก Web application
 * Authorized redirect URIs และ Authorized JavaScript origins ไปที่ local host จากนั้น save
 * นำ client ID ที่ได้มาใส่ในโปรเจค 
-
-### **Database Config**
-* เข้าไปที่ database ของ laragon จากนั้นกดปุ่ม Open
-* กดปุ่มที่่ชื่อว่า Manage users authentication and privileges
-* ทำการสร้าง database ชื่อ kunsc สำหรับใช้งาน
-* กดปุ่ม add แล้วกรอก username คือ kunscUserและ password คือ kunscPassword ที่ต้องการ จากนั้นจึงกด Add object เพื่อเลือก kunsc และเพิ่มสิทธิ์ในการใช้งานต่างๆตามต้องการ (แนะนำให้เลือกทั้งหมด) และกด save เมื่อทำการเลือกเสร็จสิ้น
 
 ## Built With
 > ภาษา และ โปรแกรมที่ใช้สร้าง
