@@ -133,6 +133,11 @@ git clone git@github.com:ppsis14/KU-NSC.git
         ```
             127.0.0.1:8000/login หรือ localhost:8000/login
         ```
+        * admin เข้าสู่ระบบด้วย
+        ```
+            username : admin
+            password : password
+        ```
         * หน้า Dashboard แสดงจำนวนผู้ใช้งาน แสดงจำนวนโพสที่ถูกสร้างทั้งหมด
         * หน้า User Management ใช้จัดการ admin และ user ในระบบที่แสดงข้อมูลผู้ใช้ รวมถึงสามารถแสดงจำนวนโพสของ user ลบข้อมูล user ออกจากระบบ
         * หน้า Post Management ใช้จัดการ post ขอ user ทั้งหมดในระบบ สามารเข้าไปดูโพสนั้น ซ่อน และลบโพสนั้นได้
