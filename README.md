@@ -88,9 +88,11 @@
 - [Visual Studio Code](https://code.visualstudio.com)
 
 ### **Database Config**
+* กดปุ่ม start all
 * เข้าไปที่ database ของ laragon จากนั้นกดปุ่ม Open
-* กดปุ่มที่่ชื่อว่า Manage users authentication and privileges
 * ทำการสร้าง database ชื่อ ```kunsc``` สำหรับใช้งาน
+* เลือก collation เป็น utf8mb4_general_ci
+* กดปุ่มที่่ชื่อว่า Manage users authentication and privileges
 * กดปุ่ม add แล้วกรอก username คือ ```kunscUser``` และ password คือ ```kunscPassword``` ที่ต้องการ จากนั้นจึงกด Add object เพื่อเลือก ```kunsc``` และเพิ่มสิทธิ์ในการใช้งานต่างๆตามต้องการ (แนะนำให้เลือกทั้งหมด) และกด save เมื่อทำการเลือกเสร็จสิ้น
 
 และทำการดาวน์โหลด หรือ Clone ไฟล์โปรเจคจาก github เข้าสู่คอมพิวเตอร์ก่อน โดยหากเลือกใช้ **Laragon**  ให้เลือกดาวน์โหลดหรือ clone ไปที่ folder laragon/www/ หรือหากใช้งาน **MAMP**  ให้เลือกดาวน์โหลดหรือ clone ไปที่ folder MAMP/htdocs/
@@ -109,6 +111,7 @@ git clone https://github.com/ppsis14/KU-NSC.git
 git clone git@github.com:ppsis14/KU-NSC.git
 ```
 ## ขั้นตอนการ set up laravel project
+เริ่มจากเพิ่ม terminal console ของ Laragon จากนั้นพิมพ์คำสั่งดังนี้
 1. พิมพ์คำสั่ง cd KU-NSC
 ```
     cd KU-NSC
@@ -140,7 +143,7 @@ git clone git@github.com:ppsis14/KU-NSC.git
 
 ## ขั้นตอนการใข้งาน
 
-* เริ่มจากเพิ่ม terminal console ของ Laragon จกานั้นพิมพ์คำสั่ง
+* เริ่มจากเพิ่ม terminal console ของ Laragon จากนั้นพิมพ์คำสั่ง
 ```
    php artisan serve
 ```
