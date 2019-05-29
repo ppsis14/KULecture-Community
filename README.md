@@ -33,11 +33,23 @@
             * หน้า usermanagement แสดงตารางข้อมูลของ user และ admin สามารถลบและ search ได้
             * กำหนด policy ในการลบข้อมูลในหน้า usermanagement ให้ admin เท่านั้นที่ลบข้อมูลได้ แต่จะลบข้อมูลของตนเองไม่ได้
          * **RESTFUL API**
-            * สร้าง api สำหรับการดูข้อมูล user และ post
-            * ข้อมูลของ user ทั้งหมด [127.0.0.1:8000/api/users]
-            * ข้อมูลของ user [127.0.0.1:8000/api/users/{user_id}]
-            * ข้อมูลของ post ทั้งหมด [127.0.0.1:8000/api/posts]
-            * ข้อมูลของ post [127.0.0.1:8000/api/posts/{post_id}]
+            * สร้าง api สำหรับการดูข้อมูล user และ post หากต้องการเข้าถึงข้อมูลดังกล่าวให้ใช้ผ่านโปรแกรม POSTMAN แล้วเลือก ```GET```
+            * สามารถเข้าถึงข้อมูลของ user ทั้งหมด โดยพิมพ์ URL
+            ```
+                127.0.0.1:8000/api/users
+            ```
+            * สามารถเข้าข้อมูลของ user โดยพิมพ์ URL
+            ```
+                127.0.0.1:8000/api/users/{user_id}
+            ```
+            * สามารถเข้าข้อมูลของ post ทั้งหมด โดยพิมพ์ URL
+            ```
+                127.0.0.1:8000/api/posts
+            ```
+            * สามารถเข้าข้อมูลของ post โดยพิมพ์ URL
+            ```
+                127.0.0.1:8000/api/posts/{post_id}
+            ```
             
 * **นายปิยวัฒน์ นามทะจันทร์ 5910406256** - github link -> [Faeng](https://github.com/Faeng)
     * **งานที่รับผิดชอบ :** 
@@ -78,21 +90,21 @@
 ### **Database Config**
 * เข้าไปที่ database ของ laragon จากนั้นกดปุ่ม Open
 * กดปุ่มที่่ชื่อว่า Manage users authentication and privileges
-* ทำการสร้าง database ชื่อ kunsc สำหรับใช้งาน
-* กดปุ่ม add แล้วกรอก username คือ kunscUserและ password คือ kunscPassword ที่ต้องการ จากนั้นจึงกด Add object เพื่อเลือก kunsc และเพิ่มสิทธิ์ในการใช้งานต่างๆตามต้องการ (แนะนำให้เลือกทั้งหมด) และกด save เมื่อทำการเลือกเสร็จสิ้น
+* ทำการสร้าง database ชื่อ ```kunsc``` สำหรับใช้งาน
+* กดปุ่ม add แล้วกรอก username คือ ```kunscUser``` และ password คือ ```kunscPassword``` ที่ต้องการ จากนั้นจึงกด Add object เพื่อเลือก ```kunsc``` และเพิ่มสิทธิ์ในการใช้งานต่างๆตามต้องการ (แนะนำให้เลือกทั้งหมด) และกด save เมื่อทำการเลือกเสร็จสิ้น
 
 และทำการดาวน์โหลด หรือ Clone ไฟล์โปรเจคจาก github เข้าสู่คอมพิวเตอร์ก่อน โดยหากเลือกใช้ **Laragon**  ให้เลือกดาวน์โหลดหรือ clone ไปที่ folder laragon/www/ หรือหากใช้งาน **MAMP**  ให้เลือกดาวน์โหลดหรือ clone ไปที่ folder MAMP/htdocs/
 
 >### Clone with HTTPS
 
-พิมพ์ `git clone https://github.com/ppsis14/KU-NSC.git` ลงใน Terminal/CMD
+พิมพ์ `git clone https://github.com/ppsis14/KU-NSC.git` ลงใน Terminal หรือ CMD
 
 ```
 git clone https://github.com/ppsis14/KU-NSC.git
 ```
 
 > ### หรือ Clone with SSH
-พิมพ์ `git clone git@github.com:ppsis14/KU-NSC.git` ลงใน Terminal/CMD
+พิมพ์ `git clone git@github.com:ppsis14/KU-NSC.git` ลงใน Terminal หรือ CMD
 ```
 git clone git@github.com:ppsis14/KU-NSC.git
 ```
@@ -121,15 +133,19 @@ git clone git@github.com:ppsis14/KU-NSC.git
 ```
     php artisan migrate
 ```
-7. พิมพ์คำสั่ง php artisan db:seed เพื่อทำการ seed 1 admin
+7. พิมพ์คำสั่ง php artisan db:seed เพื่อทำการ seed ข้อมูลของ admin 1 คน
 ```
     php artisan db:seed
 ```
 
 ## ขั้นตอนการใข้งาน
 
+* เริ่มจากเพิ่ม terminal console ของ Laragon จกานั้นพิมพ์คำสั่ง
+```
+   php artisan serve
+```
 * ระบบการทำงานแบ่งเป็น 2 ส่วน คือ เข้าหน้า login เข้าไปที่ URL : 127.0.0.1:8000 เพื่อทำการเลือกว่าจะ login ในฐานะอะไร
-    * ส่วนของ Admin login เข้าไปที่ URL
+    * หากต้องการเข้าใช้ส่วนของ Admin login เข้าไปที่ URL
         ```
             127.0.0.1:8000/login หรือ localhost:8000/login
         ```
@@ -144,11 +160,11 @@ git clone git@github.com:ppsis14/KU-NSC.git
         * หน้า Add New Admin ใช้สำหรับเพิ่ม admin เข้าสู่ระบบ
         * หน้า Change Password ใช้สำหรับเปลี่ยน password ของ admin ที่กำลังเข้าใช้งานระบบอยู่
         * หน้า Notification ใช้แสดง post ของ user ที่ถูก report และ post ของ user ที่แจ้ง admin มาให้ตรวจสอบอีกครั้งหลังทำการแก้ไขแล้ว
-    * ส่วนของ User login เข้าไปที่ URL 
+    * หากต้องการเข้าใช้ส่วนของ User login เข้าไปที่ URL 
         ```
             127.0.0.1:8000/user/login หรือ localhost:8000/user/login
         ```
-        * โดยต้องใช้ KU Google mail account การเข้าครั้งแรกข้อมูลจะถูกจัดเก็บข้า database หากทำการ logout แล้ว loging เข้าในครั้งถัดไปสามารถเข้า login ด้วย KU Google mail account
+        * โดยต้องใช้ KU Google mail account (@ku.th) ในการเข้าสู่ระบบครั้งแรก โดยข้อมูลจะถูกจัดเก็บข้า database หากทำการ logout แล้ว loging เข้าในครั้งถัดไปสามารถเข้า login ด้วย KU Google mail account (@ku.th) ได้ทันที
         * หน้า Home แสดงข้อมูล และ รูปโปรไฟล์ ของผู้ใช้ 
         * หน้า User Profle แสดงข้อมูล user ทั้งหมด แล้วสามารถแก้ไขข้อมูลตัวเองได้
         * หน้า Post เพื่อทำการสร้างโพส สามารถอัพโหลดไฟล์ หากต้องการ
@@ -173,3 +189,4 @@ git clone git@github.com:ppsis14/KU-NSC.git
 * [Bootstrap](https://getbootstrap.com/) - The web framework used
 * [Laragon](https://laragon.org/) - Used to be a Web Server/ Database system
 * [MAMP](https://www.mamp.info/en/) - Used to be a Web Server/ Database system
+* [POSTMAN](https://www.getpostman.com) - For using RESTfUL API
