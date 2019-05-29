@@ -172,9 +172,9 @@ git clone git@github.com:ppsis14/KU-NSC.git
 
 
 ### **Login with Google Config**
-* นักเรียนและอาจารย์ล็อคอินเข้าด้วย Google account (@ku.th)
-> การสร้าง OAuth client สำหรับรองรับการล็อคอินด้วย google account ใน APP
-* เข้าไปที่หน้า google-api console
+* เริ่มด้วยการล็อคอินเข้าด้วย Google account (@ku.th)
+> การสร้าง OAuth client สำหรับรองรับการล็อคอินด้วย google account 
+* เข้าไปที่หน้า [google-api console](https://console.developers.google.com/apis/dashboard?project=ku-nsc-238905)
 * ไปที่ credentials - OAuth consent screen จากนั้นใส่ กำหนด appname แล้วเลือก Application Type -> Internal
 * สร้าง Credentials เป็นแบบ O Auth client ID แล้วเลือก Web application
 * Authorized redirect URIs และ Authorized JavaScript origins ไปที่ local host จากนั้น save
